@@ -31,6 +31,7 @@ body { display: flex; min-height: 100vh; }
 h1 { font-size: 1.45rem; margin: 0 0 0.35rem; }
 .caption { color: var(--muted); font-size: 0.92rem; margin: 0 0 0.75rem; line-height: 1.45; }
 .controls { display: flex; gap: 1rem; align-items: center; background: #fff; border: 1px solid var(--line); padding: 0.6rem 0.8rem; border-radius: 0.5rem; }
+[hidden] { display: none !important; }
 .controls select { margin-left: 0.35rem; }
 .check { display: flex; gap: 0.35rem; align-items: center; font-size: 0.9rem; }
 .status { color: #1e293b; font-size: 0.9rem; }

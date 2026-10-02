@@ -425,18 +425,57 @@ function drawDist(el, yt, yp) {
 }
 
 function heatCell(x, y, k, colorscale, showscale) {
+  const h = hist2d(x, y, 50, 50);
   return {
-    type: "histogram2d",
-    x,
-    y,
-    nbinsx: 50,
-    nbinsy: 50,
+    type: "heatmap",
+    x: h.x,
+    y: h.y,
+    z: h.z,
+    zmin: 0,
+    zmax: h.zmax,
     colorscale,
     showscale,
-    colorbar: showscale ? { len: 0.28, thickness: 10, x: k % 2 === 0 ? 1.0 : 0.48, y: k <= 2 ? 0.86 : k <= 4 ? 0.5 : 0.14 } : undefined,
+    colorbar: showscale ? { len: 0.28, thickness: 10, outlinewidth: 0 } : undefined,
     xaxis: "x" + axisName(k),
     yaxis: "y" + axisName(k),
     hovertemplate: "x %{x:.3f}<br>y %{y:.3f}<br>count %{z}<extra></extra>",
+  };
+}
+
+function hist2d(x, y, nx, ny) {
+  let xmin = Infinity;
+  let xmax = -Infinity;
+  let ymin = Infinity;
+  let ymax = -Infinity;
+  for (let i = 0; i < x.length; i++) {
+    if (x[i] < xmin) xmin = x[i];
+    if (x[i] > xmax) xmax = x[i];
+    if (y[i] < ymin) ymin = y[i];
+    if (y[i] > ymax) ymax = y[i];
+  }
+  if (!(xmax > xmin)) xmax = xmin + 1e-6;
+  if (!(ymax > ymin)) ymax = ymin + 1e-6;
+  const z = Array.from({ length: ny }, () => Array(nx).fill(0));
+  for (let i = 0; i < x.length; i++) {
+    let ix = Math.floor(((x[i] - xmin) / (xmax - xmin)) * nx);
+    let iy = Math.floor(((y[i] - ymin) / (ymax - ymin)) * ny);
+    if (ix === nx) ix = nx - 1;
+    if (iy === ny) iy = ny - 1;
+    if (ix >= 0 && iy >= 0 && ix < nx && iy < ny) z[iy][ix] += 1;
+  }
+  const pos = [];
+  for (let r = 0; r < ny; r++) {
+    for (let c = 0; c < nx; c++) {
+      if (z[r][c] > 0) pos.push(z[r][c]);
+    }
+  }
+  pos.sort((a, b) => a - b);
+  const p80 = pos.length ? pos[Math.min(pos.length - 1, Math.floor(pos.length * 0.8))] : 1;
+  return {
+    x: Array.from({ length: nx }, (_, i) => xmin + ((i + 0.5) * (xmax - xmin)) / nx),
+    y: Array.from({ length: ny }, (_, i) => ymin + ((i + 0.5) * (ymax - ymin)) / ny),
+    z,
+    zmax: Math.max(1, p80),
   };
 }
 

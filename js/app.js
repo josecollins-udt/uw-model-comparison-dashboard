@@ -74,7 +74,7 @@ function scoreChart(el, base, neu, opts) {
     if (t) traces.push(t);
   }
   if (band && neu) {
-    const t = ciFill(neu.score, neu.lo[conf], neu.hi[conf], "rgba(230, 120, 0, 0.18)", `${opts.challenger} range`);
+    const t = ciFill(neu.score, neu.lo[conf], neu.hi[conf], "rgba(15, 118, 110, 0.18)", `${opts.challenger} range`);
     if (t) traces.push(t);
   }
   if (base) {
@@ -93,15 +93,15 @@ function scoreChart(el, base, neu, opts) {
       y: neu.y,
       name: opts.challenger,
       mode: "lines",
-      line: { color: "orange", width: 3, dash: "dash" },
+      line: { color: "#0f766e", width: 3, dash: "dash" },
       hovertemplate: "cutoff %{x:.3f}<br>" + opts.yHover + " %{y:.2f}<extra>" + opts.challenger + "</extra>",
     });
   }
   const shapes = [{ type: "line", x0: CUT, x1: CUT, y0: 0, y1: 1, yref: "paper", line: { dash: "dot", color: "gray", width: 1 } }];
   const annotations = [{ x: CUT, y: 1, yref: "paper", text: "0.65", showarrow: false, yshift: 10, font: { size: 11, color: "#64748b" } }];
   if (opts.accCut != null) {
-    shapes.push({ type: "line", x0: opts.accCut, x1: opts.accCut, y0: 0, y1: 1, yref: "paper", line: { dash: "dash", color: "orange", width: 1 } });
-    annotations.push({ x: opts.accCut, y: 1, yref: "paper", text: "yes-match " + Number(opts.accCut).toFixed(3), showarrow: false, yshift: 10, font: { size: 11, color: "darkorange" } });
+    shapes.push({ type: "line", x0: opts.accCut, x1: opts.accCut, y0: 0, y1: 1, yref: "paper", line: { dash: "dash", color: "#0f766e", width: 1 } });
+    annotations.push({ x: opts.accCut, y: 1, yref: "paper", text: "yes-match " + Number(opts.accCut).toFixed(3), showarrow: false, yshift: 10, font: { size: 11, color: "#0f766e" } });
   }
   if (opts.delCut != null) {
     shapes.push({ type: "line", x0: opts.delCut, x1: opts.delCut, y0: 0, y1: 1, yref: "paper", line: { dash: "dash", color: "purple", width: 1 } });
@@ -114,7 +114,7 @@ function scoreChart(el, base, neu, opts) {
     traces.push({ x: [CUT], y: [opts.yNew065], name: `${opts.challenger} @ 0.65`, mode: "markers", marker: { symbol: "x", size: 10, color: "red" }, hovertemplate: "cutoff 0.650<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
   }
   if (opts.accCut != null && opts.yNewAcc != null) {
-    traces.push({ x: [opts.accCut], y: [opts.yNewAcc], name: "Challenger yes-match", mode: "markers", marker: { size: 11, color: "orange" }, hovertemplate: "yes-match %{x:.3f}<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
+    traces.push({ x: [opts.accCut], y: [opts.yNewAcc], name: "Challenger yes-match", mode: "markers", marker: { size: 11, color: "#0f766e" }, hovertemplate: "yes-match %{x:.3f}<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
   }
   if (opts.delCut != null && opts.yNewDel != null) {
     traces.push({ x: [opts.delCut], y: [opts.yNewDel], name: "Challenger delinq-match", mode: "markers", marker: { size: 11, color: "purple" }, hovertemplate: "delinq-match %{x:.3f}<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
@@ -149,7 +149,7 @@ function frontierChart(el, base, neu, opts) {
     if (t) traces.push(t);
   }
   if (band && neu && neu.band && neu.band[conf] && neu.band[conf].delinq_lo) {
-    const t = ciFill(neu.acc, neu.band[conf].delinq_lo, neu.band[conf].delinq_hi, "rgba(230, 120, 0, 0.16)", `${opts.challenger} range`);
+    const t = ciFill(neu.acc, neu.band[conf].delinq_lo, neu.band[conf].delinq_hi, "rgba(15, 118, 110, 0.16)", `${opts.challenger} range`);
     if (t) traces.push(t);
   }
   traces.push({
@@ -167,7 +167,7 @@ function frontierChart(el, base, neu, opts) {
       y: neu.delinq,
       name: opts.challenger,
       mode: "lines",
-      line: { color: "orange", width: 3, dash: "dash" },
+      line: { color: "#0f766e", width: 3, dash: "dash" },
       customdata: neu.score,
       hovertemplate: hover,
     });
@@ -187,7 +187,7 @@ function frontierChart(el, base, neu, opts) {
   mark(frontierPt(base, CUT), `${opts.prev} @ 0.65`, { color: "blue", size: 12 });
   if (neu) {
     mark(frontierPt(neu, CUT), `${opts.challenger} @ 0.65`, { color: "red", size: 11, symbol: "x" });
-    if (opts.accCut != null) mark(frontierPt(neu, opts.accCut), "Same yes-share", { color: "orange", size: 11 });
+    if (opts.accCut != null) mark(frontierPt(neu, opts.accCut), "Same yes-share", { color: "#0f766e", size: 11 });
     if (opts.delCut != null) mark(frontierPt(neu, opts.delCut), opts.delCutName || "Same CaaS delinquency", { color: "purple", size: 11 });
   }
   const shapes = [];

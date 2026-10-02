@@ -39,6 +39,18 @@ h1 { font-size: 1.45rem; margin: 0 0 0.35rem; }
 .chart.wide { margin-top: 0.75rem; }
 .notes { margin: 0.85rem 0 1.5rem; font-size: 0.95rem; line-height: 1.5; }
 .notes p { margin: 0.35rem 0; }
+.tabs { display: flex; gap: 0.4rem; margin: 0.75rem 0 1rem; flex-wrap: wrap; }
+.tab {
+  font-size: 0.9rem; padding: 0.45rem 0.75rem; border: 1px solid var(--accent);
+  border-radius: 0.35rem; background: #fff; color: #1e293b; cursor: pointer;
+}
+.tab:hover { background: #e2e8f0; }
+.tab.active { background: var(--accent); color: #fff; font-weight: 700; }
+.err-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 0.75rem 0 1.5rem; }
+.err-card { background: #fff; border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.75rem; }
+.err-card h3 { margin: 0 0 0.5rem; font-size: 1rem; }
+.err-card img { width: 100%; height: auto; display: block; background: #fff; }
+.err-empty { color: var(--muted); }
 .faq { background: #fff; border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.75rem 1rem; }
 .faq table { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin: 0.75rem 0; }
 .faq th, .faq td { border: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; vertical-align: top; }

@@ -1,0 +1,1319 @@
+{
+  "source": "knowledge_base/error_analyses/almost_full",
+  "caption": "Rank-1 almost_full plots on local test_v25. Hurdle modes follow the picker (ev / am25 / am50 / am75).",
+  "baseline": {
+    "title": "Error & Distribution Analysis: MSE_Baseline",
+    "doc": "45_Almost_Full_MSE_Baseline_Error_Analysis.md",
+    "note": "Baseline Model:: This is the standard baseline model trained using vanilla Mean Squared Error (MSE) with no target transformations or sample weighting applied.",
+    "panels": [
+      {
+        "alt": "Distributions",
+        "src": "error_img/45_Almost_Full_MSE_Baseline_Error_Analysis_WeightedEnsemble_L4_dist_1790186758.png"
+      },
+      {
+        "alt": "Heatmaps",
+        "src": "error_img/45_Almost_Full_MSE_Baseline_Error_Analysis_WeightedEnsemble_L4_heatmaps_1790186758.png"
+      },
+      {
+        "alt": "Diagnostics",
+        "src": "error_img/45_Almost_Full_MSE_Baseline_Error_Analysis_WeightedEnsemble_L4_residuals_1790186758.png"
+      },
+      {
+        "alt": "Quadrant Analysis",
+        "src": "error_img/45_Almost_Full_MSE_Baseline_Error_Analysis_WeightedEnsemble_L4_quadrants_1790186758.png"
+      }
+    ]
+  },
+  "by_id": {
+    "pkg02": {
+      "title": "Error & Distribution Analysis: Almost Full Logit MAE",
+      "doc": "Boss_Almost_Full_Logit_MAE_Error_Analysis.md",
+      "note": "Target Transformation (Logit):: The target variable was modeled in Logit (log-odds) space to enforce predictions between `[0, 1]` and trained using Mean Absolute Error (MAE). An inverse-logit (`expit`) transformation has been applied to all model predictions in this document to return them to the original probability space for direct comparison against the true target.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/Boss_Almost_Full_Logit_MAE_WeightedEnsemble_L4_dist_1790211864.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/Boss_Almost_Full_Logit_MAE_WeightedEnsemble_L4_heatmaps_1790211864.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/Boss_Almost_Full_Logit_MAE_WeightedEnsemble_L4_residuals_1790211864.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/Boss_Almost_Full_Logit_MAE_WeightedEnsemble_L4_quadrants_1790211864.png"
+        }
+      ]
+    },
+    "pkg03": {
+      "title": "Error & Distribution Analysis: Almost Full Weighted Xentropy",
+      "doc": "Boss_Almost_Full_Weighted_Xentropy_Error_Analysis.md",
+      "note": "Loss Function Quirk (Sample-Weighted Cross-Entropy):: This package trained the models using Cross-Entropy loss while applying continuous sample weights based on the true target. A target of `0.0` was assigned a weight of `100.0`, while a target of `1.0` was assigned a weight of `2.5` (a 40:1 ratio), forcing the models to prioritize minimizing False Positives (predicting a bad user when they are actually good).",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/Boss_Almost_Full_Weighted_Xentropy_WeightedEnsemble_L4_dist_1790211864.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/Boss_Almost_Full_Weighted_Xentropy_WeightedEnsemble_L4_heatmaps_1790211864.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/Boss_Almost_Full_Weighted_Xentropy_WeightedEnsemble_L4_residuals_1790211864.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/Boss_Almost_Full_Weighted_Xentropy_WeightedEnsemble_L4_quadrants_1790211864.png"
+        }
+      ]
+    },
+    "pkg04": {
+      "title": "Error & Distribution Analysis: Custom_Asymmetric",
+      "doc": "45_Almost_Full_Custom_Asymmetric_Error_Analysis.md",
+      "note": "Loss Function Quirk (Custom Asymmetric MSE):: This package was evaluated using a custom asymmetric loss function. Overestimations (`y_pred > y_true`) incur a massive **40x** penalty compared to underestimations. This strictly maps to the business reality where predicting `1.0` for a true `0.0` (False Positive) loses 100% of the cost, whereas predicting `0.0` for a true `1.0` (False Negative) only loses a 2.5% profit ",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/45_Almost_Full_Custom_Asymmetric_Error_Analysis_WeightedEnsemble_L4_dist_1790186758.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/45_Almost_Full_Custom_Asymmetric_Error_Analysis_WeightedEnsemble_L4_heatmaps_1790186758.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/45_Almost_Full_Custom_Asymmetric_Error_Analysis_WeightedEnsemble_L4_residuals_1790186758.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/45_Almost_Full_Custom_Asymmetric_Error_Analysis_WeightedEnsemble_L4_quadrants_1790186758.png"
+        }
+      ]
+    },
+    "pkg05": {
+      "title": "Error & Distribution Analysis: Pinball_0244",
+      "doc": "45_Almost_Full_Pinball_0244_Error_Analysis.md",
+      "note": "Loss Function Quirk (Quantile Regression):: This package uses Pinball Loss configured for the `0.0244` quantile ($\\tau = 0.0244$). The models are explicitly trained to predict the 2.44th percentile of the conditional distribution rather than the mean, enforcing extreme conservatism against False Positives.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/45_Almost_Full_Pinball_0244_Error_Analysis_WeightedEnsemble_L4_dist_1790186758.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/45_Almost_Full_Pinball_0244_Error_Analysis_WeightedEnsemble_L4_heatmaps_1790186758.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/45_Almost_Full_Pinball_0244_Error_Analysis_WeightedEnsemble_L4_residuals_1790186758.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/45_Almost_Full_Pinball_0244_Error_Analysis_WeightedEnsemble_L4_quadrants_1790186758.png"
+        }
+      ]
+    },
+    "pkg06": {
+      "title": "Error & Distribution Analysis: Pinball_0200",
+      "doc": "45_Almost_Full_Pinball_0200_Error_Analysis.md",
+      "note": "Loss Function Quirk (Quantile Regression):: This package uses Pinball Loss configured for the `0.200` quantile ($\\tau = 0.200$). The models are explicitly trained to predict the 20th percentile of the conditional distribution, providing a softer asymmetric buffer than the 0.0244 model.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/45_Almost_Full_Pinball_0200_Error_Analysis_WeightedEnsemble_L4_dist_1790186758.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/45_Almost_Full_Pinball_0200_Error_Analysis_WeightedEnsemble_L4_heatmaps_1790186758.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/45_Almost_Full_Pinball_0200_Error_Analysis_WeightedEnsemble_L4_residuals_1790186758.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/45_Almost_Full_Pinball_0200_Error_Analysis_WeightedEnsemble_L4_quadrants_1790186758.png"
+        }
+      ]
+    },
+    "pkg07": {
+      "title": "Error & Distribution Analysis: Weighted_MSE",
+      "doc": "45_Almost_Full_Weighted_MSE_Error_Analysis.md",
+      "note": "Loss Function Quirk (Continuous Sample-Weighted MSE):: This package uses standard Mean Squared Error but applies a continuous target-based sample weight, penalizing False Positives substantially more than False Negatives.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/45_Almost_Full_Weighted_MSE_Error_Analysis_WeightedEnsemble_L4_dist_1790186758.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/45_Almost_Full_Weighted_MSE_Error_Analysis_WeightedEnsemble_L4_heatmaps_1790186758.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/45_Almost_Full_Weighted_MSE_Error_Analysis_WeightedEnsemble_L4_residuals_1790186758.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/45_Almost_Full_Weighted_MSE_Error_Analysis_WeightedEnsemble_L4_quadrants_1790186758.png"
+        }
+      ]
+    },
+    "pkg08": {
+      "title": "Error & Distribution Analysis: Almost Full Pinball 0300",
+      "doc": "46_Almost_Full_Pinball_0300_Error_Analysis.md",
+      "note": "Loss Function Quirk (Pinball Loss):: This package trained the models using Quantile Regression (Pinball Loss) targeted at the 0.3 quantile. This asymmetric loss function mathematically forces the models to deliberately under-predict the target variable in order to minimize False Positives and act conservatively.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/46_Almost_Full_Pinball_0300_WeightedEnsemble_L4_dist_1790211864.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/46_Almost_Full_Pinball_0300_WeightedEnsemble_L4_heatmaps_1790211864.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/46_Almost_Full_Pinball_0300_WeightedEnsemble_L4_residuals_1790211864.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/46_Almost_Full_Pinball_0300_WeightedEnsemble_L4_quadrants_1790211864.png"
+        }
+      ]
+    },
+    "pkg09": {
+      "title": "Error & Distribution Analysis: Almost Full Pinball 0400",
+      "doc": "47_Almost_Full_Pinball_0400_Error_Analysis.md",
+      "note": "Loss Function Quirk (Pinball Loss):: This package trained the models using Quantile Regression (Pinball Loss) targeted at the 0.4 quantile. This asymmetric loss function mathematically forces the models to deliberately under-predict the target variable in order to minimize False Positives and act conservatively.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/47_Almost_Full_Pinball_0400_WeightedEnsemble_L4_dist_1790211864.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/47_Almost_Full_Pinball_0400_WeightedEnsemble_L4_heatmaps_1790211864.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/47_Almost_Full_Pinball_0400_WeightedEnsemble_L4_residuals_1790211864.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/47_Almost_Full_Pinball_0400_WeightedEnsemble_L4_quadrants_1790211864.png"
+        }
+      ]
+    },
+    "pkg10": {
+      "title": "Error & Distribution Analysis: Almost Full Pinball 0250",
+      "doc": "48_Almost_Full_Pinball_0250_Error_Analysis.md",
+      "note": "Loss Function Quirk (Pinball Loss):: This package trained the models using Quantile Regression (Pinball Loss) targeted at the 0.25 quantile. This asymmetric loss function mathematically forces the models to deliberately under-predict the target variable in order to minimize False Positives and act conservatively.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/48_Almost_Full_Pinball_0250_WeightedEnsemble_L4_dist_1790211864.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/48_Almost_Full_Pinball_0250_WeightedEnsemble_L4_heatmaps_1790211864.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/48_Almost_Full_Pinball_0250_WeightedEnsemble_L4_residuals_1790211864.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/48_Almost_Full_Pinball_0250_WeightedEnsemble_L4_quadrants_1790211864.png"
+        }
+      ]
+    },
+    "pkg11": {
+      "title": "Error & Distribution Analysis: Almost Full Pinball 0350",
+      "doc": "49_Almost_Full_Pinball_0350_Error_Analysis.md",
+      "note": "Loss Function Quirk (Pinball Loss):: This package trained the models using Quantile Regression (Pinball Loss) targeted at the 0.35 quantile. This asymmetric loss function mathematically forces the models to deliberately under-predict the target variable in order to minimize False Positives and act conservatively.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/49_Almost_Full_Pinball_0350_WeightedEnsemble_L4_dist_1790211864.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/49_Almost_Full_Pinball_0350_WeightedEnsemble_L4_heatmaps_1790211864.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/49_Almost_Full_Pinball_0350_WeightedEnsemble_L4_residuals_1790211864.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/49_Almost_Full_Pinball_0350_WeightedEnsemble_L4_quadrants_1790211864.png"
+        }
+      ]
+    },
+    "pkg12_ev": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle",
+      "doc": "50_Almost_Full_3Class_Hurdle_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg12_am25": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle",
+      "doc": "50_Almost_Full_3Class_Hurdle_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg12_am50": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle",
+      "doc": "50_Almost_Full_3Class_Hurdle_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg12_am75": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle",
+      "doc": "50_Almost_Full_3Class_Hurdle_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/50_Almost_Full_3Class_Hurdle_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg13_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle",
+      "doc": "51_Almost_Full_Binary_Hurdle_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg13_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle",
+      "doc": "51_Almost_Full_Binary_Hurdle_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg13_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle",
+      "doc": "51_Almost_Full_Binary_Hurdle_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg13_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle",
+      "doc": "51_Almost_Full_Binary_Hurdle_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/51_Almost_Full_Binary_Hurdle_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg14_ev": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle Specificity",
+      "doc": "52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg14_am25": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle Specificity",
+      "doc": "52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg14_am50": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle Specificity",
+      "doc": "52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg14_am75": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle Specificity",
+      "doc": "52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg15_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle Specificity",
+      "doc": "53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg15_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle Specificity",
+      "doc": "53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg15_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle Specificity",
+      "doc": "53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg15_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle Specificity",
+      "doc": "53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg16_ev": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle ROCAUC",
+      "doc": "59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg16_am25": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle ROCAUC",
+      "doc": "59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg16_am50": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle ROCAUC",
+      "doc": "59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg16_am75": {
+      "title": "Error & Distribution Analysis: Almost Full 3Class Hurdle ROCAUC",
+      "doc": "59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg17_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle ROCAUC",
+      "doc": "60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg17_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle ROCAUC",
+      "doc": "60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg17_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle ROCAUC",
+      "doc": "60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg17_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Binary Hurdle ROCAUC",
+      "doc": "60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg20": {
+      "title": "Error & Distribution Analysis: Softclass_Doubling",
+      "doc": "54_Almost_Full_Softclass_Doubling_Error_Analysis.md",
+      "note": "",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/45_Almost_Full_Softclass_Doubling_Error_Analysis_SoftClassifier_Ensemble_dist_1790190942.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/45_Almost_Full_Softclass_Doubling_Error_Analysis_SoftClassifier_Ensemble_heatmaps_1790190942.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/45_Almost_Full_Softclass_Doubling_Error_Analysis_SoftClassifier_Ensemble_residuals_1790190942.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/45_Almost_Full_Softclass_Doubling_Error_Analysis_SoftClassifier_Ensemble_quadrants_1790190942.png"
+        }
+      ]
+    },
+    "pkg21_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv 3Class Hurdle Logloss",
+      "doc": "55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg21_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv 3Class Hurdle Logloss",
+      "doc": "55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg21_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv 3Class Hurdle Logloss",
+      "doc": "55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg21_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv 3Class Hurdle Logloss",
+      "doc": "55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg22_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss",
+      "doc": "56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg22_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss",
+      "doc": "56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg22_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss",
+      "doc": "56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg22_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss",
+      "doc": "56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg23_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv 3Class Hurdle Specificity",
+      "doc": "57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg23_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv 3Class Hurdle Specificity",
+      "doc": "57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg23_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv 3Class Hurdle Specificity",
+      "doc": "57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg23_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv 3Class Hurdle Specificity",
+      "doc": "57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (3-Class):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a multi-class classifier predicting if a target is zero, one, or between. Stage 2 is a standard regressor trained solely on the 'between' values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg24_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity",
+      "doc": "58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_expected_value_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_expected_value_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_expected_value_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_expected_value_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg24_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity",
+      "doc": "58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_25_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_25_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_25_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_25_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg24_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity",
+      "doc": "58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg24_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity",
+      "doc": "58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_75_dist_1790280422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_75_heatmaps_1790280422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_75_residuals_1790280422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis_argmax_75_quadrants_1790280422.png"
+        }
+      ]
+    },
+    "pkg25_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_dist_1790283717.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_heatmaps_1790283717.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_residuals_1790283717.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_quadrants_1790283717.png"
+        }
+      ]
+    },
+    "pkg25_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_dist_1790283717.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_heatmaps_1790283717.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_residuals_1790283717.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_quadrants_1790283717.png"
+        }
+      ]
+    },
+    "pkg25_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_dist_1790283717.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_heatmaps_1790283717.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_residuals_1790283717.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_quadrants_1790283717.png"
+        }
+      ]
+    },
+    "pkg25_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_dist_1790283717.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_heatmaps_1790283717.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_residuals_1790283717.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_quadrants_1790283717.png"
+        }
+      ]
+    }
+  },
+  "docs": {
+    "1": "45_Almost_Full_MSE_Baseline_Error_Analysis.md",
+    "2": "Boss_Almost_Full_Logit_MAE_Error_Analysis.md",
+    "3": "Boss_Almost_Full_Weighted_Xentropy_Error_Analysis.md",
+    "4": "45_Almost_Full_Custom_Asymmetric_Error_Analysis.md",
+    "5": "45_Almost_Full_Pinball_0244_Error_Analysis.md",
+    "6": "45_Almost_Full_Pinball_0200_Error_Analysis.md",
+    "7": "45_Almost_Full_Weighted_MSE_Error_Analysis.md",
+    "8": "46_Almost_Full_Pinball_0300_Error_Analysis.md",
+    "9": "47_Almost_Full_Pinball_0400_Error_Analysis.md",
+    "10": "48_Almost_Full_Pinball_0250_Error_Analysis.md",
+    "11": "49_Almost_Full_Pinball_0350_Error_Analysis.md",
+    "12": "50_Almost_Full_3Class_Hurdle_Error_Analysis.md",
+    "13": "51_Almost_Full_Binary_Hurdle_Error_Analysis.md",
+    "14": "52_Almost_Full_3Class_Hurdle_Specificity_Error_Analysis.md",
+    "15": "53_Almost_Full_Binary_Hurdle_Specificity_Error_Analysis.md",
+    "16": "59_Almost_Full_3Class_Hurdle_ROCAUC_Error_Analysis.md",
+    "17": "60_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+    "20": "54_Almost_Full_Softclass_Doubling_Error_Analysis.md",
+    "21": "55_Almost_Full_Inv_3Class_Hurdle_Logloss_Error_Analysis.md",
+    "22": "56_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+    "23": "57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis.md",
+    "24": "58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis.md",
+    "25": "61_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md"
+  }
+}

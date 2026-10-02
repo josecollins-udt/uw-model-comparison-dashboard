@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Acceptance vs delinquency</title>
-  <link rel="stylesheet" href="css/app.css?v=4"/>
+  <link rel="stylesheet" href="css/app.css?v=5"/>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
@@ -20,7 +20,7 @@
         <h1 id="page-title">Acceptance vs delinquency (Fritz BNPL samples)</h1>
         <p id="caption" class="caption"></p>
       </div>
-      <div class="controls">
+      <div id="ci-controls" class="controls">
         <label>Confidence
           <select id="conf">
             <option value="90">90%</option>
@@ -31,7 +31,12 @@
         <label class="check"><input id="band" type="checkbox" checked/> Shaded range of true values</label>
       </div>
     </header>
+    <nav class="tabs" aria-label="Dashboard views">
+      <button type="button" class="tab active" data-tab="acc">Acceptance vs delinquency</button>
+      <button type="button" class="tab" data-tab="err">Error analysis</button>
+    </nav>
     <p id="status" class="status"></p>
+    <div id="tab-acc">
     <section>
       <h2 id="local-h">Local MSE baseline vs challenger</h2>
       <div class="grid2">
@@ -55,7 +60,21 @@
       <summary>Is this the same acceptance metric as Fritz <code>acceptance_class</code>?</summary>
       <div id="note-html"></div>
     </details>
+    </div>
+    <div id="tab-err" hidden>
+      <p class="caption">Static matplotlib plots from <code>knowledge_base/error_analyses/almost_full</code>, scored on local <code>test_v25</code> (not the Fritz 4k samples). Rank-1 ensemble for tabular packages; hurdle plots follow the selected prediction mode. These PNGs do not have Plotly hover.</p>
+      <section>
+        <h2>Local MSE baseline</h2>
+        <p id="err-base-meta" class="caption"></p>
+        <div id="err-base" class="err-grid"></div>
+      </section>
+      <section>
+        <h2 id="err-h">Challenger</h2>
+        <p id="err-new-meta" class="caption"></p>
+        <div id="err-new" class="err-grid"></div>
+      </section>
+    </div>
   </main>
-  <script src="js/app.js?v=4"></script>
+  <script src="js/app.js?v=5"></script>
 </body>
 </html>

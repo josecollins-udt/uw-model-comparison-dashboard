@@ -1,7 +1,9 @@
 const CUT = 0.65;
 let META = null;
+let ERRORS = null;
 let CURRENT = null;
 let PAYLOAD = null;
+let TAB = "acc";
 
 const $ = (id) => document.getElementById(id);
 
@@ -246,7 +248,50 @@ function storedNotes(p, conf) {
 <p><strong>Same CaaS delinquency:</strong> bar <strong>${fmt(S.del_cut, 4)}</strong> → past-due/principal <strong>${fmt(S.y_new_del_match, 2)}%</strong>, live yes <strong>${fmt(S.y_new_acc_at_del, 2)}%</strong>.</p>`;
 }
 
+function errPanels(host, block) {
+  host.innerHTML = "";
+  if (!block || !block.panels || !block.panels.length) {
+    host.innerHTML = '<p class="err-empty">No almost_full plots for this package.</p>';
+    return;
+  }
+  block.panels.forEach((p) => {
+    const card = document.createElement("article");
+    card.className = "err-card";
+    const h = document.createElement("h3");
+    h.textContent = p.alt || p.src;
+    const img = document.createElement("img");
+    img.src = p.src;
+    img.alt = p.alt || "";
+    card.appendChild(h);
+    card.appendChild(img);
+    host.appendChild(card);
+  });
+}
+
+function drawErrors() {
+  if (!ERRORS || !$("err-base")) return;
+  $("err-base-meta").textContent = ERRORS.baseline
+    ? (ERRORS.baseline.title || "") + (ERRORS.baseline.note ? " — " + ERRORS.baseline.note : "")
+    : "";
+  errPanels($("err-base"), ERRORS.baseline);
+  const block = CURRENT && ERRORS.by_id ? ERRORS.by_id[CURRENT] : null;
+  $("err-h").textContent = block && block.title ? "Challenger · " + block.title : "Challenger";
+  $("err-new-meta").textContent = block && block.note ? block.note : (block && block.doc ? block.doc : "");
+  errPanels($("err-new"), block);
+}
+
+function setTab(name) {
+  TAB = name;
+  document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.tab === name));
+  $("tab-acc").hidden = name !== "acc";
+  $("tab-err").hidden = name !== "err";
+  $("ci-controls").hidden = name !== "acc";
+  if (name === "acc") draw();
+  else drawErrors();
+}
+
 function draw() {
+  if (TAB !== "acc") return;
   if (!PAYLOAD) return;
   const p = PAYLOAD;
   const conf = $("conf").value;
@@ -349,6 +394,7 @@ async function loadId(id) {
   PAYLOAD = await res.json();
   location.hash = id;
   draw();
+  drawErrors();
 }
 
 function buildPicker() {
@@ -393,12 +439,20 @@ function buildPicker() {
 
 async function boot() {
   META = await (await fetch("data/meta.json")).json();
+  try {
+    ERRORS = await (await fetch("data/errors.json")).json();
+  } catch (e) {
+    ERRORS = { by_id: {} };
+  }
   $("page-title").textContent = META.title;
   $("caption").textContent = META.caption;
   $("note-html").innerHTML = META.note_html;
   buildPicker();
   $("conf").addEventListener("change", draw);
   $("band").addEventListener("change", draw);
+  document.querySelectorAll(".tab").forEach((b) => {
+    b.addEventListener("click", () => setTab(b.dataset.tab));
+  });
   const fromHash = decodeURIComponent((location.hash || "").replace(/^#/, ""));
   const first = META.variants.some((v) => v.id === fromHash) ? fromHash : META.variants[0].id;
   await loadId(first);

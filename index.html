@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Acceptance vs delinquency</title>
-  <link rel="stylesheet" href="css/app.css?v=5"/>
+  <link rel="stylesheet" href="css/app.css?v=6"/>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
@@ -62,7 +62,7 @@
     </details>
     </div>
     <div id="tab-err" hidden>
-      <p class="caption">Static matplotlib plots from <code>knowledge_base/error_analyses/almost_full</code>, scored on local <code>test_v25</code> (not the Fritz 4k samples). Rank-1 ensemble for tabular packages; hurdle plots follow the selected prediction mode. These PNGs do not have Plotly hover.</p>
+      <p class="caption">Plotly versions of the Rank-1 almost_full error panels, scored on local <code>test_v25</code> (n≈1978, not the Fritz 4k samples). Hover a point or bin for values. Hurdle modes follow the picker. Packages 18–19 have no cached scores.</p>
       <section>
         <h2>Local MSE baseline</h2>
         <p id="err-base-meta" class="caption"></p>
@@ -75,6 +75,6 @@
       </section>
     </div>
   </main>
-  <script src="js/app.js?v=5"></script>
+  <script src="js/app.js?v=6"></script>
 </body>
 </html>

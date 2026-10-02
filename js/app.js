@@ -1,9 +1,28 @@
 const CUT = 0.65;
 let META = null;
 let ERRORS = null;
+let ERR_SCORES = null;
 let CURRENT = null;
 let PAYLOAD = null;
 let TAB = "acc";
+const ERR_BLUE = "#93c5fd";
+const ERR_MEAN = "#dc2626";
+const ERR_MED = "#334155";
+const ERR_Q1 = "#2563eb";
+const ERR_Q3 = "#7c3aed";
+const CS_SE = [
+  [0, "#f8fafc"],
+  [1, "#1e3a8a"],
+];
+const CS_AE = [
+  [0, "#f8fafc"],
+  [1, "#6b21a8"],
+];
+const CS_XY = [
+  [0, "#f1f5f9"],
+  [0.5, "#64748b"],
+  [1, "#0f172a"],
+];
 
 const $ = (id) => document.getElementById(id);
 
@@ -248,6 +267,370 @@ function storedNotes(p, conf) {
 <p><strong>Same CaaS delinquency:</strong> bar <strong>${fmt(S.del_cut, 4)}</strong> → past-due/principal <strong>${fmt(S.y_new_del_match, 2)}%</strong>, live yes <strong>${fmt(S.y_new_acc_at_del, 2)}%</strong>.</p>`;
 }
 
+function pairFinite(yt, yp) {
+  const t = [];
+  const p = [];
+  const n = Math.min(yt.length, yp.length);
+  for (let i = 0; i < n; i++) {
+    const a = yt[i];
+    const b = yp[i];
+    if (a == null || b == null || !Number.isFinite(a) || !Number.isFinite(b)) continue;
+    t.push(a);
+    p.push(b);
+  }
+  return { t, p };
+}
+
+function quantile(sorted, pct) {
+  if (!sorted.length) return null;
+  const i = (sorted.length - 1) * pct;
+  const lo = Math.floor(i);
+  const hi = Math.ceil(i);
+  if (lo === hi) return sorted[lo];
+  return sorted[lo] + (sorted[hi] - sorted[lo]) * (i - lo);
+}
+
+function summary(arr) {
+  if (!arr.length) return null;
+  const s = arr.slice().sort((a, b) => a - b);
+  const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+  return { mean, q1: quantile(s, 0.25), median: quantile(s, 0.5), q3: quantile(s, 0.75) };
+}
+
+function axisName(i) {
+  return i === 1 ? "" : String(i);
+}
+
+function gridDomains(rows, cols) {
+  const cells = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const k = r * cols + c + 1;
+      cells.push({
+        k,
+        x: [c / cols + 0.03, (c + 1) / cols - 0.02],
+        y: [1 - (r + 1) / rows + 0.04, 1 - r / rows - 0.07],
+      });
+    }
+  }
+  return cells;
+}
+
+function applyGrid(layout, cells, xlabels, ylabels) {
+  cells.forEach((cell, i) => {
+    const xa = "xaxis" + axisName(cell.k);
+    const ya = "yaxis" + axisName(cell.k);
+    layout[xa] = {
+      domain: cell.x,
+      anchor: "y" + axisName(cell.k),
+      title: { text: xlabels[i] || "", font: { size: 11 } },
+      zeroline: false,
+    };
+    layout[ya] = {
+      domain: cell.y,
+      anchor: "x" + axisName(cell.k),
+      title: { text: ylabels[i] || "", font: { size: 11 } },
+      zeroline: false,
+    };
+  });
+}
+
+function titleNotes(cells, titles) {
+  return cells.map((cell, i) => ({
+    text: titles[i] || "",
+    x: (cell.x[0] + cell.x[1]) / 2,
+    y: cell.y[1] + 0.015,
+    xref: "paper",
+    yref: "paper",
+    showarrow: false,
+    font: { size: 12, color: "#0f172a" },
+  }));
+}
+
+function vlineShapes(xref, stats) {
+  if (!stats) return [];
+  return [
+    { type: "line", xref, yref: xref.replace("x", "y") + " domain", x0: stats.mean, x1: stats.mean, y0: 0, y1: 1, line: { color: ERR_MEAN, dash: "dash", width: 2 } },
+    { type: "line", xref, yref: xref.replace("x", "y") + " domain", x0: stats.median, x1: stats.median, y0: 0, y1: 1, line: { color: ERR_MED, width: 2 } },
+    { type: "line", xref, yref: xref.replace("x", "y") + " domain", x0: stats.q1, x1: stats.q1, y0: 0, y1: 1, line: { color: ERR_Q1, dash: "dot", width: 2 } },
+    { type: "line", xref, yref: xref.replace("x", "y") + " domain", x0: stats.q3, x1: stats.q3, y0: 0, y1: 1, line: { color: ERR_Q3, dash: "dot", width: 2 } },
+  ];
+}
+
+function guideLegend() {
+  return [
+    { x: [null], y: [null], mode: "lines", line: { color: ERR_MEAN, dash: "dash", width: 2 }, name: "Mean", hoverinfo: "skip" },
+    { x: [null], y: [null], mode: "lines", line: { color: ERR_MED, width: 2 }, name: "Median", hoverinfo: "skip" },
+    { x: [null], y: [null], mode: "lines", line: { color: ERR_Q1, dash: "dot", width: 2 }, name: "Q1", hoverinfo: "skip" },
+    { x: [null], y: [null], mode: "lines", line: { color: ERR_Q3, dash: "dot", width: 2 }, name: "Q3", hoverinfo: "skip" },
+  ];
+}
+
+function histCell(arr, k, name) {
+  const xref = "x" + axisName(k);
+  const yref = "y" + axisName(k);
+  const st = summary(arr);
+  const traces = [];
+  if (arr.length) {
+    traces.push({
+      type: "histogram",
+      x: arr,
+      nbinsx: 40,
+      marker: { color: ERR_BLUE },
+      name,
+      xaxis: xref,
+      yaxis: yref,
+      showlegend: false,
+      hovertemplate: "value %{x:.3f}<br>count %{y}<extra>" + name + "</extra>",
+    });
+  }
+  return { traces, shapes: vlineShapes(xref, st), empty: !arr.length, xref, yref };
+}
+
+function plotlyCfg() {
+  return { responsive: true, displaylogo: false };
+}
+
+function drawDist(el, yt, yp) {
+  const se = yt.map((a, i) => (a - yp[i]) * (a - yp[i]));
+  const ae = yt.map((a, i) => Math.abs(a - yp[i]));
+  const cells = gridDomains(2, 2);
+  const series = [
+    { arr: yt, title: "Target Variable Distribution", xlab: "True Target Value" },
+    { arr: yp, title: "Model Prediction Distribution", xlab: "Predicted Value" },
+    { arr: se, title: "Squared Error Distribution", xlab: "Squared Error" },
+    { arr: ae, title: "Absolute Error Distribution", xlab: "Absolute Error" },
+  ];
+  const traces = guideLegend();
+  const shapes = [];
+  const annotations = titleNotes(cells, series.map((s) => s.title));
+  series.forEach((s, i) => {
+    const cell = histCell(s.arr, cells[i].k, s.title);
+    traces.push(...cell.traces);
+    shapes.push(...cell.shapes);
+    if (cell.empty) {
+      annotations.push({ text: "No Data", x: (cells[i].x[0] + cells[i].x[1]) / 2, y: (cells[i].y[0] + cells[i].y[1]) / 2, xref: "paper", yref: "paper", showarrow: false });
+    }
+  });
+  const layout = {
+    margin: { t: 56, r: 16, l: 48, b: 48 },
+    showlegend: true,
+    legend: { orientation: "h", y: 1.14, font: { size: 11 } },
+    hovermode: "closest",
+    shapes,
+    annotations,
+  };
+  applyGrid(layout, cells, series.map((s) => s.xlab), ["Count", "Count", "Count", "Count"]);
+  Plotly.react(el, traces, layout, plotlyCfg());
+}
+
+function heatCell(x, y, k, colorscale, showscale) {
+  return {
+    type: "histogram2d",
+    x,
+    y,
+    nbinsx: 50,
+    nbinsy: 50,
+    colorscale,
+    showscale,
+    colorbar: showscale ? { len: 0.28, thickness: 10, x: k % 2 === 0 ? 1.0 : 0.48, y: k <= 2 ? 0.86 : k <= 4 ? 0.5 : 0.14 } : undefined,
+    xaxis: "x" + axisName(k),
+    yaxis: "y" + axisName(k),
+    hovertemplate: "x %{x:.3f}<br>y %{y:.3f}<br>count %{z}<extra></extra>",
+  };
+}
+
+function drawHeat(el, yt, yp) {
+  const se = yt.map((a, i) => (a - yp[i]) * (a - yp[i]));
+  const ae = yt.map((a, i) => Math.abs(a - yp[i]));
+  const cells = gridDomains(3, 2);
+  const titles = [
+    "Squared Error vs Target Variable",
+    "Squared Error vs Prediction",
+    "Absolute Error vs Target Variable",
+    "Absolute Error vs Prediction",
+    "Prediction vs Target Variable",
+    "",
+  ];
+  const xlabels = ["True Target Value", "Predicted Value", "True Target Value", "Predicted Value", "True Target Value", ""];
+  const ylabels = ["Squared Error", "Squared Error", "Absolute Error", "Absolute Error", "Predicted Value", ""];
+  const traces = [
+    heatCell(yt, se, 1, CS_SE, true),
+    heatCell(yp, se, 2, CS_SE, false),
+    heatCell(yt, ae, 3, CS_AE, true),
+    heatCell(yp, ae, 4, CS_AE, false),
+    heatCell(yt, yp, 5, CS_XY, true),
+  ];
+  const layout = {
+    margin: { t: 48, r: 36, l: 56, b: 48 },
+    showlegend: false,
+    hovermode: "closest",
+    annotations: titleNotes(cells, titles),
+  };
+  applyGrid(layout, cells, xlabels, ylabels);
+  layout.xaxis6 = { domain: cells[5].x, visible: false };
+  layout.yaxis6 = { domain: cells[5].y, visible: false };
+  Plotly.react(el, traces, layout, plotlyCfg());
+}
+
+function scatterCell(x, y, k, color, name) {
+  return {
+    x,
+    y,
+    mode: "markers",
+    type: "scatter",
+    marker: { size: 6, color, opacity: 0.35 },
+    name,
+    showlegend: false,
+    xaxis: "x" + axisName(k),
+    yaxis: "y" + axisName(k),
+    hovertemplate: "x %{x:.3f}<br>y %{y:.3f}<extra>" + name + "</extra>",
+  };
+}
+
+function drawResid(el, yt, yp) {
+  const resid = yt.map((a, i) => a - yp[i]);
+  const lo = Math.min(...yt, ...yp);
+  const hi = Math.max(...yt, ...yp);
+  const cells = gridDomains(1, 3);
+  const traces = [
+    scatterCell(yt, yp, 1, "#2563eb", "Predicted vs Actual"),
+    {
+      x: [lo, hi],
+      y: [lo, hi],
+      mode: "lines",
+      line: { color: ERR_MEAN, dash: "dash", width: 2 },
+      hoverinfo: "skip",
+      showlegend: false,
+      xaxis: "x",
+      yaxis: "y",
+    },
+    scatterCell(yp, resid, 2, "#7c3aed", "Residuals vs Predicted"),
+    scatterCell(yt, resid, 3, "#334155", "Residuals vs Actual Target"),
+  ];
+  const layout = {
+    margin: { t: 48, r: 16, l: 52, b: 48 },
+    showlegend: false,
+    hovermode: "closest",
+    annotations: titleNotes(cells, ["Predicted vs Actual", "Residuals vs Predicted", "Residuals vs Actual Target"]),
+    shapes: [
+      { type: "line", xref: "x2", yref: "y2", x0: Math.min(...yp), x1: Math.max(...yp), y0: 0, y1: 0, line: { color: ERR_MEAN, dash: "dash", width: 2 } },
+      { type: "line", xref: "x3", yref: "y3", x0: Math.min(...yt), x1: Math.max(...yt), y0: 0, y1: 0, line: { color: ERR_MEAN, dash: "dash", width: 2 } },
+    ],
+  };
+  applyGrid(layout, cells, ["Actual Target", "Predicted Value", "Actual Target"], ["Predicted", "Residual", "Residual"]);
+  Plotly.react(el, traces, layout, plotlyCfg());
+}
+
+function quadReport(yt, yp) {
+  const n = yt.length || 1;
+  let ul = 0;
+  let lr = 0;
+  let ulSe = 0;
+  let ulRse = 0;
+  let lrSe = 0;
+  let lrRse = 0;
+  const ulSeA = [];
+  const ulRseA = [];
+  const lrSeA = [];
+  const lrRseA = [];
+  for (let i = 0; i < yt.length; i++) {
+    const se = (yt[i] - yp[i]) * (yt[i] - yp[i]);
+    const rse = Math.sqrt(se);
+    if (yp[i] > 0.6 && yt[i] < 0.3) {
+      ul += 1;
+      ulSe += se;
+      ulRse += rse;
+      ulSeA.push(se);
+      ulRseA.push(rse);
+    }
+    if (yp[i] < 0.3 && yt[i] > 0.7) {
+      lr += 1;
+      lrSe += se;
+      lrRse += rse;
+      lrSeA.push(se);
+      lrRseA.push(rse);
+    }
+  }
+  return {
+    html:
+      `<p><strong>Upper-Left (false positives: predicted &gt; 0.6, target &lt; 0.3)</strong> — ${((ul / n) * 100).toFixed(2)}% (${ul} samples). Mean SE = ${ul ? (ulSe / ul).toFixed(4) : "0.0000"} | Mean RSE = ${ul ? (ulRse / ul).toFixed(4) : "0.0000"}</p>` +
+      `<p><strong>Lower-Right (false negatives: predicted &lt; 0.3, target &gt; 0.7)</strong> — ${((lr / n) * 100).toFixed(2)}% (${lr} samples). Mean SE = ${lr ? (lrSe / lr).toFixed(4) : "0.0000"} | Mean RSE = ${lr ? (lrRse / lr).toFixed(4) : "0.0000"}</p>`,
+    panels: [
+      { arr: ulSeA, title: "Upper-Left Quadrant: Squared Error", xlab: "Squared Error" },
+      { arr: ulRseA, title: "Upper-Left Quadrant: Root Squared Error", xlab: "Root Squared Error" },
+      { arr: lrSeA, title: "Lower-Right Quadrant: Squared Error", xlab: "Squared Error" },
+      { arr: lrRseA, title: "Lower-Right Quadrant: Root Squared Error", xlab: "Root Squared Error" },
+    ],
+  };
+}
+
+function drawQuad(el, noteEl, yt, yp) {
+  const q = quadReport(yt, yp);
+  noteEl.innerHTML = q.html;
+  const cells = gridDomains(2, 2);
+  const traces = guideLegend();
+  const shapes = [];
+  const annotations = titleNotes(cells, q.panels.map((p) => p.title));
+  q.panels.forEach((p, i) => {
+    const cell = histCell(p.arr, cells[i].k, p.title);
+    traces.push(...cell.traces);
+    shapes.push(...cell.shapes);
+    if (cell.empty) {
+      annotations.push({
+        text: "No Data",
+        x: (cells[i].x[0] + cells[i].x[1]) / 2,
+        y: (cells[i].y[0] + cells[i].y[1]) / 2,
+        xref: "paper",
+        yref: "paper",
+        showarrow: false,
+      });
+    }
+  });
+  const layout = {
+    margin: { t: 56, r: 16, l: 48, b: 48 },
+    showlegend: true,
+    legend: { orientation: "h", y: 1.14, font: { size: 11 } },
+    hovermode: "closest",
+    shapes,
+    annotations,
+  };
+  applyGrid(layout, cells, q.panels.map((p) => p.xlab), ["Count", "Count", "Count", "Count"]);
+  Plotly.react(el, traces, layout, plotlyCfg());
+}
+
+function mountErr(host, prefix) {
+  host.innerHTML = "";
+  const ids = [
+    ["dist", "Metric Distributions", ""],
+    ["heat", "Error Density Heatmaps", "heat"],
+    ["resid", "Diagnostic & Residual Scatters", "resid"],
+    ["quad", "Catastrophic Quadrant Report", ""],
+  ];
+  const out = {};
+  ids.forEach(([key, title, cls]) => {
+    const card = document.createElement("article");
+    card.className = "err-card";
+    const h = document.createElement("h3");
+    h.textContent = title;
+    card.appendChild(h);
+    if (key === "quad") {
+      const note = document.createElement("div");
+      note.id = prefix + "-quad-note";
+      note.className = "err-quad-note";
+      card.appendChild(note);
+      out.note = note;
+    }
+    const div = document.createElement("div");
+    div.id = prefix + "-" + key;
+    div.className = "err-plot" + (cls ? " " + cls : "");
+    card.appendChild(div);
+    host.appendChild(card);
+    out[key] = div;
+  });
+  return out;
+}
+
 function errPanels(host, block) {
   host.innerHTML = "";
   if (!block || !block.panels || !block.panels.length) {
@@ -268,16 +651,39 @@ function errPanels(host, block) {
   });
 }
 
+function drawErrColumn(host, prefix, pred, fallback) {
+  if (!ERR_SCORES || !pred) {
+    errPanels(host, fallback);
+    return;
+  }
+  const { t, p } = pairFinite(ERR_SCORES.y_true, pred);
+  if (!t.length) {
+    host.innerHTML = '<p class="err-empty">No finite predictions for this package on test_v25.</p>';
+    return;
+  }
+  const els = mountErr(host, prefix);
+  drawDist(els.dist, t, p);
+  drawHeat(els.heat, t, p);
+  drawResid(els.resid, t, p);
+  drawQuad(els.quad, els.note, t, p);
+}
+
 function drawErrors() {
-  if (!ERRORS || !$("err-base")) return;
-  $("err-base-meta").textContent = ERRORS.baseline
+  if (!$("err-base")) return;
+  $("err-base-meta").textContent = ERRORS && ERRORS.baseline
     ? (ERRORS.baseline.title || "") + (ERRORS.baseline.note ? " — " + ERRORS.baseline.note : "")
-    : "";
-  errPanels($("err-base"), ERRORS.baseline);
-  const block = CURRENT && ERRORS.by_id ? ERRORS.by_id[CURRENT] : null;
+    : "Local MSE baseline on test_v25";
+  const basePred = ERR_SCORES && ERR_SCORES.pred ? ERR_SCORES.pred[ERR_SCORES.baseline_key] : null;
+  drawErrColumn($("err-base"), "err-base", basePred, ERRORS && ERRORS.baseline);
+  const block = CURRENT && ERRORS && ERRORS.by_id ? ERRORS.by_id[CURRENT] : null;
   $("err-h").textContent = block && block.title ? "Challenger · " + block.title : "Challenger";
   $("err-new-meta").textContent = block && block.note ? block.note : (block && block.doc ? block.doc : "");
-  errPanels($("err-new"), block);
+  const newPred = ERR_SCORES && ERR_SCORES.pred ? ERR_SCORES.pred[CURRENT] : null;
+  if (!newPred) {
+    $("err-new").innerHTML = '<p class="err-empty">No cached test_v25 scores for this package (18 and 19 were never trained).</p>';
+    return;
+  }
+  drawErrColumn($("err-new"), "err-new", newPred, block);
 }
 
 function setTab(name) {
@@ -443,6 +849,11 @@ async function boot() {
     ERRORS = await (await fetch("data/errors.json")).json();
   } catch (e) {
     ERRORS = { by_id: {} };
+  }
+  try {
+    ERR_SCORES = await (await fetch("data/err_scores.json")).json();
+  } catch (e) {
+    ERR_SCORES = null;
   }
   $("page-title").textContent = META.title;
   $("caption").textContent = META.caption;

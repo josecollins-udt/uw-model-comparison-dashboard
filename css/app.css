@@ -51,6 +51,11 @@ h1 { font-size: 1.45rem; margin: 0 0 0.35rem; }
 .err-card h3 { margin: 0 0 0.5rem; font-size: 1rem; }
 .err-card img { width: 100%; height: auto; display: block; background: #fff; }
 .err-empty { color: var(--muted); }
+.err-plot { width: 100%; height: 680px; background: #fff; border: 1px solid var(--line); border-radius: 0.5rem; }
+.err-plot.heat { height: 920px; }
+.err-plot.resid { height: 440px; }
+.err-quad-note { font-size: 0.9rem; color: var(--ink); line-height: 1.45; margin: 0.35rem 0 0.75rem; }
+.err-quad-note p { margin: 0.25rem 0; }
 .faq { background: #fff; border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.75rem 1rem; }
 .faq table { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin: 0.75rem 0; }
 .faq th, .faq td { border: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; vertical-align: top; }

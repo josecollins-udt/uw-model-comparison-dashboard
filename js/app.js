@@ -98,11 +98,14 @@ function scoreChart(el, base, neu, opts) {
     });
   }
   const shapes = [{ type: "line", x0: CUT, x1: CUT, y0: 0, y1: 1, yref: "paper", line: { dash: "dot", color: "gray", width: 1 } }];
+  const annotations = [{ x: CUT, y: 1, yref: "paper", text: "0.65", showarrow: false, yshift: 10, font: { size: 11, color: "#64748b" } }];
   if (opts.accCut != null) {
     shapes.push({ type: "line", x0: opts.accCut, x1: opts.accCut, y0: 0, y1: 1, yref: "paper", line: { dash: "dash", color: "orange", width: 1 } });
+    annotations.push({ x: opts.accCut, y: 1, yref: "paper", text: "yes-match " + Number(opts.accCut).toFixed(3), showarrow: false, yshift: 10, font: { size: 11, color: "darkorange" } });
   }
   if (opts.delCut != null) {
     shapes.push({ type: "line", x0: opts.delCut, x1: opts.delCut, y0: 0, y1: 1, yref: "paper", line: { dash: "dash", color: "purple", width: 1 } });
+    annotations.push({ x: opts.delCut, y: 1, yref: "paper", text: "delinq-match " + Number(opts.delCut).toFixed(3), showarrow: false, yshift: 10, font: { size: 11, color: "purple" } });
   }
   if (opts.yBase065 != null) {
     traces.push({ x: [CUT], y: [opts.yBase065], name: `${opts.prev} @ 0.65`, mode: "markers", marker: { size: 11, color: "blue" }, hovertemplate: "cutoff 0.650<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
@@ -113,6 +116,9 @@ function scoreChart(el, base, neu, opts) {
   if (opts.accCut != null && opts.yNewAcc != null) {
     traces.push({ x: [opts.accCut], y: [opts.yNewAcc], name: "Challenger yes-match", mode: "markers", marker: { size: 11, color: "orange" }, hovertemplate: "yes-match %{x:.3f}<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
   }
+  if (opts.delCut != null && opts.yNewDel != null) {
+    traces.push({ x: [opts.delCut], y: [opts.yNewDel], name: "Challenger delinq-match", mode: "markers", marker: { size: 11, color: "purple" }, hovertemplate: "delinq-match %{x:.3f}<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
+  }
   const layout = {
     title: opts.title,
     xaxis: { title: "Cutoff score" },
@@ -122,7 +128,7 @@ function scoreChart(el, base, neu, opts) {
     legend: { orientation: "h" },
     margin: { t: 48, r: 16, b: 48, l: 64 },
     shapes,
-    annotations: [{ x: CUT, y: 1, yref: "paper", text: "0.65", showarrow: false, yshift: 10, font: { size: 11, color: "#64748b" } }],
+    annotations,
   };
   Plotly.react(el, traces, layout, { responsive: true });
 }
@@ -184,6 +190,28 @@ function frontierChart(el, base, neu, opts) {
     if (opts.accCut != null) mark(frontierPt(neu, opts.accCut), "Same yes-share", { color: "orange", size: 11 });
     if (opts.delCut != null) mark(frontierPt(neu, opts.delCut), opts.delCutName || "Same CaaS delinquency", { color: "purple", size: 11 });
   }
+  const shapes = [];
+  const cross = frontierPt(base, CUT);
+  if (cross) {
+    shapes.push({
+      type: "line",
+      x0: cross.acc,
+      x1: cross.acc,
+      y0: 0,
+      y1: 1,
+      yref: "paper",
+      line: { dash: "dot", color: "gray", width: 1 },
+    });
+    shapes.push({
+      type: "line",
+      y0: cross.delinq,
+      y1: cross.delinq,
+      x0: 0,
+      x1: 1,
+      xref: "paper",
+      line: { dash: "dot", color: "gray", width: 1 },
+    });
+  }
   const layout = {
     title: opts.title,
     xaxis: { title: opts.xaxis },
@@ -192,6 +220,7 @@ function frontierChart(el, base, neu, opts) {
     height: 560,
     legend: { orientation: "h" },
     margin: { t: 48, r: 16, b: 48, l: 64 },
+    shapes,
   };
   Plotly.react(el, traces, layout, { responsive: true });
 }
@@ -237,6 +266,7 @@ function draw() {
     yBase065: L.y_base_acc_065,
     yNew065: L.y_new_acc_065,
     yNewAcc: L.y_new_acc_match,
+    yNewDel: L.y_new_acc_at_del,
   });
   scoreChart("local-del", L.del_base, L.del_new, {
     title: L.del_title,
@@ -249,6 +279,7 @@ function draw() {
     yBase065: L.y_base_del_065,
     yNew065: L.y_new_del_065,
     yNewAcc: L.y_new_del_at_acc,
+    yNewDel: L.y_new_del_match,
   });
   frontierChart("local-fr", L.fr_base, L.fr_new, {
     title: L.fr_title,
@@ -281,6 +312,7 @@ function draw() {
     yBase065: S.y_base_acc_065,
     yNew065: S.y_new_acc_065,
     yNewAcc: S.y_new_acc_match,
+    yNewDel: S.y_new_acc_at_del,
   });
   scoreChart("stored-del", S.del_base, S.del_new || null, {
     title: S.del_title,
@@ -293,6 +325,7 @@ function draw() {
     yBase065: S.y_base_del_065,
     yNew065: S.y_new_del_065,
     yNewAcc: S.y_new_del_at_acc,
+    yNewDel: S.y_new_del_match,
   });
   frontierChart("stored-fr", S.fr_base, S.fr_new || null, {
     title: S.fr_title,

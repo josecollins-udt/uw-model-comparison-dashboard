@@ -1,0 +1,449 @@
+{
+  "cutoff_065": 0.65,
+  "title": "Acceptance vs delinquency (Fritz BNPL samples)",
+  "caption": "Top row: locally scored training_package_1_mse (blue) vs the selected challenger (orange). Bottom row: stored production autogluon_v25 from pre_scored_users (blue) vs the same challenger. Same Fritz 4k users on both rows. Hover a Plotly chart for cutoff and rates. Acceptance = Fritz SQL (TIMESTAMPDIFF ≤ 60). Delinquency = separate 4,000 seasoned CaaS users.",
+  "note_html": "\n<p><strong>The curve identity is the same.</strong> At cutoff <em>s</em>:</p>\n<p><code>acceptance = users_approved / (users_below + users_above)</code></p>\n<p>That is the gated yes-share of the whole file: score ≥ <em>s</em> and the three gates\n(<code>name_valid_probability ≥ 0.25</code>, <code>is_confirmed_number = 1</code>,\n<code>geolocation_access = 1</code>), divided by every person in the cohort.\nUnique scores, no <code>round(3)</code>.</p>\n<table>\n<thead><tr><th></th><th>Fritz acceptance</th><th>This dashboard</th></tr></thead>\n<tbody>\n<tr><td>Traffic</td><td>Distinct <code>bnpl.api_requests</code> + TIMESTAMPDIFF ≤ 60</td><td>Same SQL, 4,000-user sample</td></tr>\n<tr><td>Who is kept</td><td><code>autogluon_v25 IS NOT NULL</code></td><td>Same</td></tr>\n<tr><td>Previous score</td><td>Stored <code>autogluon_v25</code></td>\n<td><strong>Top:</strong> local <code>training_package_1_mse</code>. <strong>Bottom:</strong> stored <code>autogluon_v25</code></td></tr>\n<tr><td>New score</td><td>A stored <code>autogluon_v*</code></td><td>Local challenger on both sets</td></tr>\n</tbody>\n</table>\n<p><strong>Delinquency</strong> is a separate 4,000-user Fritz CaaS draw\n(<code>completed_plans &gt; 0</code>). Past-due / principal, not 1 − pngi_rate.</p>\n",
+  "variants": [
+    {
+      "id": "pkg02",
+      "title": "Package 2 `training_package_2_logit_mae`",
+      "label": "pkg02 · logit_mae",
+      "pkg": "training_package_2_logit_mae",
+      "pkg_num": 2,
+      "hay": "pkg02 training_package_2_logit_mae package 2 `training_package_2_logit_mae` pkg02 · logit_mae"
+    },
+    {
+      "id": "pkg03",
+      "title": "Package 3 `training_package_3_weighted_xentropy`",
+      "label": "pkg03 · weighted_xentropy",
+      "pkg": "training_package_3_weighted_xentropy",
+      "pkg_num": 3,
+      "hay": "pkg03 training_package_3_weighted_xentropy package 3 `training_package_3_weighted_xentropy` pkg03 · weighted_xentropy"
+    },
+    {
+      "id": "pkg04",
+      "title": "Package 4 `training_package_4_custom_asymmetric`",
+      "label": "pkg04 · custom_asymmetric",
+      "pkg": "training_package_4_custom_asymmetric",
+      "pkg_num": 4,
+      "hay": "pkg04 training_package_4_custom_asymmetric package 4 `training_package_4_custom_asymmetric` pkg04 · custom_asymmetric"
+    },
+    {
+      "id": "pkg05",
+      "title": "Package 5 `training_package_5_pinball_0244`",
+      "label": "pkg05 · pinball_0244",
+      "pkg": "training_package_5_pinball_0244",
+      "pkg_num": 5,
+      "hay": "pkg05 training_package_5_pinball_0244 package 5 `training_package_5_pinball_0244` pkg05 · pinball_0244"
+    },
+    {
+      "id": "pkg06",
+      "title": "Package 6 `training_package_6_pinball_0200`",
+      "label": "pkg06 · pinball_0200",
+      "pkg": "training_package_6_pinball_0200",
+      "pkg_num": 6,
+      "hay": "pkg06 training_package_6_pinball_0200 package 6 `training_package_6_pinball_0200` pkg06 · pinball_0200"
+    },
+    {
+      "id": "pkg07",
+      "title": "Package 7 `training_package_7_weighted_mse`",
+      "label": "pkg07 · weighted_mse",
+      "pkg": "training_package_7_weighted_mse",
+      "pkg_num": 7,
+      "hay": "pkg07 training_package_7_weighted_mse package 7 `training_package_7_weighted_mse` pkg07 · weighted_mse"
+    },
+    {
+      "id": "pkg08",
+      "title": "Package 8 `training_package_8_pinball_0300`",
+      "label": "pkg08 · pinball_0300",
+      "pkg": "training_package_8_pinball_0300",
+      "pkg_num": 8,
+      "hay": "pkg08 training_package_8_pinball_0300 package 8 `training_package_8_pinball_0300` pkg08 · pinball_0300"
+    },
+    {
+      "id": "pkg09",
+      "title": "Package 9 `training_package_9_pinball_0400`",
+      "label": "pkg09 · pinball_0400",
+      "pkg": "training_package_9_pinball_0400",
+      "pkg_num": 9,
+      "hay": "pkg09 training_package_9_pinball_0400 package 9 `training_package_9_pinball_0400` pkg09 · pinball_0400"
+    },
+    {
+      "id": "pkg10",
+      "title": "Package 10 `training_package_10_pinball_0250`",
+      "label": "pkg10 · pinball_0250",
+      "pkg": "training_package_10_pinball_0250",
+      "pkg_num": 10,
+      "hay": "pkg10 training_package_10_pinball_0250 package 10 `training_package_10_pinball_0250` pkg10 · pinball_0250"
+    },
+    {
+      "id": "pkg11",
+      "title": "Package 11 `training_package_11_pinball_0350`",
+      "label": "pkg11 · pinball_0350",
+      "pkg": "training_package_11_pinball_0350",
+      "pkg_num": 11,
+      "hay": "pkg11 training_package_11_pinball_0350 package 11 `training_package_11_pinball_0350` pkg11 · pinball_0350"
+    },
+    {
+      "id": "pkg12_ev",
+      "title": "Package 12 `training_package_12_hurdle` (expected value)",
+      "label": "pkg12_ev · hurdle",
+      "pkg": "training_package_12_hurdle",
+      "pkg_num": 12,
+      "hay": "pkg12_ev training_package_12_hurdle package 12 `training_package_12_hurdle` (expected value) pkg12_ev · hurdle"
+    },
+    {
+      "id": "pkg12_am25",
+      "title": "Package 12 `training_package_12_hurdle` (argmax 25%)",
+      "label": "pkg12_am25 · hurdle",
+      "pkg": "training_package_12_hurdle",
+      "pkg_num": 12,
+      "hay": "pkg12_am25 training_package_12_hurdle package 12 `training_package_12_hurdle` (argmax 25%) pkg12_am25 · hurdle"
+    },
+    {
+      "id": "pkg12_am50",
+      "title": "Package 12 `training_package_12_hurdle` (argmax 50%)",
+      "label": "pkg12_am50 · hurdle",
+      "pkg": "training_package_12_hurdle",
+      "pkg_num": 12,
+      "hay": "pkg12_am50 training_package_12_hurdle package 12 `training_package_12_hurdle` (argmax 50%) pkg12_am50 · hurdle"
+    },
+    {
+      "id": "pkg12_am75",
+      "title": "Package 12 `training_package_12_hurdle` (argmax 75%)",
+      "label": "pkg12_am75 · hurdle",
+      "pkg": "training_package_12_hurdle",
+      "pkg_num": 12,
+      "hay": "pkg12_am75 training_package_12_hurdle package 12 `training_package_12_hurdle` (argmax 75%) pkg12_am75 · hurdle"
+    },
+    {
+      "id": "pkg13_ev",
+      "title": "Package 13 `training_package_13_binary_hurdle` (expected value)",
+      "label": "pkg13_ev · binary_hurdle",
+      "pkg": "training_package_13_binary_hurdle",
+      "pkg_num": 13,
+      "hay": "pkg13_ev training_package_13_binary_hurdle package 13 `training_package_13_binary_hurdle` (expected value) pkg13_ev · binary_hurdle"
+    },
+    {
+      "id": "pkg13_am25",
+      "title": "Package 13 `training_package_13_binary_hurdle` (argmax 25%)",
+      "label": "pkg13_am25 · binary_hurdle",
+      "pkg": "training_package_13_binary_hurdle",
+      "pkg_num": 13,
+      "hay": "pkg13_am25 training_package_13_binary_hurdle package 13 `training_package_13_binary_hurdle` (argmax 25%) pkg13_am25 · binary_hurdle"
+    },
+    {
+      "id": "pkg13_am50",
+      "title": "Package 13 `training_package_13_binary_hurdle` (argmax 50%)",
+      "label": "pkg13_am50 · binary_hurdle",
+      "pkg": "training_package_13_binary_hurdle",
+      "pkg_num": 13,
+      "hay": "pkg13_am50 training_package_13_binary_hurdle package 13 `training_package_13_binary_hurdle` (argmax 50%) pkg13_am50 · binary_hurdle"
+    },
+    {
+      "id": "pkg13_am75",
+      "title": "Package 13 `training_package_13_binary_hurdle` (argmax 75%)",
+      "label": "pkg13_am75 · binary_hurdle",
+      "pkg": "training_package_13_binary_hurdle",
+      "pkg_num": 13,
+      "hay": "pkg13_am75 training_package_13_binary_hurdle package 13 `training_package_13_binary_hurdle` (argmax 75%) pkg13_am75 · binary_hurdle"
+    },
+    {
+      "id": "pkg14_ev",
+      "title": "Package 14 `training_package_14_hurdle_specificity` (expected value)",
+      "label": "pkg14_ev · hurdle_specificity",
+      "pkg": "training_package_14_hurdle_specificity",
+      "pkg_num": 14,
+      "hay": "pkg14_ev training_package_14_hurdle_specificity package 14 `training_package_14_hurdle_specificity` (expected value) pkg14_ev · hurdle_specificity"
+    },
+    {
+      "id": "pkg14_am25",
+      "title": "Package 14 `training_package_14_hurdle_specificity` (argmax 25%)",
+      "label": "pkg14_am25 · hurdle_specificity",
+      "pkg": "training_package_14_hurdle_specificity",
+      "pkg_num": 14,
+      "hay": "pkg14_am25 training_package_14_hurdle_specificity package 14 `training_package_14_hurdle_specificity` (argmax 25%) pkg14_am25 · hurdle_specificity"
+    },
+    {
+      "id": "pkg14_am50",
+      "title": "Package 14 `training_package_14_hurdle_specificity` (argmax 50%)",
+      "label": "pkg14_am50 · hurdle_specificity",
+      "pkg": "training_package_14_hurdle_specificity",
+      "pkg_num": 14,
+      "hay": "pkg14_am50 training_package_14_hurdle_specificity package 14 `training_package_14_hurdle_specificity` (argmax 50%) pkg14_am50 · hurdle_specificity"
+    },
+    {
+      "id": "pkg14_am75",
+      "title": "Package 14 `training_package_14_hurdle_specificity` (argmax 75%)",
+      "label": "pkg14_am75 · hurdle_specificity",
+      "pkg": "training_package_14_hurdle_specificity",
+      "pkg_num": 14,
+      "hay": "pkg14_am75 training_package_14_hurdle_specificity package 14 `training_package_14_hurdle_specificity` (argmax 75%) pkg14_am75 · hurdle_specificity"
+    },
+    {
+      "id": "pkg15_ev",
+      "title": "Package 15 `training_package_15_binary_hurdle_specificity` (expected value)",
+      "label": "pkg15_ev · binary_hurdle_specificity",
+      "pkg": "training_package_15_binary_hurdle_specificity",
+      "pkg_num": 15,
+      "hay": "pkg15_ev training_package_15_binary_hurdle_specificity package 15 `training_package_15_binary_hurdle_specificity` (expected value) pkg15_ev · binary_hurdle_specificity"
+    },
+    {
+      "id": "pkg15_am25",
+      "title": "Package 15 `training_package_15_binary_hurdle_specificity` (argmax 25%)",
+      "label": "pkg15_am25 · binary_hurdle_specificity",
+      "pkg": "training_package_15_binary_hurdle_specificity",
+      "pkg_num": 15,
+      "hay": "pkg15_am25 training_package_15_binary_hurdle_specificity package 15 `training_package_15_binary_hurdle_specificity` (argmax 25%) pkg15_am25 · binary_hurdle_specificity"
+    },
+    {
+      "id": "pkg15_am50",
+      "title": "Package 15 `training_package_15_binary_hurdle_specificity` (argmax 50%)",
+      "label": "pkg15_am50 · binary_hurdle_specificity",
+      "pkg": "training_package_15_binary_hurdle_specificity",
+      "pkg_num": 15,
+      "hay": "pkg15_am50 training_package_15_binary_hurdle_specificity package 15 `training_package_15_binary_hurdle_specificity` (argmax 50%) pkg15_am50 · binary_hurdle_specificity"
+    },
+    {
+      "id": "pkg15_am75",
+      "title": "Package 15 `training_package_15_binary_hurdle_specificity` (argmax 75%)",
+      "label": "pkg15_am75 · binary_hurdle_specificity",
+      "pkg": "training_package_15_binary_hurdle_specificity",
+      "pkg_num": 15,
+      "hay": "pkg15_am75 training_package_15_binary_hurdle_specificity package 15 `training_package_15_binary_hurdle_specificity` (argmax 75%) pkg15_am75 · binary_hurdle_specificity"
+    },
+    {
+      "id": "pkg16_ev",
+      "title": "Package 16 `training_package_16_hurdle_rocauc` (expected value)",
+      "label": "pkg16_ev · hurdle_rocauc",
+      "pkg": "training_package_16_hurdle_rocauc",
+      "pkg_num": 16,
+      "hay": "pkg16_ev training_package_16_hurdle_rocauc package 16 `training_package_16_hurdle_rocauc` (expected value) pkg16_ev · hurdle_rocauc"
+    },
+    {
+      "id": "pkg16_am25",
+      "title": "Package 16 `training_package_16_hurdle_rocauc` (argmax 25%)",
+      "label": "pkg16_am25 · hurdle_rocauc",
+      "pkg": "training_package_16_hurdle_rocauc",
+      "pkg_num": 16,
+      "hay": "pkg16_am25 training_package_16_hurdle_rocauc package 16 `training_package_16_hurdle_rocauc` (argmax 25%) pkg16_am25 · hurdle_rocauc"
+    },
+    {
+      "id": "pkg16_am50",
+      "title": "Package 16 `training_package_16_hurdle_rocauc` (argmax 50%)",
+      "label": "pkg16_am50 · hurdle_rocauc",
+      "pkg": "training_package_16_hurdle_rocauc",
+      "pkg_num": 16,
+      "hay": "pkg16_am50 training_package_16_hurdle_rocauc package 16 `training_package_16_hurdle_rocauc` (argmax 50%) pkg16_am50 · hurdle_rocauc"
+    },
+    {
+      "id": "pkg16_am75",
+      "title": "Package 16 `training_package_16_hurdle_rocauc` (argmax 75%)",
+      "label": "pkg16_am75 · hurdle_rocauc",
+      "pkg": "training_package_16_hurdle_rocauc",
+      "pkg_num": 16,
+      "hay": "pkg16_am75 training_package_16_hurdle_rocauc package 16 `training_package_16_hurdle_rocauc` (argmax 75%) pkg16_am75 · hurdle_rocauc"
+    },
+    {
+      "id": "pkg17_ev",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc` (expected value)",
+      "label": "pkg17_ev · binary_hurdle_rocauc",
+      "pkg": "training_package_17_binary_hurdle_rocauc",
+      "pkg_num": 17,
+      "hay": "pkg17_ev training_package_17_binary_hurdle_rocauc package 17 `training_package_17_binary_hurdle_rocauc` (expected value) pkg17_ev · binary_hurdle_rocauc"
+    },
+    {
+      "id": "pkg17_am25",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc` (argmax 25%)",
+      "label": "pkg17_am25 · binary_hurdle_rocauc",
+      "pkg": "training_package_17_binary_hurdle_rocauc",
+      "pkg_num": 17,
+      "hay": "pkg17_am25 training_package_17_binary_hurdle_rocauc package 17 `training_package_17_binary_hurdle_rocauc` (argmax 25%) pkg17_am25 · binary_hurdle_rocauc"
+    },
+    {
+      "id": "pkg17_am50",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc` (argmax 50%)",
+      "label": "pkg17_am50 · binary_hurdle_rocauc",
+      "pkg": "training_package_17_binary_hurdle_rocauc",
+      "pkg_num": 17,
+      "hay": "pkg17_am50 training_package_17_binary_hurdle_rocauc package 17 `training_package_17_binary_hurdle_rocauc` (argmax 50%) pkg17_am50 · binary_hurdle_rocauc"
+    },
+    {
+      "id": "pkg17_am75",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc` (argmax 75%)",
+      "label": "pkg17_am75 · binary_hurdle_rocauc",
+      "pkg": "training_package_17_binary_hurdle_rocauc",
+      "pkg_num": 17,
+      "hay": "pkg17_am75 training_package_17_binary_hurdle_rocauc package 17 `training_package_17_binary_hurdle_rocauc` (argmax 75%) pkg17_am75 · binary_hurdle_rocauc"
+    },
+    {
+      "id": "pkg20",
+      "title": "Package 20 `training_package_20_softclass_doubling`",
+      "label": "pkg20 · softclass_doubling",
+      "pkg": "training_package_20_softclass_doubling",
+      "pkg_num": 20,
+      "hay": "pkg20 training_package_20_softclass_doubling package 20 `training_package_20_softclass_doubling` pkg20 · softclass_doubling"
+    },
+    {
+      "id": "pkg21_ev",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss` (expected value)",
+      "label": "pkg21_ev · inv_hurdle_logloss",
+      "pkg": "training_package_21_inv_hurdle_logloss",
+      "pkg_num": 21,
+      "hay": "pkg21_ev training_package_21_inv_hurdle_logloss package 21 `training_package_21_inv_hurdle_logloss` (expected value) pkg21_ev · inv_hurdle_logloss"
+    },
+    {
+      "id": "pkg21_am25",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss` (argmax 25%)",
+      "label": "pkg21_am25 · inv_hurdle_logloss",
+      "pkg": "training_package_21_inv_hurdle_logloss",
+      "pkg_num": 21,
+      "hay": "pkg21_am25 training_package_21_inv_hurdle_logloss package 21 `training_package_21_inv_hurdle_logloss` (argmax 25%) pkg21_am25 · inv_hurdle_logloss"
+    },
+    {
+      "id": "pkg21_am50",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss` (argmax 50%)",
+      "label": "pkg21_am50 · inv_hurdle_logloss",
+      "pkg": "training_package_21_inv_hurdle_logloss",
+      "pkg_num": 21,
+      "hay": "pkg21_am50 training_package_21_inv_hurdle_logloss package 21 `training_package_21_inv_hurdle_logloss` (argmax 50%) pkg21_am50 · inv_hurdle_logloss"
+    },
+    {
+      "id": "pkg21_am75",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss` (argmax 75%)",
+      "label": "pkg21_am75 · inv_hurdle_logloss",
+      "pkg": "training_package_21_inv_hurdle_logloss",
+      "pkg_num": 21,
+      "hay": "pkg21_am75 training_package_21_inv_hurdle_logloss package 21 `training_package_21_inv_hurdle_logloss` (argmax 75%) pkg21_am75 · inv_hurdle_logloss"
+    },
+    {
+      "id": "pkg22_ev",
+      "title": "Package 22 `training_package_22_inv_binary_hurdle_logloss` (expected value)",
+      "label": "pkg22_ev · inv_binary_hurdle_logloss",
+      "pkg": "training_package_22_inv_binary_hurdle_logloss",
+      "pkg_num": 22,
+      "hay": "pkg22_ev training_package_22_inv_binary_hurdle_logloss package 22 `training_package_22_inv_binary_hurdle_logloss` (expected value) pkg22_ev · inv_binary_hurdle_logloss"
+    },
+    {
+      "id": "pkg22_am25",
+      "title": "Package 22 `training_package_22_inv_binary_hurdle_logloss` (argmax 25%)",
+      "label": "pkg22_am25 · inv_binary_hurdle_logloss",
+      "pkg": "training_package_22_inv_binary_hurdle_logloss",
+      "pkg_num": 22,
+      "hay": "pkg22_am25 training_package_22_inv_binary_hurdle_logloss package 22 `training_package_22_inv_binary_hurdle_logloss` (argmax 25%) pkg22_am25 · inv_binary_hurdle_logloss"
+    },
+    {
+      "id": "pkg22_am50",
+      "title": "Package 22 `training_package_22_inv_binary_hurdle_logloss` (argmax 50%)",
+      "label": "pkg22_am50 · inv_binary_hurdle_logloss",
+      "pkg": "training_package_22_inv_binary_hurdle_logloss",
+      "pkg_num": 22,
+      "hay": "pkg22_am50 training_package_22_inv_binary_hurdle_logloss package 22 `training_package_22_inv_binary_hurdle_logloss` (argmax 50%) pkg22_am50 · inv_binary_hurdle_logloss"
+    },
+    {
+      "id": "pkg22_am75",
+      "title": "Package 22 `training_package_22_inv_binary_hurdle_logloss` (argmax 75%)",
+      "label": "pkg22_am75 · inv_binary_hurdle_logloss",
+      "pkg": "training_package_22_inv_binary_hurdle_logloss",
+      "pkg_num": 22,
+      "hay": "pkg22_am75 training_package_22_inv_binary_hurdle_logloss package 22 `training_package_22_inv_binary_hurdle_logloss` (argmax 75%) pkg22_am75 · inv_binary_hurdle_logloss"
+    },
+    {
+      "id": "pkg23_ev",
+      "title": "Package 23 `training_package_23_inv_hurdle_specificity` (expected value)",
+      "label": "pkg23_ev · inv_hurdle_specificity",
+      "pkg": "training_package_23_inv_hurdle_specificity",
+      "pkg_num": 23,
+      "hay": "pkg23_ev training_package_23_inv_hurdle_specificity package 23 `training_package_23_inv_hurdle_specificity` (expected value) pkg23_ev · inv_hurdle_specificity"
+    },
+    {
+      "id": "pkg23_am25",
+      "title": "Package 23 `training_package_23_inv_hurdle_specificity` (argmax 25%)",
+      "label": "pkg23_am25 · inv_hurdle_specificity",
+      "pkg": "training_package_23_inv_hurdle_specificity",
+      "pkg_num": 23,
+      "hay": "pkg23_am25 training_package_23_inv_hurdle_specificity package 23 `training_package_23_inv_hurdle_specificity` (argmax 25%) pkg23_am25 · inv_hurdle_specificity"
+    },
+    {
+      "id": "pkg23_am50",
+      "title": "Package 23 `training_package_23_inv_hurdle_specificity` (argmax 50%)",
+      "label": "pkg23_am50 · inv_hurdle_specificity",
+      "pkg": "training_package_23_inv_hurdle_specificity",
+      "pkg_num": 23,
+      "hay": "pkg23_am50 training_package_23_inv_hurdle_specificity package 23 `training_package_23_inv_hurdle_specificity` (argmax 50%) pkg23_am50 · inv_hurdle_specificity"
+    },
+    {
+      "id": "pkg23_am75",
+      "title": "Package 23 `training_package_23_inv_hurdle_specificity` (argmax 75%)",
+      "label": "pkg23_am75 · inv_hurdle_specificity",
+      "pkg": "training_package_23_inv_hurdle_specificity",
+      "pkg_num": 23,
+      "hay": "pkg23_am75 training_package_23_inv_hurdle_specificity package 23 `training_package_23_inv_hurdle_specificity` (argmax 75%) pkg23_am75 · inv_hurdle_specificity"
+    },
+    {
+      "id": "pkg24_ev",
+      "title": "Package 24 `training_package_24_inv_binary_hurdle_specificity` (expected value)",
+      "label": "pkg24_ev · inv_binary_hurdle_specificity",
+      "pkg": "training_package_24_inv_binary_hurdle_specificity",
+      "pkg_num": 24,
+      "hay": "pkg24_ev training_package_24_inv_binary_hurdle_specificity package 24 `training_package_24_inv_binary_hurdle_specificity` (expected value) pkg24_ev · inv_binary_hurdle_specificity"
+    },
+    {
+      "id": "pkg24_am25",
+      "title": "Package 24 `training_package_24_inv_binary_hurdle_specificity` (argmax 25%)",
+      "label": "pkg24_am25 · inv_binary_hurdle_specificity",
+      "pkg": "training_package_24_inv_binary_hurdle_specificity",
+      "pkg_num": 24,
+      "hay": "pkg24_am25 training_package_24_inv_binary_hurdle_specificity package 24 `training_package_24_inv_binary_hurdle_specificity` (argmax 25%) pkg24_am25 · inv_binary_hurdle_specificity"
+    },
+    {
+      "id": "pkg24_am50",
+      "title": "Package 24 `training_package_24_inv_binary_hurdle_specificity` (argmax 50%)",
+      "label": "pkg24_am50 · inv_binary_hurdle_specificity",
+      "pkg": "training_package_24_inv_binary_hurdle_specificity",
+      "pkg_num": 24,
+      "hay": "pkg24_am50 training_package_24_inv_binary_hurdle_specificity package 24 `training_package_24_inv_binary_hurdle_specificity` (argmax 50%) pkg24_am50 · inv_binary_hurdle_specificity"
+    },
+    {
+      "id": "pkg24_am75",
+      "title": "Package 24 `training_package_24_inv_binary_hurdle_specificity` (argmax 75%)",
+      "label": "pkg24_am75 · inv_binary_hurdle_specificity",
+      "pkg": "training_package_24_inv_binary_hurdle_specificity",
+      "pkg_num": 24,
+      "hay": "pkg24_am75 training_package_24_inv_binary_hurdle_specificity package 24 `training_package_24_inv_binary_hurdle_specificity` (argmax 75%) pkg24_am75 · inv_binary_hurdle_specificity"
+    },
+    {
+      "id": "pkg25_ev",
+      "title": "Package 25 `training_package_25_inv_binary_hurdle_rocauc` (expected value)",
+      "label": "pkg25_ev · inv_binary_hurdle_rocauc",
+      "pkg": "training_package_25_inv_binary_hurdle_rocauc",
+      "pkg_num": 25,
+      "hay": "pkg25_ev training_package_25_inv_binary_hurdle_rocauc package 25 `training_package_25_inv_binary_hurdle_rocauc` (expected value) pkg25_ev · inv_binary_hurdle_rocauc"
+    },
+    {
+      "id": "pkg25_am25",
+      "title": "Package 25 `training_package_25_inv_binary_hurdle_rocauc` (argmax 25%)",
+      "label": "pkg25_am25 · inv_binary_hurdle_rocauc",
+      "pkg": "training_package_25_inv_binary_hurdle_rocauc",
+      "pkg_num": 25,
+      "hay": "pkg25_am25 training_package_25_inv_binary_hurdle_rocauc package 25 `training_package_25_inv_binary_hurdle_rocauc` (argmax 25%) pkg25_am25 · inv_binary_hurdle_rocauc"
+    },
+    {
+      "id": "pkg25_am50",
+      "title": "Package 25 `training_package_25_inv_binary_hurdle_rocauc` (argmax 50%)",
+      "label": "pkg25_am50 · inv_binary_hurdle_rocauc",
+      "pkg": "training_package_25_inv_binary_hurdle_rocauc",
+      "pkg_num": 25,
+      "hay": "pkg25_am50 training_package_25_inv_binary_hurdle_rocauc package 25 `training_package_25_inv_binary_hurdle_rocauc` (argmax 50%) pkg25_am50 · inv_binary_hurdle_rocauc"
+    },
+    {
+      "id": "pkg25_am75",
+      "title": "Package 25 `training_package_25_inv_binary_hurdle_rocauc` (argmax 75%)",
+      "label": "pkg25_am75 · inv_binary_hurdle_rocauc",
+      "pkg": "training_package_25_inv_binary_hurdle_rocauc",
+      "pkg_num": 25,
+      "hay": "pkg25_am75 training_package_25_inv_binary_hurdle_rocauc package 25 `training_package_25_inv_binary_hurdle_rocauc` (argmax 75%) pkg25_am75 · inv_binary_hurdle_rocauc"
+    }
+  ],
+  "skipped": []
+}

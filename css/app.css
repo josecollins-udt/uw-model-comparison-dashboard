@@ -57,11 +57,26 @@ h1 { font-size: 1.45rem; margin: 0 0 0.35rem; }
 .err-plot.resid { height: 440px; }
 .err-quad-note { font-size: 0.9rem; color: var(--ink); line-height: 1.45; margin: 0.35rem 0 0.75rem; }
 .err-quad-note p { margin: 0.25rem 0; }
+body.cmp-mode .side { display: none; }
+.cmp-pick { flex-wrap: wrap; }
+.cmp-pick select { min-width: 16rem; max-width: 100%; }
+.cmp-heads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg);
+  padding: 0.35rem 0 0.5rem;
+}
+.cmp-heads h3 { margin: 0; font-size: 1rem; color: #1e293b; }
+.cmp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 0.75rem 0 1.5rem; }
 .faq { background: #fff; border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.75rem 1rem; }
 .faq table { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin: 0.75rem 0; }
 .faq th, .faq td { border: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; vertical-align: top; }
 @media (max-width: 960px) {
   body { flex-direction: column; }
   .side { width: 100%; height: auto; max-height: 40vh; position: relative; }
-  .grid2 { grid-template-columns: 1fr; }
+  .grid2, .cmp-row, .cmp-heads { grid-template-columns: 1fr; }
 }

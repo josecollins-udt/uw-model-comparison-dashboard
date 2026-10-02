@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Acceptance vs delinquency</title>
-  <link rel="stylesheet" href="css/app.css?v=7"/>
+  <link rel="stylesheet" href="css/app.css?v=8"/>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
@@ -34,6 +34,7 @@
     <nav class="tabs" aria-label="Dashboard views">
       <button type="button" class="tab active" data-tab="acc">Acceptance vs delinquency</button>
       <button type="button" class="tab" data-tab="err">Error analysis</button>
+      <button type="button" class="tab" data-tab="cmp">Compare errors</button>
     </nav>
     <p id="status" class="status"></p>
     <div id="tab-acc">
@@ -74,7 +75,69 @@
         <div id="err-new" class="err-grid"></div>
       </section>
     </div>
+    <div id="tab-cmp" hidden>
+      <p class="caption">Side-by-side Plotly error panels on the same local <code>test_v25</code> holdout (n≈1978). Pick any two scored heads, including hurdle modes. Packages 18–19 have no cached scores. This tab does not use the left package list.</p>
+      <div id="cmp-controls" class="controls cmp-pick">
+        <label>Left model
+          <select id="cmp-a"></select>
+        </label>
+        <label>Right model
+          <select id="cmp-b"></select>
+        </label>
+      </div>
+      <p id="cmp-status" class="status"></p>
+      <div class="cmp-heads">
+        <h3 id="cmp-a-name">Left</h3>
+        <h3 id="cmp-b-name">Right</h3>
+      </div>
+      <section>
+        <h2>Metric Distributions</h2>
+        <div class="cmp-row">
+          <article class="err-card">
+            <div id="cmp-a-dist" class="err-plot"></div>
+          </article>
+          <article class="err-card">
+            <div id="cmp-b-dist" class="err-plot"></div>
+          </article>
+        </div>
+      </section>
+      <section>
+        <h2>Error Density Heatmaps</h2>
+        <div class="cmp-row">
+          <article class="err-card">
+            <div id="cmp-a-heat" class="err-plot heat"></div>
+          </article>
+          <article class="err-card">
+            <div id="cmp-b-heat" class="err-plot heat"></div>
+          </article>
+        </div>
+      </section>
+      <section>
+        <h2>Diagnostic &amp; Residual Scatters</h2>
+        <div class="cmp-row">
+          <article class="err-card">
+            <div id="cmp-a-resid" class="err-plot resid"></div>
+          </article>
+          <article class="err-card">
+            <div id="cmp-b-resid" class="err-plot resid"></div>
+          </article>
+        </div>
+      </section>
+      <section>
+        <h2>Catastrophic Quadrant Report</h2>
+        <div class="cmp-row">
+          <article class="err-card">
+            <div id="cmp-a-quad-note" class="err-quad-note"></div>
+            <div id="cmp-a-quad" class="err-plot"></div>
+          </article>
+          <article class="err-card">
+            <div id="cmp-b-quad-note" class="err-quad-note"></div>
+            <div id="cmp-b-quad" class="err-plot"></div>
+          </article>
+        </div>
+      </section>
+    </div>
   </main>
-  <script src="js/app.js?v=7"></script>
+  <script src="js/app.js?v=8"></script>
 </body>
 </html>

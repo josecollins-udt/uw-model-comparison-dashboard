@@ -5,6 +5,7 @@ let ERR_SCORES = null;
 let CURRENT = null;
 let PAYLOAD = null;
 let TAB = "acc";
+let CMP_READY = false;
 const ERR_BLUE = "#93c5fd";
 const ERR_MEAN = "#dc2626";
 const ERR_MED = "#334155";
@@ -725,14 +726,120 @@ function drawErrors() {
   drawErrColumn($("err-new"), "err-new", newPred, block);
 }
 
+function scoreLabel(id) {
+  if (id === "baseline_mse") return "pkg01 · MSE baseline";
+  const v = META && META.variants ? META.variants.find((x) => x.id === id) : null;
+  return v && v.label ? v.label : id;
+}
+
+function scoreNote(id) {
+  if (id === "baseline_mse" && ERRORS && ERRORS.baseline) {
+    return ERRORS.baseline.note || ERRORS.baseline.title || "";
+  }
+  const block = ERRORS && ERRORS.by_id ? ERRORS.by_id[id] : null;
+  return block && block.note ? block.note : "";
+}
+
+function cmpOptions() {
+  const keys = ERR_SCORES && ERR_SCORES.pred ? Object.keys(ERR_SCORES.pred) : [];
+  const rank = (id) => {
+    if (id === "baseline_mse") return 0;
+    const m = id.match(/^pkg(\d+)/);
+    return m ? Number(m[1]) : 99;
+  };
+  return keys.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
+}
+
+function fillCmpSelect(sel, preferred) {
+  const opts = cmpOptions();
+  const keep = opts.includes(sel.value) ? sel.value : (opts.includes(preferred) ? preferred : opts[0]);
+  sel.innerHTML = "";
+  opts.forEach((id) => {
+    const o = document.createElement("option");
+    o.value = id;
+    o.textContent = scoreLabel(id);
+    sel.appendChild(o);
+  });
+  if (keep) sel.value = keep;
+}
+
+function clearCmpSide(side) {
+  ["dist", "heat", "resid", "quad"].forEach((key) => {
+    const el = $("cmp-" + side + "-" + key);
+    if (!el) return;
+    try {
+      Plotly.purge(el);
+    } catch (e) {}
+    el.innerHTML = '<p class="err-empty">No cached test_v25 scores for this head.</p>';
+  });
+  const note = $("cmp-" + side + "-quad-note");
+  if (note) note.textContent = "";
+}
+
+function drawCmpSide(side) {
+  const id = $("cmp-" + side).value;
+  const nameEl = $("cmp-" + side + "-name");
+  if (nameEl) nameEl.textContent = scoreLabel(id);
+  const pred = ERR_SCORES && ERR_SCORES.pred ? ERR_SCORES.pred[id] : null;
+  if (!pred) {
+    clearCmpSide(side);
+    return;
+  }
+  const pair = pairFinite(ERR_SCORES.y_true, pred);
+  if (!pair.t.length) {
+    clearCmpSide(side);
+    return;
+  }
+  drawDist($("cmp-" + side + "-dist"), pair.t, pair.p);
+  drawHeat($("cmp-" + side + "-heat"), pair.t, pair.p);
+  drawResid($("cmp-" + side + "-resid"), pair.t, pair.p);
+  drawQuad($("cmp-" + side + "-quad"), $("cmp-" + side + "-quad-note"), pair.t, pair.p);
+}
+
+function resizeCmp() {
+  ["a", "b"].forEach((side) => {
+    ["dist", "heat", "resid", "quad"].forEach((key) => {
+      const el = $("cmp-" + side + "-" + key);
+      if (!el) return;
+      try {
+        Plotly.Plots.resize(el);
+      } catch (e) {}
+    });
+  });
+}
+
+function drawCompare() {
+  if (!$("cmp-a") || !ERR_SCORES) return;
+  if (!CMP_READY) {
+    fillCmpSelect($("cmp-a"), "baseline_mse");
+    fillCmpSelect($("cmp-b"), CURRENT || "pkg02");
+    CMP_READY = true;
+  }
+  const a = $("cmp-a").value;
+  const b = $("cmp-b").value;
+  $("cmp-status").textContent =
+    `Comparing ${scoreLabel(a)} vs ${scoreLabel(b)} on test_v25 (n=${ERR_SCORES.n || ERR_SCORES.y_true.length}).`;
+  drawCmpSide("a");
+  drawCmpSide("b");
+  requestAnimationFrame(resizeCmp);
+}
+
+function refreshTab() {
+  if (TAB === "acc") draw();
+  else if (TAB === "err") drawErrors();
+  else if (TAB === "cmp") drawCompare();
+}
+
 function setTab(name) {
   TAB = name;
   document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.tab === name));
   $("tab-acc").hidden = name !== "acc";
   $("tab-err").hidden = name !== "err";
+  $("tab-cmp").hidden = name !== "cmp";
   $("ci-controls").hidden = name !== "acc";
-  if (name === "acc") draw();
-  else drawErrors();
+  $("status").hidden = name !== "acc";
+  document.body.classList.toggle("cmp-mode", name === "cmp");
+  refreshTab();
 }
 
 function draw() {
@@ -838,8 +945,7 @@ async function loadId(id) {
   const res = await fetch("data/" + id + ".json");
   PAYLOAD = await res.json();
   location.hash = id;
-  draw();
-  drawErrors();
+  refreshTab();
 }
 
 function buildPicker() {
@@ -900,6 +1006,8 @@ async function boot() {
   buildPicker();
   $("conf").addEventListener("change", draw);
   $("band").addEventListener("change", draw);
+  $("cmp-a").addEventListener("change", drawCompare);
+  $("cmp-b").addEventListener("change", drawCompare);
   document.querySelectorAll(".tab").forEach((b) => {
     b.addEventListener("click", () => setTab(b.dataset.tab));
   });

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Acceptance vs delinquency</title>
+  <link rel="stylesheet" href="css/app.css?v=9"/>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+  <aside class="side">
+    <h2>Packages</h2>
+    <input id="filter" type="search" placeholder="pkg22, hurdle, pinball…"/>
+    <div id="picker"></div>
+    <p id="now" class="now"></p>
+  </aside>
+  <main class="main">
+    <header class="top">
+      <div>
+        <h1 id="page-title">Acceptance vs delinquency (Fritz BNPL samples)</h1>
+        <p id="caption" class="caption"></p>
+      </div>
+      <div id="ci-controls" class="controls">
+        <label>Confidence
+          <select id="conf">
+            <option value="90">90%</option>
+            <option value="95" selected>95%</option>
+            <option value="99">99%</option>
+          </select>
+        </label>
+        <label class="check"><input id="band" type="checkbox" checked/> Shaded range of true values</label>
+      </div>
+    </header>
+    <nav class="tabs" aria-label="Dashboard views">
+      <button type="button" class="tab active" data-tab="acc">Acceptance vs delinquency</button>
+      <button type="button" class="tab" data-tab="err">Error analysis</button>
+      <button type="button" class="tab" data-tab="cmp">Compare errors</button>
+    </nav>
+    <p id="status" class="status"></p>
+    <div id="tab-acc">
+    <section>
+      <h2 id="local-h">Local MSE baseline vs challenger</h2>
+      <div class="grid2">
+        <div id="local-acc" class="chart"></div>
+        <div id="local-del" class="chart"></div>
+      </div>
+      <div id="local-fr" class="chart wide"></div>
+      <div id="local-notes" class="notes"></div>
+    </section>
+    <section>
+      <h2>Stored production score (<code>autogluon_v25</code> in the tables)</h2>
+      <p class="caption">Blue = production score already stored on <code>pre_scored_users</code>. Charcoal = the selected package scored locally on the same Fritz users.</p>
+      <div class="grid2">
+        <div id="stored-acc" class="chart"></div>
+        <div id="stored-del" class="chart"></div>
+      </div>
+      <div id="stored-fr" class="chart wide"></div>
+      <div id="stored-notes" class="notes"></div>
+    </section>
+    <details class="faq">
+      <summary>Is this the same acceptance metric as Fritz <code>acceptance_class</code>?</summary>
+      <div id="note-html"></div>
+    </details>
+    </div>
+    <div id="tab-err" hidden>
+      <p class="caption">Plotly versions of the Rank-1 almost_full error panels, scored on local <code>test_v25</code> (n≈1978, not the Fritz 4k samples). Hover a point or bin for values. Hurdle modes follow the picker. Packages 18–19 have no cached scores.</p>
+      <section>
+        <h2>Local MSE baseline</h2>
+        <p id="err-base-meta" class="caption"></p>
+        <div id="err-base" class="err-grid"></div>
+      </section>
+      <section>
+        <h2 id="err-h">Challenger</h2>
+        <p id="err-new-meta" class="caption"></p>
+        <div id="err-new" class="err-grid"></div>
+      </section>
+    </div>
+    <div id="tab-cmp" hidden>
+      <p class="caption">Side-by-side Plotly error panels on the same local <code>test_v25</code> holdout (n≈1978). Pick any two scored heads, including hurdle modes. Packages 18–19 have no cached scores. This tab does not use the left package list.</p>
+      <div id="cmp-controls" class="controls cmp-pick">
+        <label>Left model
+          <select id="cmp-a"></select>
+        </label>
+        <label>Right model
+          <select id="cmp-b"></select>
+        </label>
+      </div>
+      <p id="cmp-status" class="status"></p>
+      <div class="cmp-heads">
+        <h3 id="cmp-a-name">Left</h3>
+        <h3 id="cmp-b-name">Right</h3>
+      </div>
+      <section>
+        <h2>Metric Distributions</h2>
+        <div class="cmp-row">
+          <article class="err-card">
+            <div id="cmp-a-dist" class="err-plot"></div>
+          </article>
+          <article class="err-card">
+            <div id="cmp-b-dist" class="err-plot"></div>
+          </article>
+        </div>
+      </section>
+      <section>
+        <h2>Error Density Heatmaps</h2>
+        <div class="cmp-row">
+          <article class="err-card">
+            <div id="cmp-a-heat" class="err-plot heat"></div>
+          </article>
+          <article class="err-card">
+            <div id="cmp-b-heat" class="err-plot heat"></div>
+          </article>
+        </div>
+      </section>
+      <section>
+        <h2>Diagnostic &amp; Residual Scatters</h2>
+        <div class="cmp-row">
+          <article class="err-card">
+            <div id="cmp-a-resid" class="err-plot resid"></div>
+          </article>
+          <article class="err-card">
+            <div id="cmp-b-resid" class="err-plot resid"></div>
+          </article>
+        </div>
+      </section>
+      <section>
+        <h2>Catastrophic Quadrant Report</h2>
+        <div class="cmp-row">
+          <article class="err-card">
+            <div id="cmp-a-quad-note" class="err-quad-note"></div>
+            <div id="cmp-a-quad" class="err-plot"></div>
+          </article>
+          <article class="err-card">
+            <div id="cmp-b-quad-note" class="err-quad-note"></div>
+            <div id="cmp-b-quad" class="err-plot"></div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script src="js/app.js?v=9"></script>
+</body>
+</html>

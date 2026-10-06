@@ -1,8 +1,8 @@
 {
   "cutoff_065": 0.65,
   "title": "Acceptance vs delinquency (union Almost Full holdout)",
-  "caption": "Top row: union Almost Full package 1 MSE (blue) vs the selected challenger (charcoal). Holdout is the BNPL leftover + cards test split. Delinquency is 1 − pngi_rate in the score tail. Hover a Plotly chart for cutoff and rates. The original Fritz dashboard is unchanged.",
-  "note_html": "\n<p><strong>Union Almost Full holdout</strong> (BNPL leftover + cards, same 80/20 split as prior v25).</p>\n<p>Acceptance = gated yes-share of <code>test_v25.csv</code> (score ≥ cutoff and the three gates).\nDelinquency = labeled unpaid share <code>1 − pngi_rate</code> in the score tail — not Fritz CaaS pesos.\nBaseline is the new union Almost Full package 1 (MSE). Challengers are union Almost Full packages 2–25.\nThe original Fritz Pages copy is unchanged.</p>\n",
+  "caption": "Top row: union Almost Full package 1 MSE (blue) vs the selected challenger (charcoal). Holdout is the BNPL leftover + cards test split. Delinquency is 1 − pngi_rate in the score tail. Bottom row: stored production autogluon_v25 (blue) vs the same challenger on a random last-3-month sample sized for 95% confidence and ±2% error. Hover a Plotly chart for cutoff and rates. The original Fritz dashboard is unchanged.",
+  "note_html": "\n<p><strong>Union Almost Full holdout</strong> (BNPL leftover + cards, same 80/20 split as prior v25).</p>\n<p><strong>Top row:</strong> Acceptance = gated yes-share of <code>test_v25.csv</code> (score ≥ cutoff and the three gates).\nDelinquency = labeled unpaid share <code>1 − pngi_rate</code> in the score tail — not Fritz CaaS pesos.\nBaseline is the new union Almost Full package 1 (MSE). Challengers are union Almost Full packages 2–25.</p>\n<p><strong>Bottom row:</strong> stored production <code>autogluon_v25</code> from <code>pre_scored_users</code>\non a random last-3-month sample sized for 95% confidence and ±2% error\n(Wald, p=0.5, finite-population correction). Acceptance = last-90-day\n<code>bnpl.api_requests</code> ∩ stored v25. Delinquency = independent last-90-day matured CaaS draw.\nThe original Fritz Pages copy is unchanged.</p>\n",
   "variants": [
     {
       "id": "pkg02",
@@ -390,5 +390,41 @@
     "pkg24_am25",
     "pkg24_am50",
     "pkg24_am75"
-  ]
+  ],
+  "stored_sample": {
+    "confidence": 0.95,
+    "error": 0.02,
+    "z": 1.96,
+    "p_star": 0.5,
+    "lookback_days": 90,
+    "acceptance": {
+      "kind": "ci95_e02_acceptance",
+      "lookback_days": 90,
+      "confidence": 0.95,
+      "error": 0.02,
+      "z": 1.96,
+      "p_star": 0.5,
+      "n_pop": 143516,
+      "n0_infinite": 2401,
+      "n_sample": 2362,
+      "formula": "n0=z^2 p(1-p)/e^2 ; n=n0/(1+(n0-1)/N)",
+      "sql": "bnpl.api_requests last 90d INNER JOIN pre_scored_users autogluon_v25 IS NOT NULL"
+    },
+    "delinquency": {
+      "kind": "ci95_e02_delinquency",
+      "lookback_days": 90,
+      "confidence": 0.95,
+      "error": 0.02,
+      "z": 1.96,
+      "p_star": 0.5,
+      "n_pop": 1938,
+      "n0_infinite": 2401,
+      "n_sample": 1073,
+      "n_booked": 1073,
+      "sum_principal": 1396265.16,
+      "formula": "n0=z^2 p(1-p)/e^2 ; n=n0/(1+(n0-1)/N)",
+      "sql": "mothership_caas matured last 90d, completed_plans>0, autogluon_v25 IS NOT NULL"
+    },
+    "random_state": 42
+  }
 }

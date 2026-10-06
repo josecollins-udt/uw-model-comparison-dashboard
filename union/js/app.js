@@ -260,7 +260,7 @@ function storedNotes(p, conf) {
   if (!S) return "<p>No stored <code>autogluon_v25</code> curves for this package.</p>";
   if (!S.has_challenger) {
     return `<p><strong>Stored production v25 @ 0.65 (${conf}% CI):</strong> yes ${phrase(S.acc_base, CUT, conf)}; past-due/principal ${phrase(S.del_base, CUT, conf)}.</p>
-<p>Challenger scores are not on the Fritz 4k samples yet.</p>`;
+<p>Challenger scores are not on this stored-production sample yet.</p>`;
   }
   return `<p><strong>Stored production v25 @ 0.65 (${conf}% CI):</strong> yes ${phrase(S.acc_base, CUT, conf)}; past-due/principal ${phrase(S.del_base, CUT, conf)}.</p>
 <p><strong>This model @ 0.65 on the same users (${conf}% CI):</strong> yes ${phrase(S.acc_new, CUT, conf)}; past-due/principal ${phrase(S.del_new, CUT, conf)}.</p>

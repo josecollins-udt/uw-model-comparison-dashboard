@@ -91,8 +91,15 @@ function scoreChart(el, base, neu, opts) {
   const conf = $("conf").value;
   const band = $("band").checked;
   const traces = [];
+  const mid = opts.mid || null;
+  const baseName = opts.prev;
+  const midName = opts.baseline || "Local MSE";
   if (band && base) {
-    const t = ciFill(base.score, base.lo[conf], base.hi[conf], "rgba(0, 90, 200, 0.18)", `${opts.prev} range`);
+    const t = ciFill(base.score, base.lo[conf], base.hi[conf], "rgba(0, 90, 200, 0.18)", `${baseName} range`);
+    if (t) traces.push(t);
+  }
+  if (band && mid) {
+    const t = ciFill(mid.score, mid.lo[conf], mid.hi[conf], "rgba(154, 52, 18, 0.16)", `${midName} range`);
     if (t) traces.push(t);
   }
   if (band && neu) {
@@ -103,10 +110,20 @@ function scoreChart(el, base, neu, opts) {
     traces.push({
       x: base.score,
       y: base.y,
-      name: opts.prev,
+      name: baseName,
       mode: "lines",
       line: { color: "blue", width: 3 },
-      hovertemplate: "cutoff %{x:.3f}<br>" + opts.yHover + " %{y:.2f}<extra>" + opts.prev + "</extra>",
+      hovertemplate: "cutoff %{x:.3f}<br>" + opts.yHover + " %{y:.2f}<extra>" + baseName + "</extra>",
+    });
+  }
+  if (mid) {
+    traces.push({
+      x: mid.score,
+      y: mid.y,
+      name: midName,
+      mode: "lines",
+      line: { color: "#9a3412", width: 3 },
+      hovertemplate: "cutoff %{x:.3f}<br>" + opts.yHover + " %{y:.2f}<extra>" + midName + "</extra>",
     });
   }
   if (neu) {
@@ -131,6 +148,9 @@ function scoreChart(el, base, neu, opts) {
   }
   if (opts.yBase065 != null) {
     traces.push({ x: [CUT], y: [opts.yBase065], name: `${opts.prev} @ 0.65`, mode: "markers", marker: { size: 11, color: "blue" }, hovertemplate: "cutoff 0.650<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
+  }
+  if (opts.yMse065 != null) {
+    traces.push({ x: [CUT], y: [opts.yMse065], name: `${opts.baseline || "Local MSE"} @ 0.65`, mode: "markers", marker: { size: 11, color: "#9a3412" }, hovertemplate: "cutoff 0.650<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
   }
   if (opts.yNew065 != null) {
     traces.push({ x: [CUT], y: [opts.yNew065], name: `${opts.challenger} @ 0.65`, mode: "markers", marker: { symbol: "x", size: 10, color: "red" }, hovertemplate: "cutoff 0.650<br>" + opts.yHover + " %{y:.2f}<extra>%{fullData.name}</extra>" });
@@ -165,9 +185,15 @@ function frontierChart(el, base, neu, opts) {
   const conf = $("conf").value;
   const band = $("band").checked;
   const traces = [];
+  const mid = opts.mid || null;
+  const midName = opts.baseline || "Local MSE";
   const hover = opts.hoverAcc + " %{x:.1f}%<br>" + opts.hoverDel + " %{y:.1f}%<br>cutoff %{customdata:.3f}<extra>%{fullData.name}</extra>";
   if (band && base && base.band && base.band[conf] && base.band[conf].delinq_lo) {
     const t = ciFill(base.acc, base.band[conf].delinq_lo, base.band[conf].delinq_hi, "rgba(0, 90, 200, 0.16)", `${opts.prev} range`);
+    if (t) traces.push(t);
+  }
+  if (band && mid && mid.band && mid.band[conf] && mid.band[conf].delinq_lo) {
+    const t = ciFill(mid.acc, mid.band[conf].delinq_lo, mid.band[conf].delinq_hi, "rgba(154, 52, 18, 0.16)", `${midName} range`);
     if (t) traces.push(t);
   }
   if (band && neu && neu.band && neu.band[conf] && neu.band[conf].delinq_lo) {
@@ -183,6 +209,17 @@ function frontierChart(el, base, neu, opts) {
     customdata: base.score,
     hovertemplate: hover,
   });
+  if (mid) {
+    traces.push({
+      x: mid.acc,
+      y: mid.delinq,
+      name: midName,
+      mode: "lines",
+      line: { color: "#9a3412", width: 3 },
+      customdata: mid.score,
+      hovertemplate: hover,
+    });
+  }
   if (neu) {
     traces.push({
       x: neu.acc,
@@ -207,6 +244,9 @@ function frontierChart(el, base, neu, opts) {
     });
   }
   mark(frontierPt(base, CUT), `${opts.prev} @ 0.65`, { color: "blue", size: 12 });
+  if (mid) {
+    mark(frontierPt(mid, CUT), `${midName} @ 0.65`, { color: "#9a3412", size: 11 });
+  }
   if (neu) {
     mark(frontierPt(neu, CUT), `${opts.challenger} @ 0.65`, { color: "red", size: 11, symbol: "x" });
     if (opts.accCut != null) mark(frontierPt(neu, opts.accCut), "Same yes-share", { color: "#334155", size: 11 });
@@ -260,9 +300,11 @@ function storedNotes(p, conf) {
   if (!S) return "<p>No stored <code>autogluon_v25</code> curves for this package.</p>";
   if (!S.has_challenger) {
     return `<p><strong>Stored production v25 @ 0.65 (${conf}% CI):</strong> yes ${phrase(S.acc_base, CUT, conf)}; past-due/principal ${phrase(S.del_base, CUT, conf)}.</p>
+${S.acc_mse ? `<p><strong>${S.baseline_name || "Local MSE"} @ 0.65 on the same users (${conf}% CI):</strong> yes ${phrase(S.acc_mse, CUT, conf)}; past-due/principal ${phrase(S.del_mse, CUT, conf)}.</p>` : ""}
 <p>Challenger scores are not on this stored-production sample yet.</p>`;
   }
   return `<p><strong>Stored production v25 @ 0.65 (${conf}% CI):</strong> yes ${phrase(S.acc_base, CUT, conf)}; past-due/principal ${phrase(S.del_base, CUT, conf)}.</p>
+${S.acc_mse ? `<p><strong>${S.baseline_name || "Local MSE"} @ 0.65 on the same users (${conf}% CI):</strong> yes ${phrase(S.acc_mse, CUT, conf)}; past-due/principal ${phrase(S.del_mse, CUT, conf)}.</p>` : ""}
 <p><strong>This model @ 0.65 on the same users (${conf}% CI):</strong> yes ${phrase(S.acc_new, CUT, conf)}; past-due/principal ${phrase(S.del_new, CUT, conf)}.</p>
 <p><strong>Same live yes-share:</strong> bar <strong>${fmt(S.acc_cut, 4)}</strong> → yes <strong>${fmt(S.y_new_acc_match, 2)}%</strong>, CaaS past-due/principal <strong>${fmt(S.y_new_del_at_acc, 2)}%</strong>.</p>
 <p><strong>Same CaaS delinquency:</strong> bar <strong>${fmt(S.del_cut, 4)}</strong> → past-due/principal <strong>${fmt(S.y_new_del_match, 2)}%</strong>, live yes <strong>${fmt(S.y_new_acc_at_del, 2)}%</strong>.</p>`;
@@ -848,10 +890,11 @@ function draw() {
   const p = PAYLOAD;
   const conf = $("conf").value;
   const L = p.local;
-  $("local-h").textContent = `Local MSE baseline vs challenger · ${p.title}`;
+  const S = p.stored;
+  $("local-h").textContent = `Holdout MSE baseline vs challenger · ${p.title}`;
   $("status").textContent =
-    `Acceptance: ${L.acc_n} users (${L.source}); gates ${fmt(L.gate_pct, 1)}%. ` +
-    `Delinquency: ${L.del_n} Fritz CaaS users, ${L.del_n_booked} booked. Top blue: ${L.previous_name}. Bottom blue: stored autogluon_v25.`;
+    `Top: production BNPL sample (n=${S && S.acc_n ? S.acc_n : "—"}; stored v25 + local MSE + challenger). ` +
+    `Bottom holdout: ${L.acc_n} users (${L.source}); gates ${fmt(L.gate_pct, 1)}%.`;
   scoreChart("local-acc", L.acc_base, L.acc_new, {
     title: L.acc_title,
     yaxis: "Yes-share of the live v25 file (%)",
@@ -890,7 +933,6 @@ function draw() {
     delCut: L.del_cut,
   });
   $("local-notes").innerHTML = localNotes(p, conf);
-  const S = p.stored;
   if (!S) {
     Plotly.purge("stored-acc");
     Plotly.purge("stored-del");
@@ -898,6 +940,11 @@ function draw() {
     $("stored-notes").innerHTML = "<p>No stored production curves.</p>";
     return;
   }
+  const mseOpts = {
+    mid: S.acc_mse || null,
+    baseline: S.baseline_name || "Local MSE",
+    yMse065: S.y_mse_acc_065,
+  };
   scoreChart("stored-acc", S.acc_base, S.acc_new || null, {
     title: S.acc_title,
     yaxis: "Yes-share of the live v25 file (%)",
@@ -910,6 +957,7 @@ function draw() {
     yNew065: S.y_new_acc_065,
     yNewAcc: S.y_new_acc_match,
     yNewDel: S.y_new_acc_at_del,
+    ...mseOpts,
   });
   scoreChart("stored-del", S.del_base, S.del_new || null, {
     title: S.del_title,
@@ -923,6 +971,9 @@ function draw() {
     yNew065: S.y_new_del_065,
     yNewAcc: S.y_new_del_at_acc,
     yNewDel: S.y_new_del_match,
+    mid: S.del_mse || null,
+    baseline: S.baseline_name || "Local MSE",
+    yMse065: S.y_mse_del_065,
   });
   frontierChart("stored-fr", S.fr_base, S.fr_new || null, {
     title: S.fr_title,
@@ -934,6 +985,8 @@ function draw() {
     challenger: p.id,
     accCut: S.acc_cut,
     delCut: S.del_cut,
+    mid: S.fr_mse || null,
+    baseline: S.baseline_name || "Local MSE",
   });
   $("stored-notes").innerHTML = storedNotes(p, conf);
 }

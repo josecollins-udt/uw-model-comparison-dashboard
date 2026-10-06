@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Acceptance vs delinquency</title>
-  <link rel="stylesheet" href="css/app.css?v=10"/>
+  <link rel="stylesheet" href="css/app.css?v=11"/>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
@@ -39,23 +39,23 @@
     <p id="status" class="status"></p>
     <div id="tab-acc">
     <section>
-      <h2 id="local-h">Local MSE baseline vs challenger</h2>
-      <div class="grid2">
-        <div id="local-acc" class="chart"></div>
-        <div id="local-del" class="chart"></div>
-      </div>
-      <div id="local-fr" class="chart wide"></div>
-      <div id="local-notes" class="notes"></div>
-    </section>
-    <section>
       <h2>Stored production score (<code>autogluon_v25</code> in the tables)</h2>
-      <p class="caption">Blue = production score already stored on <code>pre_scored_users</code>. Charcoal = the selected package scored locally on the same Fritz users.</p>
+      <p class="caption">Blue = production score already stored on <code>pre_scored_users</code>. Rust = package 1 MSE scored locally on the same users (can differ from the table). Charcoal = the selected package scored locally on those users.</p>
       <div class="grid2">
         <div id="stored-acc" class="chart"></div>
         <div id="stored-del" class="chart"></div>
       </div>
       <div id="stored-fr" class="chart wide"></div>
       <div id="stored-notes" class="notes"></div>
+    </section>
+    <section>
+      <h2 id="local-h">Holdout MSE baseline vs challenger</h2>
+      <div class="grid2">
+        <div id="local-acc" class="chart"></div>
+        <div id="local-del" class="chart"></div>
+      </div>
+      <div id="local-fr" class="chart wide"></div>
+      <div id="local-notes" class="notes"></div>
     </section>
     <details class="faq">
       <summary>Is this the same acceptance metric as Fritz <code>acceptance_class</code>?</summary>
@@ -138,6 +138,6 @@
       </section>
     </div>
   </main>
-  <script src="js/app.js?v=10"></script>
+  <script src="js/app.js?v=11"></script>
 </body>
 </html>

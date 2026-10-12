@@ -1,0 +1,109 @@
+{
+  "cutoff_065": 0.65,
+  "title": "Reduced set: packages 1, 3, 7, 8, 22 (ev/am75), 25 (ev/am75)",
+  "caption": "Reduced picker: 1 MSE, 3 weighted xentropy, 7 weighted MSE, 8 pinball 0.30, 22 inverted-binary hurdle (ev / am75), 25 inverted-binary hurdle ROC-AUC (ev / am75). Top: last-3-month BNPL production sample (95% CI ±2%). Blue = stored autogluon_v25; rust = local AF package 1 MSE; charcoal = selected challenger. Bottom: union Almost Full holdout. Delinquency = 1 − pngi_rate.",
+  "note_html": "\n<p><strong>Top row (production, BNPL only):</strong> stored <code>autogluon_v25</code> from\n<code>pre_scored_users</code>, the locally scored union Almost Full package 1 MSE on the same users\n(these two can differ), and the selected challenger. Sample is last-3-month BNPL\n<code>bnpl.api_requests</code> ∩ stored v25, sized for 95% confidence and ±2% error\n(Wald, p=0.5, finite-population correction). Delinquency = independent last-90-day matured BNPL CaaS draw.</p>\n<p><strong>Bottom row (holdout):</strong> gated yes-share of union <code>test_v25.csv</code>\n(BNPL leftover + cards, same 80/20 split as prior v25). Delinquency = labeled unpaid share\n<code>1 − pngi_rate</code> in the score tail — not Fritz CaaS pesos.\nThe original Fritz Pages copy is unchanged.</p>\n",
+  "variants": [
+    {
+      "id": "pkg01",
+      "title": "Package 1 `training_package_1_mse_almost_full`",
+      "label": "pkg01 · mse_almost_full",
+      "pkg": "training_package_1_mse_almost_full",
+      "pkg_num": 1,
+      "hay": "pkg01 training_package_1_mse_almost_full package 1 `training_package_1_mse_almost_full` pkg01 · mse_almost_full"
+    },
+    {
+      "id": "pkg03",
+      "title": "Package 3 `training_package_3_weighted_xentropy_almost_full`",
+      "label": "pkg03 · weighted_xentropy_almost_full",
+      "pkg": "training_package_3_weighted_xentropy_almost_full",
+      "pkg_num": 3,
+      "hay": "pkg03 training_package_3_weighted_xentropy_almost_full package 3 `training_package_3_weighted_xentropy_almost_full` pkg03 · weighted_xentropy_almost_full"
+    },
+    {
+      "id": "pkg07",
+      "title": "Package 7 `training_package_7_weighted_mse_almost_full`",
+      "label": "pkg07 · weighted_mse_almost_full",
+      "pkg": "training_package_7_weighted_mse_almost_full",
+      "pkg_num": 7,
+      "hay": "pkg07 training_package_7_weighted_mse_almost_full package 7 `training_package_7_weighted_mse_almost_full` pkg07 · weighted_mse_almost_full"
+    },
+    {
+      "id": "pkg08",
+      "title": "Package 8 `training_package_8_pinball_0300_almost_full`",
+      "label": "pkg08 · pinball_0300_almost_full",
+      "pkg": "training_package_8_pinball_0300_almost_full",
+      "pkg_num": 8,
+      "hay": "pkg08 training_package_8_pinball_0300_almost_full package 8 `training_package_8_pinball_0300_almost_full` pkg08 · pinball_0300_almost_full"
+    },
+    {
+      "id": "pkg22_ev",
+      "title": "Package 22 `training_package_22_inv_binary_hurdle_logloss_almost_full` (expected value)",
+      "label": "pkg22_ev · inv_binary_hurdle_logloss_almost_full",
+      "pkg": "training_package_22_inv_binary_hurdle_logloss_almost_full",
+      "pkg_num": 22,
+      "hay": "pkg22_ev training_package_22_inv_binary_hurdle_logloss_almost_full package 22 `training_package_22_inv_binary_hurdle_logloss_almost_full` (expected value) pkg22_ev · inv_binary_hurdle_logloss_almost_full"
+    },
+    {
+      "id": "pkg22_am75",
+      "title": "Package 22 `training_package_22_inv_binary_hurdle_logloss_almost_full` (argmax 75%)",
+      "label": "pkg22_am75 · inv_binary_hurdle_logloss_almost_full",
+      "pkg": "training_package_22_inv_binary_hurdle_logloss_almost_full",
+      "pkg_num": 22,
+      "hay": "pkg22_am75 training_package_22_inv_binary_hurdle_logloss_almost_full package 22 `training_package_22_inv_binary_hurdle_logloss_almost_full` (argmax 75%) pkg22_am75 · inv_binary_hurdle_logloss_almost_full"
+    },
+    {
+      "id": "pkg25_ev",
+      "title": "Package 25 `training_package_25_inv_binary_hurdle_rocauc_almost_full` (expected value)",
+      "label": "pkg25_ev · inv_binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_25_inv_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 25,
+      "hay": "pkg25_ev training_package_25_inv_binary_hurdle_rocauc_almost_full package 25 `training_package_25_inv_binary_hurdle_rocauc_almost_full` (expected value) pkg25_ev · inv_binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg25_am75",
+      "title": "Package 25 `training_package_25_inv_binary_hurdle_rocauc_almost_full` (argmax 75%)",
+      "label": "pkg25_am75 · inv_binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_25_inv_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 25,
+      "hay": "pkg25_am75 training_package_25_inv_binary_hurdle_rocauc_almost_full package 25 `training_package_25_inv_binary_hurdle_rocauc_almost_full` (argmax 75%) pkg25_am75 · inv_binary_hurdle_rocauc_almost_full"
+    }
+  ],
+  "skipped": [],
+  "stored_sample": {
+    "confidence": 0.95,
+    "error": 0.02,
+    "z": 1.96,
+    "p_star": 0.5,
+    "lookback_days": 90,
+    "acceptance": {
+      "kind": "ci95_e02_acceptance",
+      "lookback_days": 90,
+      "confidence": 0.95,
+      "error": 0.02,
+      "z": 1.96,
+      "p_star": 0.5,
+      "n_pop": 143516,
+      "n0_infinite": 2401,
+      "n_sample": 2362,
+      "formula": "n0=z^2 p(1-p)/e^2 ; n=n0/(1+(n0-1)/N)",
+      "sql": "bnpl.api_requests last 90d INNER JOIN pre_scored_users autogluon_v25 IS NOT NULL"
+    },
+    "delinquency": {
+      "kind": "ci95_e02_delinquency",
+      "lookback_days": 90,
+      "confidence": 0.95,
+      "error": 0.02,
+      "z": 1.96,
+      "p_star": 0.5,
+      "n_pop": 1938,
+      "n0_infinite": 2401,
+      "n_sample": 1073,
+      "n_booked": 1073,
+      "sum_principal": 1396265.16,
+      "formula": "n0=z^2 p(1-p)/e^2 ; n=n0/(1+(n0-1)/N)",
+      "sql": "mothership_caas matured last 90d, completed_plans>0, autogluon_v25 IS NOT NULL"
+    },
+    "random_state": 42
+  }
+}

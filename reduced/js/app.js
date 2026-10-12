@@ -46,6 +46,54 @@ function fmt(x, d) {
   return Number(x).toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: d });
 }
 
+function pctPts(error) {
+  if (error == null || Number.isNaN(error)) return "—";
+  return "±" + (100 * Number(error)).toFixed(2) + " pp";
+}
+
+function pctConf(conf) {
+  if (conf == null || Number.isNaN(conf)) return "—";
+  return (100 * Number(conf)).toFixed(1) + "%";
+}
+
+function precisionLine(label, block) {
+  if (!block) return "";
+  const n = Number(block.n_sample || 0).toLocaleString("en-US");
+  const pop = Number(block.n_pop || 0).toLocaleString("en-US");
+  if (block.census) {
+    return `<p><strong>${label}</strong> n=${n} of ${pop} (census) · error 0 · confidence 100%</p>`;
+  }
+  return (
+    `<p><strong>${label}</strong> n=${n} of ${pop}` +
+    ` · 95% CI error <strong>${pctPts(block.error_at_95)}</strong>` +
+    ` · ±2% error confidence <strong>${pctConf(block.confidence_at_2pct)}</strong></p>`
+  );
+}
+
+function fillSamplePrecision(sample) {
+  const el = $("sample-precision");
+  if (!el) return;
+  if (!sample || (!sample.acceptance && !sample.delinquency)) {
+    el.hidden = true;
+    el.innerHTML = "";
+    return;
+  }
+  const parts = [
+    precisionLine("Acceptance", sample.acceptance),
+    precisionLine("Delinquency", sample.delinquency),
+  ].filter(Boolean);
+  if (!parts.length) {
+    el.hidden = true;
+    el.innerHTML = "";
+    return;
+  }
+  const extra = sample.acc_batches
+    ? `<p>Live sample batches added: ${sample.acc_batches}. Wald p=0.5 with finite-population correction, same design as the original 95% ±2% draw.</p>`
+    : `<p>Wald p=0.5 with finite-population correction, same design as the original 95% ±2% draw.</p>`;
+  el.innerHTML = parts.join("") + extra;
+  el.hidden = false;
+}
+
 function phrase(curve, score, conf) {
   const i = nearest(curve, score);
   const y = curve.y[i];
@@ -1096,6 +1144,7 @@ async function boot() {
   }
   $("page-title").textContent = META.title;
   $("caption").textContent = META.caption;
+  fillSamplePrecision(META.stored_sample);
   $("note-html").innerHTML = META.note_html;
   buildPicker();
   $("conf").addEventListener("change", draw);

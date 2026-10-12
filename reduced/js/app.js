@@ -324,6 +324,35 @@ function pairFinite(yt, yp) {
   return { t, p };
 }
 
+function fitMetrics(yt, yp) {
+  const n = yt.length;
+  if (!n) return { n: 0, r2: null, mse: null, mrse: null };
+  let sse = 0;
+  let sumY = 0;
+  let mrse = 0;
+  for (let i = 0; i < n; i++) {
+    const e = yt[i] - yp[i];
+    sse += e * e;
+    mrse += Math.sqrt(e * e);
+    sumY += yt[i];
+  }
+  const mse = sse / n;
+  mrse /= n;
+  const meanY = sumY / n;
+  let sst = 0;
+  for (let i = 0; i < n; i++) {
+    const d = yt[i] - meanY;
+    sst += d * d;
+  }
+  return { n, r2: sst === 0 ? null : 1 - sse / sst, mse, mrse };
+}
+
+function metricsLine(m) {
+  if (!m || !m.n) return "No finite pairs for R² / MSE / MRSE.";
+  const r2 = m.r2 == null ? "—" : fmt(m.r2, 4);
+  return `n=${m.n.toLocaleString("en-US")} · R² ${r2} · MSE ${fmt(m.mse, 4)} · MRSE ${fmt(m.mrse, 4)}`;
+}
+
 function quantile(sorted, pct) {
   if (!sorted.length) return null;
   const i = (sorted.length - 1) * pct;
@@ -681,8 +710,14 @@ function drawQuad(el, noteEl, yt, yp) {
   Plotly.react(el, traces, layout, plotlyCfg());
 }
 
-function mountErr(host, prefix) {
+function mountErr(host, prefix, metrics) {
   host.innerHTML = "";
+  if (metrics) {
+    const bar = document.createElement("p");
+    bar.className = "err-metrics";
+    bar.innerHTML = `<strong>Holdout totals</strong> — ${metricsLine(metrics)}`;
+    host.appendChild(bar);
+  }
   const ids = [
     ["dist", "Metric Distributions", ""],
     ["heat", "Error Density Heatmaps", "heat"],
@@ -743,7 +778,7 @@ function drawErrColumn(host, prefix, pred, fallback) {
     host.innerHTML = '<p class="err-empty">No finite predictions for this package on test_v25.</p>';
     return;
   }
-  const els = mountErr(host, prefix);
+  const els = mountErr(host, prefix, fitMetrics(t, p));
   drawDist(els.dist, t, p);
   drawHeat(els.heat, t, p);
   drawResid(els.resid, t, p);
@@ -760,7 +795,8 @@ function drawErrors() {
   const block = CURRENT && ERRORS && ERRORS.by_id ? ERRORS.by_id[CURRENT] : null;
   $("err-h").textContent = block && block.title ? "Challenger · " + block.title : "Challenger";
   $("err-new-meta").textContent = block && block.note ? block.note : (block && block.doc ? block.doc : "");
-  const newPred = ERR_SCORES && ERR_SCORES.pred ? ERR_SCORES.pred[CURRENT] : null;
+  const predKey = CURRENT === "pkg01" ? "baseline_mse" : CURRENT;
+  const newPred = ERR_SCORES && ERR_SCORES.pred ? ERR_SCORES.pred[predKey] : null;
   if (!newPred) {
     $("err-new").innerHTML = '<p class="err-empty">No cached test_v25 scores for this package (18 and 19 were never trained).</p>';
     return;
@@ -822,16 +858,21 @@ function drawCmpSide(side) {
   const id = $("cmp-" + side).value;
   const nameEl = $("cmp-" + side + "-name");
   if (nameEl) nameEl.textContent = scoreLabel(id);
-  const pred = ERR_SCORES && ERR_SCORES.pred ? ERR_SCORES.pred[id] : null;
+  const predKey = id === "pkg01" ? "baseline_mse" : id;
+  const pred = ERR_SCORES && ERR_SCORES.pred ? ERR_SCORES.pred[predKey] : null;
+  const met = $("cmp-" + side + "-metrics");
   if (!pred) {
+    if (met) met.textContent = "";
     clearCmpSide(side);
     return;
   }
   const pair = pairFinite(ERR_SCORES.y_true, pred);
   if (!pair.t.length) {
+    if (met) met.textContent = "";
     clearCmpSide(side);
     return;
   }
+  if (met) met.textContent = metricsLine(fitMetrics(pair.t, pair.p));
   drawDist($("cmp-" + side + "-dist"), pair.t, pair.p);
   drawHeat($("cmp-" + side + "-heat"), pair.t, pair.p);
   drawResid($("cmp-" + side + "-resid"), pair.t, pair.p);

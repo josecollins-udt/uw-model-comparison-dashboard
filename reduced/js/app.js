@@ -374,31 +374,35 @@ function pairFinite(yt, yp) {
 
 function fitMetrics(yt, yp) {
   const n = yt.length;
-  if (!n) return { n: 0, r2: null, mse: null, mrse: null };
+  if (!n) return { n: 0, r2: null, mse: null, mae: null, mrse: null };
   let sse = 0;
+  let sae = 0;
   let sumY = 0;
-  let mrse = 0;
   for (let i = 0; i < n; i++) {
     const e = yt[i] - yp[i];
     sse += e * e;
-    mrse += Math.sqrt(e * e);
+    sae += Math.abs(e);
     sumY += yt[i];
   }
   const mse = sse / n;
-  mrse /= n;
+  const mae = sae / n;
+  const mrse = Math.sqrt(mse);
   const meanY = sumY / n;
   let sst = 0;
   for (let i = 0; i < n; i++) {
     const d = yt[i] - meanY;
     sst += d * d;
   }
-  return { n, r2: sst === 0 ? null : 1 - sse / sst, mse, mrse };
+  return { n, r2: sst === 0 ? null : 1 - sse / sst, mse, mae, mrse };
 }
 
 function metricsLine(m) {
-  if (!m || !m.n) return "No finite pairs for R² / MSE / MRSE.";
+  if (!m || !m.n) return "No finite pairs for R² / MSE / MAE / MRSE.";
   const r2 = m.r2 == null ? "—" : fmt(m.r2, 4);
-  return `n=${m.n.toLocaleString("en-US")} · R² ${r2} · MSE ${fmt(m.mse, 4)} · MRSE ${fmt(m.mrse, 4)}`;
+  return (
+    `n=${m.n.toLocaleString("en-US")} · R² ${r2} · MSE ${fmt(m.mse, 4)}` +
+    ` · MAE ${fmt(m.mae, 4)} · MRSE ${fmt(m.mrse, 4)}`
+  );
 }
 
 function quantile(sorted, pct) {

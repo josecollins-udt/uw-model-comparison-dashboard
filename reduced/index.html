@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Acceptance vs delinquency</title>
-  <link rel="stylesheet" href="css/app.css?v=10"/>
+  <link rel="stylesheet" href="css/app.css?v=11"/>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
@@ -64,7 +64,7 @@
     </details>
     </div>
     <div id="tab-err" hidden>
-      <p class="caption">Plotly versions of the Rank-1 almost_full error panels on local <code>test_v25</code>. Totals above each column are R², MSE, and MRSE (mean root squared error). Hover a point or bin for values. Hurdle modes follow the picker.</p>
+      <p class="caption">Plotly versions of the Rank-1 almost_full error panels on local <code>test_v25</code>. Totals above each column are R², MSE, MAE, and MRSE (√MSE). Hover a point or bin for values. Hurdle modes follow the picker.</p>
       <section>
         <h2>Local MSE baseline</h2>
         <p id="err-base-meta" class="caption"></p>
@@ -77,7 +77,7 @@
       </section>
     </div>
     <div id="tab-cmp" hidden>
-      <p class="caption">Side-by-side Plotly error panels on the same local <code>test_v25</code> holdout. Each head shows total R², MSE, and MRSE. Pick any two scored heads, including hurdle modes. This tab does not use the left package list.</p>
+      <p class="caption">Side-by-side Plotly error panels on the same local <code>test_v25</code> holdout. Each head shows total R², MSE, MAE, and MRSE (√MSE). Pick any two scored heads, including hurdle modes. This tab does not use the left package list.</p>
       <div id="cmp-controls" class="controls cmp-pick">
         <label>Left model
           <select id="cmp-a"></select>
@@ -145,6 +145,6 @@
       </section>
     </div>
   </main>
-  <script src="js/app.js?v=10"></script>
+  <script src="js/app.js?v=11"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 {
   "cutoff_065": 0.65,
-  "title": "Reduced set: packages 1, 3, 7, 8, 22 (ev/am75), 25 (ev/am75)",
-  "caption": "Reduced picker: 1 MSE, 3 weighted xentropy, 7 weighted MSE, 8 pinball 0.30, 22 inverted-binary hurdle (ev / am75), 25 inverted-binary hurdle ROC-AUC (ev / am75). Top: last-3-month BNPL production sample, batches=72. Acceptance n=142,391 of 141,986 (census) · error 0 · confidence 100%. Delinquency n=1,919 of 1,938 · 95% CI error ±0.22 pp · ±2% error confidence 100.0%. Blue = stored autogluon_v25; rust = local AF package 1 MSE; charcoal = selected challenger. Bottom: union Almost Full holdout. Delinquency = 1 − pngi_rate.",
+  "title": "Reduced set: packages 1, 3, 7, 8, 22 (ev/am75/amstar), 25 (ev/am75/amstar)",
+  "caption": "Reduced picker: 1 MSE, 3 weighted xentropy, 7 weighted MSE, 8 pinball 0.30, 22 inverted-binary hurdle (ev / am75 / amstar), 25 inverted-binary hurdle ROC-AUC (ev / am75 / amstar). amstar tau* maximizes train R2 (min MSE) with native inverted-binary argmax and is frozen (not refit on holdout or live). Live amstar is scored for package 22; package 25 live pass is still pending. Top: last-3-month BNPL production sample, batches=72. Acceptance n=142,391 of 141,986 (census) · error 0 · confidence 100%. Delinquency n=1,919 of 1,938 · 95% CI error ±0.22 pp · ±2% error confidence 100.0%. Blue = stored autogluon_v25; rust = local AF package 1 MSE; charcoal = selected challenger. Bottom: union Almost Full holdout. Delinquency = 1 − pngi_rate.",
   "note_html": "\n<p><strong>Top row (production, BNPL only):</strong> stored <code>autogluon_v25</code> from\n<code>pre_scored_users</code>, the locally scored union Almost Full package 1 MSE on the same users\n(these two can differ), and the selected challenger. Sample is last-3-month BNPL\n<code>bnpl.api_requests</code> ∩ stored v25, sized for 95% confidence and ±2% error\n(Wald, p=0.5, finite-population correction). Delinquency = independent last-90-day matured BNPL CaaS draw.</p>\n<p><strong>Bottom row (holdout):</strong> gated yes-share of union <code>test_v25.csv</code>\n(BNPL leftover + cards, same 80/20 split as prior v25). Delinquency = labeled unpaid share\n<code>1 − pngi_rate</code> in the score tail — not Fritz CaaS pesos.\nThe original Fritz Pages copy is unchanged.</p>\n",
   "variants": [
     {
@@ -53,6 +53,14 @@
       "hay": "pkg22_am75 training_package_22_inv_binary_hurdle_logloss_almost_full package 22 `training_package_22_inv_binary_hurdle_logloss_almost_full` (argmax 75%) pkg22_am75 · inv_binary_hurdle_logloss_almost_full"
     },
     {
+      "id": "pkg22_amstar",
+      "title": "Package 22 `training_package_22_inv_binary_hurdle_logloss_almost_full` (argmax MSE tau*=0.4472)",
+      "label": "pkg22_amstar · inv_binary_hurdle_logloss_almost_full",
+      "pkg": "training_package_22_inv_binary_hurdle_logloss_almost_full",
+      "pkg_num": 22,
+      "hay": "pkg22_amstar training_package_22_inv_binary_hurdle_logloss_almost_full package 22 `training_package_22_inv_binary_hurdle_logloss_almost_full` (argmax mse tau*=0.4472) pkg22_amstar · inv_binary_hurdle_logloss_almost_full"
+    },
+    {
       "id": "pkg25_ev",
       "title": "Package 25 `training_package_25_inv_binary_hurdle_rocauc_almost_full` (expected value)",
       "label": "pkg25_ev · inv_binary_hurdle_rocauc_almost_full",
@@ -67,6 +75,14 @@
       "pkg": "training_package_25_inv_binary_hurdle_rocauc_almost_full",
       "pkg_num": 25,
       "hay": "pkg25_am75 training_package_25_inv_binary_hurdle_rocauc_almost_full package 25 `training_package_25_inv_binary_hurdle_rocauc_almost_full` (argmax 75%) pkg25_am75 · inv_binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg25_amstar",
+      "title": "Package 25 `training_package_25_inv_binary_hurdle_rocauc_almost_full` (argmax MSE tau*=0.4731)",
+      "label": "pkg25_amstar · inv_binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_25_inv_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 25,
+      "hay": "pkg25_amstar training_package_25_inv_binary_hurdle_rocauc_almost_full package 25 `training_package_25_inv_binary_hurdle_rocauc_almost_full` (argmax mse tau*=0.4731) pkg25_amstar · inv_binary_hurdle_rocauc_almost_full"
     }
   ],
   "skipped": [],

@@ -1,6 +1,6 @@
 {
   "source": "knowledge_base/error_analyses/almost_full",
-  "caption": "Rank-1 almost_full plots on local test_v25. Hurdle modes follow the picker (ev / am25 / am50 / am75 / amstar). amstar τ* was fit on train to max R² / min MSE and frozen.",
+  "caption": "Rank-1 almost_full plots on local test_v25. Hurdle modes follow the picker (ev / am25 / am50 / am75 / am80 / am85 / am90 / amstar). amstar τ* was fit on train to max R² / min MSE and frozen.",
   "baseline": {
     "title": "Error & Distribution Analysis: MSE_Baseline",
     "doc": "Boss_Union_Almost_Full_MSE_Baseline_Error_Analysis.md",
@@ -163,6 +163,24 @@
         }
       ]
     },
+    "pkg22_am80": {
+      "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg22_am85": {
+      "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg22_am90": {
+      "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg22_amstar": {
       "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
       "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
@@ -214,6 +232,24 @@
           "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_quadrants_1791228871.png"
         }
       ]
+    },
+    "pkg25_am80": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": []
+    },
+    "pkg25_am85": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": []
+    },
+    "pkg25_am90": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": []
     },
     "pkg25_amstar": {
       "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",

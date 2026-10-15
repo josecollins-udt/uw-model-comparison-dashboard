@@ -14,7 +14,7 @@ Live copies:
 
 - Full (Fritz): https://josecollins-udt.github.io/uw-model-comparison-dashboard/
 - Union Almost Full: https://josecollins-udt.github.io/uw-model-comparison-dashboard/union/
-- Reduced (pkgs 1, 3, 7, 8, 22 ev/am75, 25 ev/am75): https://josecollins-udt.github.io/uw-model-comparison-dashboard/reduced/
+- Reduced (pkgs 1, 3, 7, 8 and every hurdle 22, 25, 26-31 with all heads ev/am25/am50/am75/am80/am85/am90/amstar): https://josecollins-udt.github.io/uw-model-comparison-dashboard/reduced/
 
 Rebuild after scores change:
 

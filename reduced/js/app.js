@@ -61,7 +61,7 @@ function precisionLine(label, block) {
   const n = Number(block.n_sample || 0).toLocaleString("en-US");
   const pop = Number(block.n_pop || 0).toLocaleString("en-US");
   if (block.census) {
-    return `<p><strong>${label}</strong> n=${n} of ${pop} (census) · error 0 · confidence 100%</p>`;
+    return `<p><strong>${label}</strong> n=${n} (census: every eligible user, no sampling error for this cohort)</p>`;
   }
   return (
     `<p><strong>${label}</strong> n=${n} of ${pop}` +
@@ -87,9 +87,13 @@ function fillSamplePrecision(sample) {
     el.innerHTML = "";
     return;
   }
+  const anyCensus = (sample.acceptance && sample.acceptance.census) || (sample.delinquency && sample.delinquency.census);
+  const design = anyCensus
+    ? "Bands and (CI) figures treat each cohort as one draw from ongoing traffic (Wilson for the yes-share, delta method for past-due/principal, no finite-population correction): they show how far the rates could move on future traffic, not an error in this cohort's own numbers."
+    : "Wald p=0.5 with finite-population correction, same design as the original 95% ±2% draw.";
   const extra = sample.acc_batches
-    ? `<p>Live sample batches added: ${sample.acc_batches}. Wald p=0.5 with finite-population correction, same design as the original 95% ±2% draw.</p>`
-    : `<p>Wald p=0.5 with finite-population correction, same design as the original 95% ±2% draw.</p>`;
+    ? `<p>Live batches added: ${sample.acc_batches}. ${design}</p>`
+    : `<p>${design}</p>`;
   el.innerHTML = parts.join("") + extra;
   el.hidden = false;
 }

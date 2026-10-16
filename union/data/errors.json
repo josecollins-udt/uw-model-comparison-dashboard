@@ -1,6 +1,6 @@
 {
   "source": "knowledge_base/error_analyses/almost_full",
-  "caption": "Rank-1 almost_full plots on local test_v25. Hurdle modes follow the picker (ev / am25 / am50 / am75).",
+  "caption": "Rank-1 almost_full plots on local test_v25. Hurdle modes follow the picker (ev / am25 / am50 / am75 / am80 / am85 / am90 / amstar). amstar τ* was fit on train to max R² / min MSE and frozen.",
   "baseline": {
     "title": "Error & Distribution Analysis: MSE_Baseline",
     "doc": "Boss_Union_Almost_Full_MSE_Baseline_Error_Analysis.md",
@@ -324,6 +324,12 @@
         }
       ]
     },
+    "pkg12_amstar": {
+      "title": "Error & Distribution Analysis: Hurdle",
+      "doc": "Boss_Union_Almost_Full_Hurdle_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg13_ev": {
       "title": "Error & Distribution Analysis: Binary_Hurdle",
       "doc": "Boss_Union_Almost_Full_Binary_Hurdle_Error_Analysis.md",
@@ -415,6 +421,12 @@
           "src": "error_img/Boss_Union_Almost_Full_Binary_Hurdle_Argmax_75_quadrants_1791228042.png"
         }
       ]
+    },
+    "pkg13_amstar": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_Error_Analysis.md",
+      "note": "",
+      "panels": []
     },
     "pkg16_ev": {
       "title": "Error & Distribution Analysis: Hurdle_ROCAUC",
@@ -508,6 +520,12 @@
         }
       ]
     },
+    "pkg16_amstar": {
+      "title": "Error & Distribution Analysis: Hurdle_ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg17_ev": {
       "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC",
       "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
@@ -599,6 +617,12 @@
           "src": "error_img/Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis_Argmax_75_quadrants_1791228234.png"
         }
       ]
+    },
+    "pkg17_amstar": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "",
+      "panels": []
     },
     "pkg18_ev": {
       "title": "Error & Distribution Analysis: Hurdle_ROCAUC_Inverted",
@@ -692,6 +716,12 @@
         }
       ]
     },
+    "pkg18_amstar": {
+      "title": "Error & Distribution Analysis: Hurdle_ROCAUC_Inverted",
+      "doc": "Boss_Union_Almost_Full_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg19_ev": {
       "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC_Inverted",
       "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
@@ -783,6 +813,12 @@
           "src": "error_img/Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Inverted_Error_Analysis_Argmax_75_quadrants_1791228470.png"
         }
       ]
+    },
+    "pkg19_amstar": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC_Inverted",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
+      "note": "",
+      "panels": []
     },
     "pkg20": {
       "title": "Error & Distribution Analysis: Softclass_Doubling",
@@ -899,6 +935,12 @@
         }
       ]
     },
+    "pkg21_amstar": {
+      "title": "Error & Distribution Analysis: Inv_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg22_ev": {
       "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
       "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
@@ -991,6 +1033,30 @@
         }
       ]
     },
+    "pkg22_am80": {
+      "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg22_am85": {
+      "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg22_am90": {
+      "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg22_amstar": {
+      "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg25_ev": {
       "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
       "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
@@ -1082,6 +1148,726 @@
           "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_quadrants_1791228871.png"
         }
       ]
+    },
+    "pkg25_am80": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": []
+    },
+    "pkg25_am85": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": []
+    },
+    "pkg25_am90": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": []
+    },
+    "pkg25_amstar": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
+      "panels": []
+    },
+    "pkg26_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID",
+      "doc": "62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_expected_value_dist_1792092422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_expected_value_heatmaps_1792092422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_expected_value_residuals_1792092422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_expected_value_quadrants_1792092422.png"
+        }
+      ]
+    },
+    "pkg26_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID",
+      "doc": "62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_25_dist_1792092422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_25_heatmaps_1792092422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_25_residuals_1792092422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_25_quadrants_1792092422.png"
+        }
+      ]
+    },
+    "pkg26_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID",
+      "doc": "62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_dist_1792092422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_heatmaps_1792092422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_residuals_1792092422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_quadrants_1792092422.png"
+        }
+      ]
+    },
+    "pkg26_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID",
+      "doc": "62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_75_dist_1792092422.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_75_heatmaps_1792092422.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_75_residuals_1792092422.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis_argmax_75_quadrants_1792092422.png"
+        }
+      ]
+    },
+    "pkg26_am80": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID",
+      "doc": "62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg26_am85": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID",
+      "doc": "62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg26_am90": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID",
+      "doc": "62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg26_amstar": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID",
+      "doc": "62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg27_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID",
+      "doc": "63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_expected_value_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_expected_value_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_expected_value_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_expected_value_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg27_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID",
+      "doc": "63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_25_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_25_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_25_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_25_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg27_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID",
+      "doc": "63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg27_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID",
+      "doc": "63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_75_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_75_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_75_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis_argmax_75_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg27_am80": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID",
+      "doc": "63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg27_am85": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID",
+      "doc": "63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg27_am90": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID",
+      "doc": "63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg27_amstar": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID",
+      "doc": "63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg28_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID",
+      "doc": "64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_expected_value_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_expected_value_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_expected_value_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_expected_value_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg28_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID",
+      "doc": "64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_25_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_25_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_25_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_25_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg28_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID",
+      "doc": "64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg28_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID",
+      "doc": "64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_75_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_75_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_75_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis_argmax_75_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg28_am80": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID",
+      "doc": "64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg28_am85": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID",
+      "doc": "64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg28_am90": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID",
+      "doc": "64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg28_amstar": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID",
+      "doc": "64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MAE regressor (mean_absolute_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg29_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID MSE",
+      "doc": "65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_expected_value_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_expected_value_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_expected_value_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_expected_value_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg29_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID MSE",
+      "doc": "65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_25_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_25_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_25_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_25_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg29_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID MSE",
+      "doc": "65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg29_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID MSE",
+      "doc": "65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_75_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_75_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_75_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis_argmax_75_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg29_am80": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID MSE",
+      "doc": "65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg29_am85": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID MSE",
+      "doc": "65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg29_am90": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID MSE",
+      "doc": "65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg29_amstar": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Logloss No ID MSE",
+      "doc": "65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (log_loss) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg30_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID MSE",
+      "doc": "66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_expected_value_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_expected_value_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_expected_value_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_expected_value_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg30_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID MSE",
+      "doc": "66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_25_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_25_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_25_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_25_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg30_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID MSE",
+      "doc": "66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg30_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID MSE",
+      "doc": "66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_75_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_75_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_75_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis_argmax_75_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg30_am80": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID MSE",
+      "doc": "66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg30_am85": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID MSE",
+      "doc": "66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg30_am90": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID MSE",
+      "doc": "66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg30_amstar": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle Specificity No ID MSE",
+      "doc": "66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (specificity) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg31_ev": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID MSE",
+      "doc": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_expected_value_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_expected_value_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_expected_value_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_expected_value_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg31_am25": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID MSE",
+      "doc": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_25_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_25_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_25_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_25_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg31_am50": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID MSE",
+      "doc": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg31_am75": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID MSE",
+      "doc": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": [
+        {
+          "alt": "Distributions",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_75_dist_1792092559.png"
+        },
+        {
+          "alt": "Heatmaps",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_75_heatmaps_1792092559.png"
+        },
+        {
+          "alt": "Diagnostics",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_75_residuals_1792092559.png"
+        },
+        {
+          "alt": "Quadrant Analysis",
+          "src": "error_img/67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis_argmax_75_quadrants_1792092559.png"
+        }
+      ]
+    },
+    "pkg31_am80": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID MSE",
+      "doc": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg31_am85": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID MSE",
+      "doc": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg31_am90": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID MSE",
+      "doc": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
+    },
+    "pkg31_amstar": {
+      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC No ID MSE",
+      "doc": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md",
+      "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
+      "panels": []
     }
   },
   "docs": {
@@ -1108,6 +1894,12 @@
     "22": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
     "23": "57_Almost_Full_Inv_3Class_Hurdle_Specificity_Error_Analysis.md",
     "24": "58_Almost_Full_Inv_Binary_Hurdle_Specificity_Error_Analysis.md",
-    "25": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md"
+    "25": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+    "26": "62_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_Error_Analysis.md",
+    "27": "63_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_Error_Analysis.md",
+    "28": "64_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_Error_Analysis.md",
+    "29": "65_Almost_Full_Inv_Binary_Hurdle_Logloss_NoID_MSE_Error_Analysis.md",
+    "30": "66_Almost_Full_Inv_Binary_Hurdle_Specificity_NoID_MSE_Error_Analysis.md",
+    "31": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md"
   }
 }

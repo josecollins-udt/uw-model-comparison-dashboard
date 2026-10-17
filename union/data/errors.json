@@ -814,6 +814,24 @@
         }
       ]
     },
+    "pkg19_am80": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC_Inverted",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg19_am85": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC_Inverted",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg19_am90": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC_Inverted",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg19_amstar": {
       "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC_Inverted",
       "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
@@ -1055,122 +1073,6 @@
       "title": "Error & Distribution Analysis: Inv_Binary_Hurdle_Logloss",
       "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_Logloss_Error_Analysis.md",
       "note": "",
-      "panels": []
-    },
-    "pkg25_ev": {
-      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
-      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
-      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
-      "panels": [
-        {
-          "alt": "Distributions",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_dist_1791228871.png"
-        },
-        {
-          "alt": "Heatmaps",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_heatmaps_1791228871.png"
-        },
-        {
-          "alt": "Diagnostics",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_residuals_1791228871.png"
-        },
-        {
-          "alt": "Quadrant Analysis",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_expected_value_quadrants_1791228871.png"
-        }
-      ]
-    },
-    "pkg25_am25": {
-      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
-      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
-      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
-      "panels": [
-        {
-          "alt": "Distributions",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_dist_1791228871.png"
-        },
-        {
-          "alt": "Heatmaps",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_heatmaps_1791228871.png"
-        },
-        {
-          "alt": "Diagnostics",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_residuals_1791228871.png"
-        },
-        {
-          "alt": "Quadrant Analysis",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_25_quadrants_1791228871.png"
-        }
-      ]
-    },
-    "pkg25_am50": {
-      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
-      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
-      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
-      "panels": [
-        {
-          "alt": "Distributions",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_dist_1791228871.png"
-        },
-        {
-          "alt": "Heatmaps",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_heatmaps_1791228871.png"
-        },
-        {
-          "alt": "Diagnostics",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_residuals_1791228871.png"
-        },
-        {
-          "alt": "Quadrant Analysis",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_quadrants_1791228871.png"
-        }
-      ]
-    },
-    "pkg25_am75": {
-      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
-      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
-      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
-      "panels": [
-        {
-          "alt": "Distributions",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_dist_1791228871.png"
-        },
-        {
-          "alt": "Heatmaps",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_heatmaps_1791228871.png"
-        },
-        {
-          "alt": "Diagnostics",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_residuals_1791228871.png"
-        },
-        {
-          "alt": "Quadrant Analysis",
-          "src": "error_img/Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis_argmax_75_quadrants_1791228871.png"
-        }
-      ]
-    },
-    "pkg25_am80": {
-      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
-      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
-      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
-      "panels": []
-    },
-    "pkg25_am85": {
-      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
-      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
-      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
-      "panels": []
-    },
-    "pkg25_am90": {
-      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
-      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
-      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
-      "panels": []
-    },
-    "pkg25_amstar": {
-      "title": "Error & Distribution Analysis: Almost Full Inv Binary Hurdle ROCAUC",
-      "doc": "Boss_Union_Almost_Full_Inv_Binary_Hurdle_ROCAUC_Error_Analysis.md",
-      "note": "Hurdle Model (Binary):: This package utilizes a custom two-stage approach to handle zero/one inflation. Stage 1 is a binary classifier predicting if a target is zero or positive. Stage 2 is a standard regressor trained solely on the positive values. This document evaluates the final blended predictions.",
       "panels": []
     },
     "pkg26_ev": {

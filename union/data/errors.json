@@ -324,6 +324,24 @@
         }
       ]
     },
+    "pkg12_am80": {
+      "title": "Error & Distribution Analysis: Hurdle",
+      "doc": "Boss_Union_Almost_Full_Hurdle_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg12_am85": {
+      "title": "Error & Distribution Analysis: Hurdle",
+      "doc": "Boss_Union_Almost_Full_Hurdle_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg12_am90": {
+      "title": "Error & Distribution Analysis: Hurdle",
+      "doc": "Boss_Union_Almost_Full_Hurdle_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg12_amstar": {
       "title": "Error & Distribution Analysis: Hurdle",
       "doc": "Boss_Union_Almost_Full_Hurdle_Error_Analysis.md",
@@ -421,6 +439,24 @@
           "src": "error_img/Boss_Union_Almost_Full_Binary_Hurdle_Argmax_75_quadrants_1791228042.png"
         }
       ]
+    },
+    "pkg13_am80": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg13_am85": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg13_am90": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_Error_Analysis.md",
+      "note": "",
+      "panels": []
     },
     "pkg13_amstar": {
       "title": "Error & Distribution Analysis: Binary_Hurdle",
@@ -520,6 +556,24 @@
         }
       ]
     },
+    "pkg16_am80": {
+      "title": "Error & Distribution Analysis: Hurdle_ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg16_am85": {
+      "title": "Error & Distribution Analysis: Hurdle_ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg16_am90": {
+      "title": "Error & Distribution Analysis: Hurdle_ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg16_amstar": {
       "title": "Error & Distribution Analysis: Hurdle_ROCAUC",
       "doc": "Boss_Union_Almost_Full_Hurdle_ROCAUC_Error_Analysis.md",
@@ -618,6 +672,24 @@
         }
       ]
     },
+    "pkg17_am80": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg17_am85": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg17_am90": {
+      "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC",
+      "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
     "pkg17_amstar": {
       "title": "Error & Distribution Analysis: Binary_Hurdle_ROCAUC",
       "doc": "Boss_Union_Almost_Full_Binary_Hurdle_ROCAUC_Error_Analysis.md",
@@ -715,6 +787,24 @@
           "src": "error_img/Boss_Union_Almost_Full_Hurdle_ROCAUC_Inverted_Error_Analysis_Argmax_75_quadrants_1791228470.png"
         }
       ]
+    },
+    "pkg18_am80": {
+      "title": "Error & Distribution Analysis: Hurdle_ROCAUC_Inverted",
+      "doc": "Boss_Union_Almost_Full_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg18_am85": {
+      "title": "Error & Distribution Analysis: Hurdle_ROCAUC_Inverted",
+      "doc": "Boss_Union_Almost_Full_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg18_am90": {
+      "title": "Error & Distribution Analysis: Hurdle_ROCAUC_Inverted",
+      "doc": "Boss_Union_Almost_Full_Hurdle_ROCAUC_Inverted_Error_Analysis.md",
+      "note": "",
+      "panels": []
     },
     "pkg18_amstar": {
       "title": "Error & Distribution Analysis: Hurdle_ROCAUC_Inverted",
@@ -952,6 +1042,24 @@
           "src": "error_img/Boss_Union_Almost_Full_Inv_Hurdle_Logloss_Error_Analysis_Argmax_75_quadrants_1791228470.png"
         }
       ]
+    },
+    "pkg21_am80": {
+      "title": "Error & Distribution Analysis: Inv_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg21_am85": {
+      "title": "Error & Distribution Analysis: Inv_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
+    },
+    "pkg21_am90": {
+      "title": "Error & Distribution Analysis: Inv_Hurdle_Logloss",
+      "doc": "Boss_Union_Almost_Full_Inv_Hurdle_Logloss_Error_Analysis.md",
+      "note": "",
+      "panels": []
     },
     "pkg21_amstar": {
       "title": "Error & Distribution Analysis: Inv_Hurdle_Logloss",

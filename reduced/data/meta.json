@@ -1,7 +1,7 @@
 {
   "cutoff_065": 0.65,
-  "title": "Reduced set: packages 1, 3, 7, 8 and every distinct hurdle (19, 22, 26-31) with all heads (ev/am25/am50/am75/am80/am85/am90/amstar)",
-  "caption": "Reduced picker: 1 MSE, 3 weighted xentropy, 7 weighted MSE, 8 pinball 0.30, 19 inverted-binary hurdle ROC-AUC (package 25 was its exact duplicate and was removed), 22 inverted-binary hurdle and the retrained hurdles 26-31 (without user_id/name: 26 logloss, 27 specificity, 28 ROC-AUC with MAE regressor; 29, 30, 31 the same with MSE regressor), each with every head (ev / am25 / am50 / am75 / am80 / am85 / am90 / amstar). amstar tau* maximizes train R2 (min MSE) with native inverted-binary argmax and is frozen (not refit on holdout or live). Live amstar is scored for every hurdle package. Top: last-3-month BNPL production cohort, batches=72. Acceptance n=142,391 (census: every eligible user, no sampling error for this cohort). Delinquency n=2,997 (census: every eligible user, no sampling error for this cohort) (matured CaaS book of the last 180 days). The shaded bands and the \"(95% CI)\" figures treat each cohort as one draw from ongoing traffic (Wilson interval for the yes-share, delta method for past-due/principal, no finite-population correction). They show how far the rates could move on future traffic, not an error in this cohort's own numbers. Blue = stored autogluon_v25; rust = local AF package 1 MSE; charcoal = selected challenger. Bottom: union Almost Full holdout. Delinquency = 1 − pngi_rate.",
+  "title": "Reduced set: packages 1, 3, 7, 8 and every loadable hurdle (12, 13, 16-19, 21, 22, 26-31) with all heads (ev/am25/am50/am75/am80/am85/am90/amstar)",
+  "caption": "Reduced picker: 1 MSE, 3 weighted xentropy, 7 weighted MSE, 8 pinball 0.30, every loadable hurdle: 12/16 (3-class logloss / ROC-AUC), 13/17 (binary logloss / ROC-AUC), 18/21 (inverted 3-class ROC-AUC / logloss), 19 inverted-binary hurdle ROC-AUC (package 25 was its exact duplicate and was removed), 22 inverted-binary hurdle and the retrained hurdles 26-31 (without user_id/name: 26 logloss, 27 specificity, 28 ROC-AUC with MAE regressor; 29, 30, 31 the same with MSE regressor), each with every head (ev / am25 / am50 / am75 / am80 / am85 / am90 / amstar). amstar tau* maximizes train R2 (min MSE) with native inverted-binary argmax and is frozen (not refit on holdout or live). Live amstar is scored for every hurdle package. Top: last-3-month BNPL production cohort, batches=72. Acceptance n=142,391 (census: every eligible user, no sampling error for this cohort). Delinquency n=2,997 (census: every eligible user, no sampling error for this cohort) (matured CaaS book of the last 180 days). The shaded bands and the \"(95% CI)\" figures treat each cohort as one draw from ongoing traffic (Wilson interval for the yes-share, delta method for past-due/principal, no finite-population correction). They show how far the rates could move on future traffic, not an error in this cohort's own numbers. Blue = stored autogluon_v25; rust = local AF package 1 MSE; charcoal = selected challenger. Bottom: union Almost Full holdout. Delinquency = 1 − pngi_rate.",
   "note_html": "\n<p><strong>Top row (production, BNPL only):</strong> stored <code>autogluon_v25</code> from\n<code>pre_scored_users</code>, the locally scored union Almost Full package 1 MSE on the same users\n(these two can differ), and the selected challenger. The cohort is every last-3-month BNPL <code>bnpl.api_requests</code> user with a stored v25: a census, not a sample, so the cohort's own rates carry no sampling error. Delinquency = the whole matured BNPL CaaS book of the last 180 days (every user with a matured installment, completed_plans &gt; 0 and a stored v25): also a census.</p>\n<p>The shaded bands and the \"(95% CI)\" figures treat each cohort as one draw from ongoing traffic (Wilson interval for the yes-share, delta method for past-due/principal, no finite-population correction). They show how far the rates could move on future traffic, not an error in this cohort's own numbers.</p>\n<p><strong>Bottom row (holdout):</strong> gated yes-share of union <code>test_v25.csv</code>\n(BNPL leftover + cards, same 80/20 split as prior v25). Delinquency = labeled unpaid share\n<code>1 − pngi_rate</code> in the score tail — not Fritz CaaS pesos.\nThe original Fritz Pages copy is unchanged.</p>\n",
   "variants": [
     {
@@ -35,6 +35,326 @@
       "pkg": "training_package_8_pinball_0300_almost_full",
       "pkg_num": 8,
       "hay": "pkg08 training_package_8_pinball_0300_almost_full package 8 `training_package_8_pinball_0300_almost_full` pkg08 · pinball_0300_almost_full"
+    },
+    {
+      "id": "pkg12_ev",
+      "title": "Package 12 `training_package_12_hurdle_almost_full` (expected value)",
+      "label": "pkg12_ev · hurdle_almost_full",
+      "pkg": "training_package_12_hurdle_almost_full",
+      "pkg_num": 12,
+      "hay": "pkg12_ev training_package_12_hurdle_almost_full package 12 `training_package_12_hurdle_almost_full` (expected value) pkg12_ev · hurdle_almost_full"
+    },
+    {
+      "id": "pkg12_am25",
+      "title": "Package 12 `training_package_12_hurdle_almost_full` (argmax 25%)",
+      "label": "pkg12_am25 · hurdle_almost_full",
+      "pkg": "training_package_12_hurdle_almost_full",
+      "pkg_num": 12,
+      "hay": "pkg12_am25 training_package_12_hurdle_almost_full package 12 `training_package_12_hurdle_almost_full` (argmax 25%) pkg12_am25 · hurdle_almost_full"
+    },
+    {
+      "id": "pkg12_am50",
+      "title": "Package 12 `training_package_12_hurdle_almost_full` (argmax 50%)",
+      "label": "pkg12_am50 · hurdle_almost_full",
+      "pkg": "training_package_12_hurdle_almost_full",
+      "pkg_num": 12,
+      "hay": "pkg12_am50 training_package_12_hurdle_almost_full package 12 `training_package_12_hurdle_almost_full` (argmax 50%) pkg12_am50 · hurdle_almost_full"
+    },
+    {
+      "id": "pkg12_am75",
+      "title": "Package 12 `training_package_12_hurdle_almost_full` (argmax 75%)",
+      "label": "pkg12_am75 · hurdle_almost_full",
+      "pkg": "training_package_12_hurdle_almost_full",
+      "pkg_num": 12,
+      "hay": "pkg12_am75 training_package_12_hurdle_almost_full package 12 `training_package_12_hurdle_almost_full` (argmax 75%) pkg12_am75 · hurdle_almost_full"
+    },
+    {
+      "id": "pkg12_am80",
+      "title": "Package 12 `training_package_12_hurdle_almost_full` (argmax 80%)",
+      "label": "pkg12_am80 · hurdle_almost_full",
+      "pkg": "training_package_12_hurdle_almost_full",
+      "pkg_num": 12,
+      "hay": "pkg12_am80 training_package_12_hurdle_almost_full package 12 `training_package_12_hurdle_almost_full` (argmax 80%) pkg12_am80 · hurdle_almost_full"
+    },
+    {
+      "id": "pkg12_am85",
+      "title": "Package 12 `training_package_12_hurdle_almost_full` (argmax 85%)",
+      "label": "pkg12_am85 · hurdle_almost_full",
+      "pkg": "training_package_12_hurdle_almost_full",
+      "pkg_num": 12,
+      "hay": "pkg12_am85 training_package_12_hurdle_almost_full package 12 `training_package_12_hurdle_almost_full` (argmax 85%) pkg12_am85 · hurdle_almost_full"
+    },
+    {
+      "id": "pkg12_am90",
+      "title": "Package 12 `training_package_12_hurdle_almost_full` (argmax 90%)",
+      "label": "pkg12_am90 · hurdle_almost_full",
+      "pkg": "training_package_12_hurdle_almost_full",
+      "pkg_num": 12,
+      "hay": "pkg12_am90 training_package_12_hurdle_almost_full package 12 `training_package_12_hurdle_almost_full` (argmax 90%) pkg12_am90 · hurdle_almost_full"
+    },
+    {
+      "id": "pkg12_amstar",
+      "title": "Package 12 `training_package_12_hurdle_almost_full` (argmax MSE tau*=0.4517)",
+      "label": "pkg12_amstar · hurdle_almost_full",
+      "pkg": "training_package_12_hurdle_almost_full",
+      "pkg_num": 12,
+      "hay": "pkg12_amstar training_package_12_hurdle_almost_full package 12 `training_package_12_hurdle_almost_full` (argmax mse tau*=0.4517) pkg12_amstar · hurdle_almost_full"
+    },
+    {
+      "id": "pkg13_ev",
+      "title": "Package 13 `training_package_13_binary_hurdle_almost_full` (expected value)",
+      "label": "pkg13_ev · binary_hurdle_almost_full",
+      "pkg": "training_package_13_binary_hurdle_almost_full",
+      "pkg_num": 13,
+      "hay": "pkg13_ev training_package_13_binary_hurdle_almost_full package 13 `training_package_13_binary_hurdle_almost_full` (expected value) pkg13_ev · binary_hurdle_almost_full"
+    },
+    {
+      "id": "pkg13_am25",
+      "title": "Package 13 `training_package_13_binary_hurdle_almost_full` (argmax 25%)",
+      "label": "pkg13_am25 · binary_hurdle_almost_full",
+      "pkg": "training_package_13_binary_hurdle_almost_full",
+      "pkg_num": 13,
+      "hay": "pkg13_am25 training_package_13_binary_hurdle_almost_full package 13 `training_package_13_binary_hurdle_almost_full` (argmax 25%) pkg13_am25 · binary_hurdle_almost_full"
+    },
+    {
+      "id": "pkg13_am50",
+      "title": "Package 13 `training_package_13_binary_hurdle_almost_full` (argmax 50%)",
+      "label": "pkg13_am50 · binary_hurdle_almost_full",
+      "pkg": "training_package_13_binary_hurdle_almost_full",
+      "pkg_num": 13,
+      "hay": "pkg13_am50 training_package_13_binary_hurdle_almost_full package 13 `training_package_13_binary_hurdle_almost_full` (argmax 50%) pkg13_am50 · binary_hurdle_almost_full"
+    },
+    {
+      "id": "pkg13_am75",
+      "title": "Package 13 `training_package_13_binary_hurdle_almost_full` (argmax 75%)",
+      "label": "pkg13_am75 · binary_hurdle_almost_full",
+      "pkg": "training_package_13_binary_hurdle_almost_full",
+      "pkg_num": 13,
+      "hay": "pkg13_am75 training_package_13_binary_hurdle_almost_full package 13 `training_package_13_binary_hurdle_almost_full` (argmax 75%) pkg13_am75 · binary_hurdle_almost_full"
+    },
+    {
+      "id": "pkg13_am80",
+      "title": "Package 13 `training_package_13_binary_hurdle_almost_full` (argmax 80%)",
+      "label": "pkg13_am80 · binary_hurdle_almost_full",
+      "pkg": "training_package_13_binary_hurdle_almost_full",
+      "pkg_num": 13,
+      "hay": "pkg13_am80 training_package_13_binary_hurdle_almost_full package 13 `training_package_13_binary_hurdle_almost_full` (argmax 80%) pkg13_am80 · binary_hurdle_almost_full"
+    },
+    {
+      "id": "pkg13_am85",
+      "title": "Package 13 `training_package_13_binary_hurdle_almost_full` (argmax 85%)",
+      "label": "pkg13_am85 · binary_hurdle_almost_full",
+      "pkg": "training_package_13_binary_hurdle_almost_full",
+      "pkg_num": 13,
+      "hay": "pkg13_am85 training_package_13_binary_hurdle_almost_full package 13 `training_package_13_binary_hurdle_almost_full` (argmax 85%) pkg13_am85 · binary_hurdle_almost_full"
+    },
+    {
+      "id": "pkg13_am90",
+      "title": "Package 13 `training_package_13_binary_hurdle_almost_full` (argmax 90%)",
+      "label": "pkg13_am90 · binary_hurdle_almost_full",
+      "pkg": "training_package_13_binary_hurdle_almost_full",
+      "pkg_num": 13,
+      "hay": "pkg13_am90 training_package_13_binary_hurdle_almost_full package 13 `training_package_13_binary_hurdle_almost_full` (argmax 90%) pkg13_am90 · binary_hurdle_almost_full"
+    },
+    {
+      "id": "pkg13_amstar",
+      "title": "Package 13 `training_package_13_binary_hurdle_almost_full` (argmax MSE tau*=0.8085)",
+      "label": "pkg13_amstar · binary_hurdle_almost_full",
+      "pkg": "training_package_13_binary_hurdle_almost_full",
+      "pkg_num": 13,
+      "hay": "pkg13_amstar training_package_13_binary_hurdle_almost_full package 13 `training_package_13_binary_hurdle_almost_full` (argmax mse tau*=0.8085) pkg13_amstar · binary_hurdle_almost_full"
+    },
+    {
+      "id": "pkg16_ev",
+      "title": "Package 16 `training_package_16_hurdle_rocauc_almost_full` (expected value)",
+      "label": "pkg16_ev · hurdle_rocauc_almost_full",
+      "pkg": "training_package_16_hurdle_rocauc_almost_full",
+      "pkg_num": 16,
+      "hay": "pkg16_ev training_package_16_hurdle_rocauc_almost_full package 16 `training_package_16_hurdle_rocauc_almost_full` (expected value) pkg16_ev · hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg16_am25",
+      "title": "Package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 25%)",
+      "label": "pkg16_am25 · hurdle_rocauc_almost_full",
+      "pkg": "training_package_16_hurdle_rocauc_almost_full",
+      "pkg_num": 16,
+      "hay": "pkg16_am25 training_package_16_hurdle_rocauc_almost_full package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 25%) pkg16_am25 · hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg16_am50",
+      "title": "Package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 50%)",
+      "label": "pkg16_am50 · hurdle_rocauc_almost_full",
+      "pkg": "training_package_16_hurdle_rocauc_almost_full",
+      "pkg_num": 16,
+      "hay": "pkg16_am50 training_package_16_hurdle_rocauc_almost_full package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 50%) pkg16_am50 · hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg16_am75",
+      "title": "Package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 75%)",
+      "label": "pkg16_am75 · hurdle_rocauc_almost_full",
+      "pkg": "training_package_16_hurdle_rocauc_almost_full",
+      "pkg_num": 16,
+      "hay": "pkg16_am75 training_package_16_hurdle_rocauc_almost_full package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 75%) pkg16_am75 · hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg16_am80",
+      "title": "Package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 80%)",
+      "label": "pkg16_am80 · hurdle_rocauc_almost_full",
+      "pkg": "training_package_16_hurdle_rocauc_almost_full",
+      "pkg_num": 16,
+      "hay": "pkg16_am80 training_package_16_hurdle_rocauc_almost_full package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 80%) pkg16_am80 · hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg16_am85",
+      "title": "Package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 85%)",
+      "label": "pkg16_am85 · hurdle_rocauc_almost_full",
+      "pkg": "training_package_16_hurdle_rocauc_almost_full",
+      "pkg_num": 16,
+      "hay": "pkg16_am85 training_package_16_hurdle_rocauc_almost_full package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 85%) pkg16_am85 · hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg16_am90",
+      "title": "Package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 90%)",
+      "label": "pkg16_am90 · hurdle_rocauc_almost_full",
+      "pkg": "training_package_16_hurdle_rocauc_almost_full",
+      "pkg_num": 16,
+      "hay": "pkg16_am90 training_package_16_hurdle_rocauc_almost_full package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax 90%) pkg16_am90 · hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg16_amstar",
+      "title": "Package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax MSE tau*=0.4608)",
+      "label": "pkg16_amstar · hurdle_rocauc_almost_full",
+      "pkg": "training_package_16_hurdle_rocauc_almost_full",
+      "pkg_num": 16,
+      "hay": "pkg16_amstar training_package_16_hurdle_rocauc_almost_full package 16 `training_package_16_hurdle_rocauc_almost_full` (argmax mse tau*=0.4608) pkg16_amstar · hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg17_ev",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (expected value)",
+      "label": "pkg17_ev · binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_17_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 17,
+      "hay": "pkg17_ev training_package_17_binary_hurdle_rocauc_almost_full package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (expected value) pkg17_ev · binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg17_am25",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 25%)",
+      "label": "pkg17_am25 · binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_17_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 17,
+      "hay": "pkg17_am25 training_package_17_binary_hurdle_rocauc_almost_full package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 25%) pkg17_am25 · binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg17_am50",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 50%)",
+      "label": "pkg17_am50 · binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_17_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 17,
+      "hay": "pkg17_am50 training_package_17_binary_hurdle_rocauc_almost_full package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 50%) pkg17_am50 · binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg17_am75",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 75%)",
+      "label": "pkg17_am75 · binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_17_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 17,
+      "hay": "pkg17_am75 training_package_17_binary_hurdle_rocauc_almost_full package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 75%) pkg17_am75 · binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg17_am80",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 80%)",
+      "label": "pkg17_am80 · binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_17_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 17,
+      "hay": "pkg17_am80 training_package_17_binary_hurdle_rocauc_almost_full package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 80%) pkg17_am80 · binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg17_am85",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 85%)",
+      "label": "pkg17_am85 · binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_17_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 17,
+      "hay": "pkg17_am85 training_package_17_binary_hurdle_rocauc_almost_full package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 85%) pkg17_am85 · binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg17_am90",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 90%)",
+      "label": "pkg17_am90 · binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_17_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 17,
+      "hay": "pkg17_am90 training_package_17_binary_hurdle_rocauc_almost_full package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax 90%) pkg17_am90 · binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg17_amstar",
+      "title": "Package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax MSE tau*=0.8276)",
+      "label": "pkg17_amstar · binary_hurdle_rocauc_almost_full",
+      "pkg": "training_package_17_binary_hurdle_rocauc_almost_full",
+      "pkg_num": 17,
+      "hay": "pkg17_amstar training_package_17_binary_hurdle_rocauc_almost_full package 17 `training_package_17_binary_hurdle_rocauc_almost_full` (argmax mse tau*=0.8276) pkg17_amstar · binary_hurdle_rocauc_almost_full"
+    },
+    {
+      "id": "pkg18_ev",
+      "title": "Package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (expected value)",
+      "label": "pkg18_ev · hurdle_rocauc_inverted_almost_full",
+      "pkg": "training_package_18_hurdle_rocauc_inverted_almost_full",
+      "pkg_num": 18,
+      "hay": "pkg18_ev training_package_18_hurdle_rocauc_inverted_almost_full package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (expected value) pkg18_ev · hurdle_rocauc_inverted_almost_full"
+    },
+    {
+      "id": "pkg18_am25",
+      "title": "Package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 25%)",
+      "label": "pkg18_am25 · hurdle_rocauc_inverted_almost_full",
+      "pkg": "training_package_18_hurdle_rocauc_inverted_almost_full",
+      "pkg_num": 18,
+      "hay": "pkg18_am25 training_package_18_hurdle_rocauc_inverted_almost_full package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 25%) pkg18_am25 · hurdle_rocauc_inverted_almost_full"
+    },
+    {
+      "id": "pkg18_am50",
+      "title": "Package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 50%)",
+      "label": "pkg18_am50 · hurdle_rocauc_inverted_almost_full",
+      "pkg": "training_package_18_hurdle_rocauc_inverted_almost_full",
+      "pkg_num": 18,
+      "hay": "pkg18_am50 training_package_18_hurdle_rocauc_inverted_almost_full package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 50%) pkg18_am50 · hurdle_rocauc_inverted_almost_full"
+    },
+    {
+      "id": "pkg18_am75",
+      "title": "Package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 75%)",
+      "label": "pkg18_am75 · hurdle_rocauc_inverted_almost_full",
+      "pkg": "training_package_18_hurdle_rocauc_inverted_almost_full",
+      "pkg_num": 18,
+      "hay": "pkg18_am75 training_package_18_hurdle_rocauc_inverted_almost_full package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 75%) pkg18_am75 · hurdle_rocauc_inverted_almost_full"
+    },
+    {
+      "id": "pkg18_am80",
+      "title": "Package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 80%)",
+      "label": "pkg18_am80 · hurdle_rocauc_inverted_almost_full",
+      "pkg": "training_package_18_hurdle_rocauc_inverted_almost_full",
+      "pkg_num": 18,
+      "hay": "pkg18_am80 training_package_18_hurdle_rocauc_inverted_almost_full package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 80%) pkg18_am80 · hurdle_rocauc_inverted_almost_full"
+    },
+    {
+      "id": "pkg18_am85",
+      "title": "Package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 85%)",
+      "label": "pkg18_am85 · hurdle_rocauc_inverted_almost_full",
+      "pkg": "training_package_18_hurdle_rocauc_inverted_almost_full",
+      "pkg_num": 18,
+      "hay": "pkg18_am85 training_package_18_hurdle_rocauc_inverted_almost_full package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 85%) pkg18_am85 · hurdle_rocauc_inverted_almost_full"
+    },
+    {
+      "id": "pkg18_am90",
+      "title": "Package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 90%)",
+      "label": "pkg18_am90 · hurdle_rocauc_inverted_almost_full",
+      "pkg": "training_package_18_hurdle_rocauc_inverted_almost_full",
+      "pkg_num": 18,
+      "hay": "pkg18_am90 training_package_18_hurdle_rocauc_inverted_almost_full package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax 90%) pkg18_am90 · hurdle_rocauc_inverted_almost_full"
+    },
+    {
+      "id": "pkg18_amstar",
+      "title": "Package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax MSE tau*=0.4586)",
+      "label": "pkg18_amstar · hurdle_rocauc_inverted_almost_full",
+      "pkg": "training_package_18_hurdle_rocauc_inverted_almost_full",
+      "pkg_num": 18,
+      "hay": "pkg18_amstar training_package_18_hurdle_rocauc_inverted_almost_full package 18 `training_package_18_hurdle_rocauc_inverted_almost_full` (argmax mse tau*=0.4586) pkg18_amstar · hurdle_rocauc_inverted_almost_full"
     },
     {
       "id": "pkg19_ev",
@@ -99,6 +419,70 @@
       "pkg": "training_package_19_binary_hurdle_rocauc_inverted_almost_full",
       "pkg_num": 19,
       "hay": "pkg19_amstar training_package_19_binary_hurdle_rocauc_inverted_almost_full package 19 `training_package_19_binary_hurdle_rocauc_inverted_almost_full` (argmax mse tau*=0.4731) pkg19_amstar · binary_hurdle_rocauc_inverted_almost_full"
+    },
+    {
+      "id": "pkg21_ev",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss_almost_full` (expected value)",
+      "label": "pkg21_ev · inv_hurdle_logloss_almost_full",
+      "pkg": "training_package_21_inv_hurdle_logloss_almost_full",
+      "pkg_num": 21,
+      "hay": "pkg21_ev training_package_21_inv_hurdle_logloss_almost_full package 21 `training_package_21_inv_hurdle_logloss_almost_full` (expected value) pkg21_ev · inv_hurdle_logloss_almost_full"
+    },
+    {
+      "id": "pkg21_am25",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 25%)",
+      "label": "pkg21_am25 · inv_hurdle_logloss_almost_full",
+      "pkg": "training_package_21_inv_hurdle_logloss_almost_full",
+      "pkg_num": 21,
+      "hay": "pkg21_am25 training_package_21_inv_hurdle_logloss_almost_full package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 25%) pkg21_am25 · inv_hurdle_logloss_almost_full"
+    },
+    {
+      "id": "pkg21_am50",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 50%)",
+      "label": "pkg21_am50 · inv_hurdle_logloss_almost_full",
+      "pkg": "training_package_21_inv_hurdle_logloss_almost_full",
+      "pkg_num": 21,
+      "hay": "pkg21_am50 training_package_21_inv_hurdle_logloss_almost_full package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 50%) pkg21_am50 · inv_hurdle_logloss_almost_full"
+    },
+    {
+      "id": "pkg21_am75",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 75%)",
+      "label": "pkg21_am75 · inv_hurdle_logloss_almost_full",
+      "pkg": "training_package_21_inv_hurdle_logloss_almost_full",
+      "pkg_num": 21,
+      "hay": "pkg21_am75 training_package_21_inv_hurdle_logloss_almost_full package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 75%) pkg21_am75 · inv_hurdle_logloss_almost_full"
+    },
+    {
+      "id": "pkg21_am80",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 80%)",
+      "label": "pkg21_am80 · inv_hurdle_logloss_almost_full",
+      "pkg": "training_package_21_inv_hurdle_logloss_almost_full",
+      "pkg_num": 21,
+      "hay": "pkg21_am80 training_package_21_inv_hurdle_logloss_almost_full package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 80%) pkg21_am80 · inv_hurdle_logloss_almost_full"
+    },
+    {
+      "id": "pkg21_am85",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 85%)",
+      "label": "pkg21_am85 · inv_hurdle_logloss_almost_full",
+      "pkg": "training_package_21_inv_hurdle_logloss_almost_full",
+      "pkg_num": 21,
+      "hay": "pkg21_am85 training_package_21_inv_hurdle_logloss_almost_full package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 85%) pkg21_am85 · inv_hurdle_logloss_almost_full"
+    },
+    {
+      "id": "pkg21_am90",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 90%)",
+      "label": "pkg21_am90 · inv_hurdle_logloss_almost_full",
+      "pkg": "training_package_21_inv_hurdle_logloss_almost_full",
+      "pkg_num": 21,
+      "hay": "pkg21_am90 training_package_21_inv_hurdle_logloss_almost_full package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax 90%) pkg21_am90 · inv_hurdle_logloss_almost_full"
+    },
+    {
+      "id": "pkg21_amstar",
+      "title": "Package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax MSE tau*=0.4555)",
+      "label": "pkg21_amstar · inv_hurdle_logloss_almost_full",
+      "pkg": "training_package_21_inv_hurdle_logloss_almost_full",
+      "pkg_num": 21,
+      "hay": "pkg21_amstar training_package_21_inv_hurdle_logloss_almost_full package 21 `training_package_21_inv_hurdle_logloss_almost_full` (argmax mse tau*=0.4555) pkg21_amstar · inv_hurdle_logloss_almost_full"
     },
     {
       "id": "pkg22_ev",

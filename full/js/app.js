@@ -347,8 +347,19 @@ function localNotes(p, conf) {
 <p><strong>Same CaaS delinquency:</strong> bar <strong>${fmt(L.del_cut, 4)}</strong> → past-due/principal <strong>${fmt(L.y_new_del_match, 2)}%</strong>, live yes <strong>${fmt(L.y_new_acc_at_del, 2)}%</strong>.</p>`;
 }
 
+// The live delinquency charts can use the 180-day book (default) or the 90-day book (the one used until 2026-10-15).
+function delWindow() {
+  const el = $("delwin");
+  return el && !el.closest("[hidden]") ? el.value : "180";
+}
+
+function storedOf(p) {
+  if (p.stored && delWindow() === "90" && p.stored90) return Object.assign({}, p.stored, p.stored90);
+  return p.stored;
+}
+
 function storedNotes(p, conf) {
-  const S = p.stored;
+  const S = storedOf(p);
   if (!S) return "<p>No stored <code>autogluon_v25</code> curves for this package.</p>";
   if (!S.has_challenger) {
     return `<p><strong>Stored production v25 @ 0.65 (${conf}% CI):</strong> yes ${phrase(S.acc_base, CUT, conf)}; past-due/principal ${phrase(S.del_base, CUT, conf)}.</p>
@@ -987,10 +998,11 @@ function draw() {
   const p = PAYLOAD;
   const conf = $("conf").value;
   const L = p.local;
-  const S = p.stored;
+  const S = storedOf(p);
   $("local-h").textContent = `Holdout MSE baseline vs challenger · ${p.title}`;
   $("status").textContent =
-    `Top: production BNPL sample (n=${S && S.acc_n ? S.acc_n : "—"}; stored v25 + local MSE + challenger). ` +
+    `Top: production BNPL sample (n=${S && S.acc_n ? S.acc_n : "—"}; stored v25 + local MSE + challenger; delinquency book: last ${delWindow()} days` +
+    `${S && S.del_n_booked ? ", " + S.del_n_booked + " booked users" : ""}${delWindow() === "90" && !p.stored90 ? "; 90-day book not available for this package, showing 180 days" : ""}). ` +
     `Bottom holdout: ${L.acc_n}${L.n_total ? " of " + L.n_total : ""} users (${L.source}${L.n_dropped ? "; " + L.n_dropped + " without a geolocation_access value are excluded" : ""}); gates ${fmt(L.gate_pct, 1)}%.` +
     (L.n_dropped && L.y_base_acc_065_ifnull != null
       ? ` With the Fritz rule (a missing gate counts as 0 and the user stays in the denominator) the holdout yes-share at 0.65 would be ${fmt(L.y_base_acc_065_ifnull, 2)}% for the baseline and ${fmt(L.y_new_acc_065_ifnull, 2)}% for this model.`
@@ -1159,6 +1171,10 @@ async function boot() {
   $("note-html").innerHTML = META.note_html;
   buildPicker();
   $("conf").addEventListener("change", draw);
+  if (META.del_windows && META.del_windows.some((w) => w.days === 90)) {
+    $("delwin-label").hidden = false;
+    $("delwin").addEventListener("change", draw);
+  }
   $("band").addEventListener("change", draw);
   $("cmp-a").addEventListener("change", drawCompare);
   $("cmp-b").addEventListener("change", drawCompare);

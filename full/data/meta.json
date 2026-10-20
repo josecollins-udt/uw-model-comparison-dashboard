@@ -1,0 +1,91 @@
+{
+  "cutoff_065": 0.65,
+  "title": "Full-tier models (union-trained): production BNPL comparison and union holdout",
+  "caption": "Full-tier models (3 union-trained packages: best_quality, 10 bag folds, 2 stack levels), scored from the models' minimum model set (the models the best ensemble depends on; prediction is identical to the full folder). Hurdles carry every head (ev / am25 / am50 / am75 / am80 / am85 / am90 / amstar); amstar tau* maximizes the Full model's own train R2 with its native argmax and is frozen (not refit on holdout or live). Top: last-3-month BNPL production cohort. Acceptance n=142,391 (census: every eligible user, no sampling error for this cohort). Delinquency n=2,997 (census: every eligible user, no sampling error for this cohort) (matured CaaS book of the last 180 days). The shaded bands and the \"(95% CI)\" figures treat each cohort as one draw from ongoing traffic (Wilson interval for the yes-share, delta method for past-due/principal, no finite-population correction). They show how far the rates could move on future traffic, not an error in this cohort's own numbers. Blue = stored autogluon_v25; rust = locally scored union Almost Full package 1 MSE (the shared baseline of every dashboard); charcoal = selected Full challenger. Bottom: union holdout, delinquency = 1 - pngi_rate.",
+  "note_html": "\n<p><strong>Top row (production, BNPL only):</strong> stored <code>autogluon_v25</code> from\n<code>pre_scored_users</code>, the locally scored union Almost Full package 1 MSE on the same users\n(these two can differ), and the selected challenger. The cohort is every last-3-month BNPL <code>bnpl.api_requests</code> user with a stored v25: a census, not a sample, so the cohort's own rates carry no sampling error. Delinquency = the whole matured BNPL CaaS book of the last 180 days (every user with a matured installment, completed_plans &gt; 0 and a stored v25): also a census.</p>\n<p>The shaded bands and the \"(95% CI)\" figures treat each cohort as one draw from ongoing traffic (Wilson interval for the yes-share, delta method for past-due/principal, no finite-population correction). They show how far the rates could move on future traffic, not an error in this cohort's own numbers.</p>\n<p><strong>Bottom row (holdout):</strong> gated yes-share of union <code>test_v25.csv</code>\n(BNPL leftover + cards, same 80/20 split as prior v25). Delinquency = labeled unpaid share\n<code>1 − pngi_rate</code> in the score tail — not Fritz CaaS pesos.\nThe original Fritz Pages copy is unchanged.</p>\n<p><strong>Holdout users left out:</strong> 251 of the 2,133 holdout users have no <code>geolocation_access</code> value, so they cannot pass the geolocation gate. They are excluded from both holdout curves (the bottom row uses the other 1,882). The live top row follows the Fritz SQL instead: <code>IFNULL(..., 0)</code>, a missing gate counts as a failure and the user stays in the denominator. Under that rule the baseline's holdout yes-share at 0.65 would be 37.4% instead of the 42.3% drawn. Each holdout variant states its own figures under the charts; the curves are not changed.</p>",
+  "variants": [
+    {
+      "id": "pkg01",
+      "title": "Package 1 `training_package_1_mse_full`",
+      "label": "pkg01 · mse_full",
+      "pkg": "training_package_1_mse_full",
+      "pkg_num": 1,
+      "hay": "pkg01 training_package_1_mse_full package 1 `training_package_1_mse_full` pkg01 · mse_full"
+    },
+    {
+      "id": "pkg03",
+      "title": "Package 3 `training_package_3_weighted_xentropy_full`",
+      "label": "pkg03 · weighted_xentropy_full",
+      "pkg": "training_package_3_weighted_xentropy_full",
+      "pkg_num": 3,
+      "hay": "pkg03 training_package_3_weighted_xentropy_full package 3 `training_package_3_weighted_xentropy_full` pkg03 · weighted_xentropy_full"
+    },
+    {
+      "id": "pkg07",
+      "title": "Package 7 `training_package_7_weighted_mse_full`",
+      "label": "pkg07 · weighted_mse_full",
+      "pkg": "training_package_7_weighted_mse_full",
+      "pkg_num": 7,
+      "hay": "pkg07 training_package_7_weighted_mse_full package 7 `training_package_7_weighted_mse_full` pkg07 · weighted_mse_full"
+    }
+  ],
+  "skipped": [],
+  "stored_sample": {
+    "confidence": 0.95,
+    "error": 0.02,
+    "z": 1.96,
+    "p_star": 0.5,
+    "lookback_days": 90,
+    "acceptance": {
+      "kind": "ci95_e02_acceptance",
+      "lookback_days": 90,
+      "confidence": 0.95,
+      "error": 0.02,
+      "z": 1.96,
+      "p_star": 0.5,
+      "n_pop": 141986,
+      "n0_infinite": 2401,
+      "n_sample": 142391,
+      "formula": "n0=n(N-1)/(N-n); e=z*sqrt(p(1-p)/n0); C=2Phi(e_ref/se)-1",
+      "sql": "bnpl.api_requests last 90d INNER JOIN pre_scored_users autogluon_v25 IS NOT NULL",
+      "n_added_last_batch": 1,
+      "n0_equivalent": null,
+      "z_ref": 1.96,
+      "e_ref": 0.02,
+      "census": true,
+      "error_at_95": 0.0,
+      "confidence_at_2pct": 1.0,
+      "z_at_2pct": null
+    },
+    "delinquency": {
+      "kind": "ci95_e02_delinquency",
+      "lookback_days": 180,
+      "confidence": 0.95,
+      "error": 0.02,
+      "z": 1.96,
+      "p_star": 0.5,
+      "n_pop": 2997,
+      "n0_infinite": 2401,
+      "n_sample": 2997,
+      "n_booked": 2997,
+      "sum_principal": 4924071.4399999995,
+      "formula": "n0=n(N-1)/(N-n); e=z*sqrt(p(1-p)/n0); C=2Phi(e_ref/se)-1",
+      "sql": "mothership_caas matured last 180d, completed_plans>0, autogluon_v25 IS NOT NULL",
+      "extended_from_days": 90,
+      "extended_on": "2026-10-15",
+      "n_new_users_since_90d_sample": 1079,
+      "n0_equivalent": null,
+      "z_ref": 1.96,
+      "e_ref": 0.02,
+      "census": true,
+      "error_at_95": 0.0,
+      "confidence_at_2pct": 1.0,
+      "z_at_2pct": null
+    },
+    "random_state": 42,
+    "acc_batches": 72,
+    "last_batch_seed": 114,
+    "last_batch_new_users": 1,
+    "delinquency_lookback_days": 180
+  }
+}

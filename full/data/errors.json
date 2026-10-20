@@ -1,0 +1,26 @@
+{
+  "source": "holdout scores of the Full models (.cache/pkg_union_full_scores.csv)",
+  "caption": "Full-tier models on the union holdout test_v25: interactive panels only. Hurdle modes follow the picker (ev / am25 / am50 / am75 / am80 / am85 / am90 / amstar). amstar tau* was fit on the Full model's own train scores to max R2 / min MSE and frozen.",
+  "baseline": null,
+  "by_id": {
+    "pkg01": {
+      "title": "pkg01",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
+    "pkg03": {
+      "title": "pkg03",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
+    "pkg07": {
+      "title": "pkg07",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    }
+  },
+  "docs": {}
+}

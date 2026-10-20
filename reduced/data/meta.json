@@ -2,7 +2,7 @@
   "cutoff_065": 0.65,
   "title": "Reduced set: packages 1, 3, 7, 8 and every loadable hurdle (12, 13, 16-19, 21, 22, 26-31) with all heads (ev/am25/am50/am75/am80/am85/am90/amstar)",
   "caption": "Reduced picker: 1 MSE, 3 weighted xentropy, 7 weighted MSE, 8 pinball 0.30, every loadable hurdle: 12/16 (3-class logloss / ROC-AUC), 13/17 (binary logloss / ROC-AUC), 18/21 (inverted 3-class ROC-AUC / logloss), 19 inverted-binary hurdle ROC-AUC (package 25 was its exact duplicate and was removed), 22 inverted-binary hurdle and the retrained hurdles 26-31 (without user_id/name: 26 logloss, 27 specificity, 28 ROC-AUC with MAE regressor; 29, 30, 31 the same with MSE regressor), each with every head (ev / am25 / am50 / am75 / am80 / am85 / am90 / amstar). amstar tau* maximizes train R2 (min MSE) with native inverted-binary argmax and is frozen (not refit on holdout or live). Live amstar is scored for every hurdle package. Top: last-3-month BNPL production cohort, batches=72. Acceptance n=142,391 (census: every eligible user, no sampling error for this cohort). Delinquency n=2,997 (census: every eligible user, no sampling error for this cohort) (matured CaaS book of the last 180 days). The shaded bands and the \"(95% CI)\" figures treat each cohort as one draw from ongoing traffic (Wilson interval for the yes-share, delta method for past-due/principal, no finite-population correction). They show how far the rates could move on future traffic, not an error in this cohort's own numbers. Blue = stored autogluon_v25; rust = local AF package 1 MSE; charcoal = selected challenger. Bottom: union Almost Full holdout. Delinquency = 1 − pngi_rate.",
-  "note_html": "\n<p><strong>Top row (production, BNPL only):</strong> stored <code>autogluon_v25</code> from\n<code>pre_scored_users</code>, the locally scored union Almost Full package 1 MSE on the same users\n(these two can differ), and the selected challenger. The cohort is every last-3-month BNPL <code>bnpl.api_requests</code> user with a stored v25: a census, not a sample, so the cohort's own rates carry no sampling error. Delinquency = the whole matured BNPL CaaS book of the last 180 days (every user with a matured installment, completed_plans &gt; 0 and a stored v25): also a census.</p>\n<p>The shaded bands and the \"(95% CI)\" figures treat each cohort as one draw from ongoing traffic (Wilson interval for the yes-share, delta method for past-due/principal, no finite-population correction). They show how far the rates could move on future traffic, not an error in this cohort's own numbers.</p>\n<p><strong>Bottom row (holdout):</strong> gated yes-share of union <code>test_v25.csv</code>\n(BNPL leftover + cards, same 80/20 split as prior v25). Delinquency = labeled unpaid share\n<code>1 − pngi_rate</code> in the score tail — not Fritz CaaS pesos.\nThe original Fritz Pages copy is unchanged.</p>\n",
+  "note_html": "\n<p><strong>Top row (production, BNPL only):</strong> stored <code>autogluon_v25</code> from\n<code>pre_scored_users</code>, the locally scored union Almost Full package 1 MSE on the same users\n(these two can differ), and the selected challenger. The cohort is every last-3-month BNPL <code>bnpl.api_requests</code> user with a stored v25: a census, not a sample, so the cohort's own rates carry no sampling error. Delinquency = the whole matured BNPL CaaS book of the last 180 days (every user with a matured installment, completed_plans &gt; 0 and a stored v25): also a census.</p>\n<p>The shaded bands and the \"(95% CI)\" figures treat each cohort as one draw from ongoing traffic (Wilson interval for the yes-share, delta method for past-due/principal, no finite-population correction). They show how far the rates could move on future traffic, not an error in this cohort's own numbers.</p>\n<p><strong>Bottom row (holdout):</strong> gated yes-share of union <code>test_v25.csv</code>\n(BNPL leftover + cards, same 80/20 split as prior v25). Delinquency = labeled unpaid share\n<code>1 − pngi_rate</code> in the score tail — not Fritz CaaS pesos.\nThe original Fritz Pages copy is unchanged.</p>\n<p><strong>Holdout users left out:</strong> 251 of the 2,133 holdout users have no <code>geolocation_access</code> value, so they cannot pass the geolocation gate. They are excluded from both holdout curves (the bottom row uses the other 1,882). The live top row follows the Fritz SQL instead: <code>IFNULL(..., 0)</code>, a missing gate counts as a failure and the user stays in the denominator. Under that rule the baseline's holdout yes-share at 0.65 would be 37.4% instead of the 42.3% drawn. Each holdout variant states its own figures under the charts; the curves are not changed.</p>",
   "variants": [
     {
       "id": "pkg01",
@@ -991,5 +991,16 @@
     "last_batch_seed": 114,
     "last_batch_new_users": 1,
     "delinquency_lookback_days": 180
-  }
+  },
+  "del_windows": [
+    {
+      "days": 180,
+      "n_booked": 2997
+    },
+    {
+      "days": 90,
+      "n_booked": 1762,
+      "built": "2026-10-20 14:33"
+    }
+  ]
 }

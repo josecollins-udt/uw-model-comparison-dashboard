@@ -1878,6 +1878,54 @@
       "doc": "67_Almost_Full_Inv_Binary_Hurdle_ROCAUC_NoID_MSE_Error_Analysis.md",
       "note": "Hurdle Model (Inverted Binary, no ID inputs):: Stage 1 is a binary classifier (roc_auc) for pngi_rate >= 0.999; stage 2 is a MSE regressor (mean_squared_error) trained on the values below 0.999. Trained without user_id and name on the union snapshot of 2026-10-02 (8,531 rows) and scored on its 2,133-row holdout.",
       "panels": []
+    },
+    "pkg40_ev": {
+      "title": "pkg40_ev",
+      "doc": null,
+      "note": "No almost_full markdown for this package.",
+      "panels": []
+    },
+    "pkg40_am25": {
+      "title": "pkg40_am25",
+      "doc": null,
+      "note": "No almost_full markdown for this package.",
+      "panels": []
+    },
+    "pkg40_am50": {
+      "title": "pkg40_am50",
+      "doc": null,
+      "note": "No almost_full markdown for this package.",
+      "panels": []
+    },
+    "pkg40_am75": {
+      "title": "pkg40_am75",
+      "doc": null,
+      "note": "No almost_full markdown for this package.",
+      "panels": []
+    },
+    "pkg40_am80": {
+      "title": "pkg40_am80",
+      "doc": null,
+      "note": "No almost_full markdown for this package.",
+      "panels": []
+    },
+    "pkg40_am85": {
+      "title": "pkg40_am85",
+      "doc": null,
+      "note": "No almost_full markdown for this package.",
+      "panels": []
+    },
+    "pkg40_am90": {
+      "title": "pkg40_am90",
+      "doc": null,
+      "note": "No almost_full markdown for this package.",
+      "panels": []
+    },
+    "pkg40_amstar": {
+      "title": "pkg40_amstar",
+      "doc": null,
+      "note": "No almost_full markdown for this package.",
+      "panels": []
     }
   },
   "docs": {

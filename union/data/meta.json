@@ -1223,6 +1223,86 @@
       "band_reach": 11,
       "no_band": false,
       "hay": "pkg31_amstar training_package_31_inv_binary_hurdle_rocauc_noid_mse_almost_full package 31 `training_package_31_inv_binary_hurdle_rocauc_noid_mse_almost_full` (argmax mse tau*=0.4731) pkg31_amstar · inv_binary_hurdle_rocauc_noid_mse_almost_full"
+    },
+    {
+      "id": "pkg40_ev",
+      "title": "Package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (expected value)",
+      "label": "pkg40_ev · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg": "training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg_num": 40,
+      "band_reach": 11,
+      "no_band": false,
+      "hay": "pkg40_ev training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (expected value) pkg40_ev · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full"
+    },
+    {
+      "id": "pkg40_am25",
+      "title": "Package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 25%)",
+      "label": "pkg40_am25 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg": "training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg_num": 40,
+      "band_reach": 0,
+      "no_band": true,
+      "hay": "pkg40_am25 training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 25%) pkg40_am25 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full"
+    },
+    {
+      "id": "pkg40_am50",
+      "title": "Package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 50%)",
+      "label": "pkg40_am50 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg": "training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg_num": 40,
+      "band_reach": 8,
+      "no_band": false,
+      "hay": "pkg40_am50 training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 50%) pkg40_am50 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full"
+    },
+    {
+      "id": "pkg40_am75",
+      "title": "Package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 75%)",
+      "label": "pkg40_am75 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg": "training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg_num": 40,
+      "band_reach": 11,
+      "no_band": false,
+      "hay": "pkg40_am75 training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 75%) pkg40_am75 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full"
+    },
+    {
+      "id": "pkg40_am80",
+      "title": "Package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 80%)",
+      "label": "pkg40_am80 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg": "training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg_num": 40,
+      "band_reach": 11,
+      "no_band": false,
+      "hay": "pkg40_am80 training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 80%) pkg40_am80 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full"
+    },
+    {
+      "id": "pkg40_am85",
+      "title": "Package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 85%)",
+      "label": "pkg40_am85 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg": "training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg_num": 40,
+      "band_reach": 11,
+      "no_band": false,
+      "hay": "pkg40_am85 training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 85%) pkg40_am85 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full"
+    },
+    {
+      "id": "pkg40_am90",
+      "title": "Package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 90%)",
+      "label": "pkg40_am90 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg": "training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg_num": 40,
+      "band_reach": 11,
+      "no_band": false,
+      "hay": "pkg40_am90 training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax 90%) pkg40_am90 · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full"
+    },
+    {
+      "id": "pkg40_amstar",
+      "title": "Package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax MSE tau*=0.5958)",
+      "label": "pkg40_amstar · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg": "training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full",
+      "pkg_num": 40,
+      "band_reach": 11,
+      "no_band": false,
+      "hay": "pkg40_amstar training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full package 40 `training_package_40_inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full` (argmax mse tau*=0.5958) pkg40_amstar · inv_binary_hurdle_logloss_ones_vs_bad07_noid_mse_almost_full"
     }
   ],
   "band": {

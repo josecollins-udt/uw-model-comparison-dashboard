@@ -24,6 +24,10 @@ body { display: flex; min-height: 100vh; }
 }
 .pick:hover { background: #e2e8f0; }
 .pick.active { background: var(--accent); color: #fff; font-weight: 700; }
+.pick.nobd { border-style: dashed; color: #9a3412; }
+.pick.nobd.active { color: #fff; }
+.hint { font-size: 0.75rem; color: #475569; line-height: 1.35; margin: 0.4rem 0; }
+.bandwarn { background: #fff7ed; border-left: 4px solid #9a3412; padding: 0.4rem 0.6rem; }
 .pkg-group.hidden { display: none; }
 .now { font-size: 0.8rem; color: #1e293b; }
 .main { flex: 1; padding: 1.25rem 1.5rem 3rem; min-width: 0; }

@@ -108,26 +108,40 @@ function phrase(curve, score, conf) {
   return `${fmt(y, 2)} (${fmt(lo, 2)}–${fmt(hi, 2)}; ±${fmt(moe, 2)} at ${conf}%)`;
 }
 
-function ciFill(x, lo, hi, color, name) {
+function ciFill(x, lo, hi, color, name, breaks) {
   if (!lo || !hi) return null;
+  const cut = new Set(breaks || []);
   const xs = [];
   const ys = [];
+  let segX = [];
+  let segHi = [];
+  let segLo = [];
+  const flush = () => {
+    if (segX.length) {
+      if (xs.length) {
+        xs.push(null);
+        ys.push(null);
+      }
+      xs.push(...segX, ...segX.slice().reverse());
+      ys.push(...segHi, ...segLo.slice().reverse());
+    }
+    segX = [];
+    segHi = [];
+    segLo = [];
+  };
   for (let i = 0; i < x.length; i++) {
-    if (x[i] == null || lo[i] == null || hi[i] == null) continue;
-    xs.push(x[i]);
-    ys.push(hi[i]);
+    if (x[i] != null && lo[i] != null && hi[i] != null) {
+      segX.push(x[i]);
+      segHi.push(hi[i]);
+      segLo.push(lo[i]);
+    }
+    if (cut.has(i)) flush();
   }
-  const x2 = [];
-  const y2 = [];
-  for (let i = x.length - 1; i >= 0; i--) {
-    if (x[i] == null || lo[i] == null || hi[i] == null) continue;
-    x2.push(x[i]);
-    y2.push(lo[i]);
-  }
+  flush();
   if (!xs.length) return null;
   return {
-    x: xs.concat(x2),
-    y: ys.concat(y2),
+    x: xs,
+    y: ys,
     fill: "toself",
     fillcolor: color,
     line: { width: 0, color: "rgba(0,0,0,0)" },
@@ -227,6 +241,25 @@ function scoreChart(el, base, neu, opts) {
   Plotly.react(el, traces, layout, { responsive: true });
 }
 
+// The frontier line is not drawn across a jump in acceptance: fr.breaks lists the indices i whose point is not joined to point i + 1.
+function lineXY(fr) {
+  const cut = new Set(fr.breaks || []);
+  const x = [];
+  const y = [];
+  const cd = [];
+  for (let i = 0; i < fr.acc.length; i++) {
+    x.push(fr.acc[i]);
+    y.push(fr.delinq[i]);
+    cd.push(fr.score[i]);
+    if (cut.has(i)) {
+      x.push(null);
+      y.push(null);
+      cd.push(null);
+    }
+  }
+  return { x, y, customdata: cd };
+}
+
 function frontierPt(fr, cutoff) {
   if (!fr || !fr.score || !fr.score.length || cutoff == null) return null;
   const i = nearest(fr, cutoff);
@@ -241,45 +274,39 @@ function frontierChart(el, base, neu, opts) {
   const midName = opts.baseline || "Local MSE";
   const hover = opts.hoverAcc + " %{x:.1f}%<br>" + opts.hoverDel + " %{y:.1f}%<br>cutoff %{customdata:.3f}<extra>%{fullData.name}</extra>";
   if (band && base && base.band && base.band[conf] && base.band[conf].delinq_lo) {
-    const t = ciFill(base.acc, base.band[conf].delinq_lo, base.band[conf].delinq_hi, "rgba(0, 90, 200, 0.16)", `${opts.prev} range`);
+    const t = ciFill(base.acc, base.band[conf].delinq_lo, base.band[conf].delinq_hi, "rgba(0, 90, 200, 0.16)", `${opts.prev} range`, base.breaks);
     if (t) traces.push(t);
   }
   if (band && mid && mid.band && mid.band[conf] && mid.band[conf].delinq_lo) {
-    const t = ciFill(mid.acc, mid.band[conf].delinq_lo, mid.band[conf].delinq_hi, "rgba(154, 52, 18, 0.16)", `${midName} range`);
+    const t = ciFill(mid.acc, mid.band[conf].delinq_lo, mid.band[conf].delinq_hi, "rgba(154, 52, 18, 0.16)", `${midName} range`, mid.breaks);
     if (t) traces.push(t);
   }
   if (band && neu && neu.band && neu.band[conf] && neu.band[conf].delinq_lo) {
-    const t = ciFill(neu.acc, neu.band[conf].delinq_lo, neu.band[conf].delinq_hi, "rgba(51, 65, 85, 0.16)", `${opts.challenger} range`);
+    const t = ciFill(neu.acc, neu.band[conf].delinq_lo, neu.band[conf].delinq_hi, "rgba(51, 65, 85, 0.16)", `${opts.challenger} range`, neu.breaks);
     if (t) traces.push(t);
   }
   traces.push({
-    x: base.acc,
-    y: base.delinq,
+    ...lineXY(base),
     name: opts.prev,
     mode: "lines",
     line: { color: "blue", width: 3 },
-    customdata: base.score,
     hovertemplate: hover,
   });
   if (mid) {
     traces.push({
-      x: mid.acc,
-      y: mid.delinq,
+      ...lineXY(mid),
       name: midName,
       mode: "lines",
       line: { color: "#9a3412", width: 3 },
-      customdata: mid.score,
       hovertemplate: hover,
     });
   }
   if (neu) {
     traces.push({
-      x: neu.acc,
-      y: neu.delinq,
+      ...lineXY(neu),
       name: opts.challenger,
       mode: "lines",
       line: { color: "#334155", width: 3, dash: "dash" },
-      customdata: neu.score,
       hovertemplate: hover,
     });
   }
@@ -339,7 +366,23 @@ function frontierChart(el, base, neu, opts) {
   Plotly.react(el, traces, layout, { responsive: true });
 }
 
+// A variant whose score has huge ties can only produce a few yes-shares: fewer than min_points of the 11 targets 20, 21, ..., 30 %
+// have a cutoff within tol pp.  Its frontier is not comparable with the baseline over that range, and its line is broken across the jumps.
+function bandNote(fr, where) {
+  if (!fr || fr.reach == null) return "";
+  const B = META.band || {};
+  const need = B.min_points || 6;
+  if (fr.reach >= need) return "";
+  const acc = (fr.acc || []).filter((v) => v != null);
+  const lo = acc.length ? Math.min(...acc) : null;
+  return `<p class="bandwarn"><strong>⊘ Does not reach 20–30% acceptance (${where}).</strong> Only ${fr.reach} of the ${B.targets || 11} yes-share targets (20, 21, … 30%) have a cutoff within ${B.tol || 0.5} pp, fewer than the ${need} needed: the score is tied for most users, so the yes-share only moves in large steps${lo != null ? ` (lowest point drawn: ${fmt(lo, 1)}%)` : ""}. The line is not drawn across a jump of more than ${B.gap_pp || 2} pp of yes-share; read this variant against the baseline only where its line exists.</p>`;
+}
+
 function localNotes(p, conf) {
+  return bandNote((p.local || {}).fr_new, "holdout") + localNotesBody(p, conf);
+}
+
+function localNotesBody(p, conf) {
   const L = p.local;
   return `<p><strong>Local baseline MSE @ 0.65 (${conf}% CI):</strong> yes ${phrase(L.acc_base, CUT, conf)}; past-due/principal ${phrase(L.del_base, CUT, conf)}.</p>
 <p><strong>This model @ 0.65 (${conf}% CI):</strong> yes ${phrase(L.acc_new, CUT, conf)}; past-due/principal ${phrase(L.del_new, CUT, conf)}.</p>
@@ -359,6 +402,11 @@ function storedOf(p) {
 }
 
 function storedNotes(p, conf) {
+  const S0 = storedOf(p);
+  return bandNote(S0 && S0.fr_new, "live") + storedNotesBody(p, conf);
+}
+
+function storedNotesBody(p, conf) {
   const S = storedOf(p);
   if (!S) return "<p>No stored <code>autogluon_v25</code> curves for this package.</p>";
   if (!S.has_challenger) {
@@ -1105,7 +1153,8 @@ function draw() {
 
 async function loadId(id) {
   CURRENT = id;
-  $("now").innerHTML = "Now: <strong>" + (META.variants.find((v) => v.id === id) || {}).label + "</strong>";
+  const cur = META.variants.find((v) => v.id === id) || {};
+  $("now").innerHTML = "Now: <strong>" + cur.label + "</strong>" + (cur.no_band ? " ⊘ <em>does not reach 20–30% acceptance</em>" : "");
   document.querySelectorAll(".pick").forEach((b) => b.classList.toggle("active", b.dataset.id === id));
   const res = await fetch("data/" + id + ".json");
   PAYLOAD = await res.json();
@@ -1114,6 +1163,12 @@ async function loadId(id) {
 }
 
 function buildPicker() {
+  const flagged = META.variants.filter((v) => v.no_band).length;
+  const legend = $("band-legend");
+  if (legend && flagged) {
+    legend.hidden = false;
+    legend.textContent = `⊘ ${flagged} variants cannot reach 20–30% live acceptance: their score is tied for most users, so no cutoff gives a yes-share in that range (fewer than ${(META.band || {}).min_points || 6} of the 11 targets 20, 21, … 30% within ${(META.band || {}).tol || 0.5} pp). Their frontier is not drawn across the jumps.`;
+  }
   const groups = {};
   META.variants.forEach((v) => {
     (groups[v.pkg_num] ||= []).push(v);
@@ -1137,7 +1192,11 @@ function buildPicker() {
         const b = document.createElement("button");
         b.className = "pick";
         b.dataset.id = v.id;
-        b.textContent = v.label;
+        b.textContent = v.label + (v.no_band ? " ⊘" : "");
+        if (v.no_band) {
+          b.classList.add("nobd");
+          b.title = `Does not reach 20–30% live acceptance (only ${v.band_reach} of 11 yes-share targets are reachable)`;
+        }
         b.onclick = () => loadId(v.id);
         btns.appendChild(b);
       });

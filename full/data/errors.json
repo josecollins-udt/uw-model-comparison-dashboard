@@ -308,6 +308,54 @@
       "doc": null,
       "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
       "panels": []
+    },
+    "pkg29_ev": {
+      "title": "pkg29_ev",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
+    "pkg29_am25": {
+      "title": "pkg29_am25",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
+    "pkg29_am50": {
+      "title": "pkg29_am50",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
+    "pkg29_am75": {
+      "title": "pkg29_am75",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
+    "pkg29_am80": {
+      "title": "pkg29_am80",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
+    "pkg29_am85": {
+      "title": "pkg29_am85",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
+    "pkg29_am90": {
+      "title": "pkg29_am90",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
+    "pkg29_amstar": {
+      "title": "pkg29_amstar",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
     }
   },
   "docs": {}

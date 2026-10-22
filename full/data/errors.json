@@ -21,6 +21,12 @@
       "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
       "panels": []
     },
+    "pkg09": {
+      "title": "pkg09",
+      "doc": null,
+      "note": "Full model: no pre-rendered error plots; the interactive panels use the holdout scores.",
+      "panels": []
+    },
     "pkg14_ev": {
       "title": "pkg14_ev",
       "doc": null,

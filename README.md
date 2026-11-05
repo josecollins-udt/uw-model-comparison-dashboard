@@ -16,6 +16,7 @@ Live copies:
 - Union Almost Full: https://josecollins-udt.github.io/uw-model-comparison-dashboard/union/
 - Reduced (pkgs 1, 3, 7, 8 and every hurdle 22, 25, 26-31 with all heads ev/am25/am50/am75/am80/am85/am90/amstar): https://josecollins-udt.github.io/uw-model-comparison-dashboard/reduced/
 - Sigmoid multipliers, productive v25 vs hurdle v26 (score distributions, sigmoid fits, plain and composed credit-limit / interest multipliers; one self-contained file, plotly.js inlined; built by `scripts/sigmoid_dash_html.py` in uw_new_model, snapshot 2026-11-04): https://josecollins-udt.github.io/uw-model-comparison-dashboard/sigmoid/
+- Interest earned and lost principal, productive v25 vs a chosen v26 policy (periods of 60 / 90 / 180 / 360 days, two re-pricing approaches, gates on/off, delinquency vs acceptance with matched-cutoff shortcuts; one self-contained file, plotly.js inlined, aggregates only; built by `scripts/pnl_dash_html.py` in uw_new_model, snapshot 2026-11-05): https://josecollins-udt.github.io/uw-model-comparison-dashboard/pnl/
 
 Rebuild after scores change:
 

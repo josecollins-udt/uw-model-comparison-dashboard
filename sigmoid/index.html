@@ -46,7 +46,7 @@ code{font-size:.8rem;word-break:break-word}details summary{cursor:pointer;color:
 <h3>Percentile reality check: does the sigmoid know where the cutoff really sits?</h3>
 <div class="scroll"><table id="pcheck"></table></div>
 <div class="two"><div id="pc25" class="chart"></div><div id="pc26" class="chart"></div></div>
-<p class="sub">The multiplier is anchored at p = F(cutoff), the percentile the sigmoid assigns to the cutoff, so a cutoff at percentile p is meant to leave 1 - p of the users above it. "Actual percentile" is the share of users with a score at or below the cutoff in each population (all scored users, requesters of the last 60 days, requesters passing the gates). A large gap means the multipliers behave as if the cutoff sat at another rank than it really does. With the "refit" setting each row uses the sigmoid fitted to that row's own population; with any other setting all rows use the same parameters. The share approved by score counts users exactly at the cutoff; the shares above do not.</p>
+<p class="sub">The multiplier is anchored at p = F(cutoff), the percentile the sigmoid assigns to the cutoff, so a cutoff at percentile p is meant to leave 1 - p of the users above it. "Actual percentile" is the share of users with a score at or below the cutoff in each population (all scored users, requesters of the last 60 days, requesters passing the gates). A large gap means the multipliers behave as if the cutoff sat at another rank than it really does. With the "refit" setting each row uses the sigmoid fitted to that row's own population; with "v25 live, v26 refit" the v25 rows use the live parameters and the v26 rows the fit to their own population; with any other setting all rows use the same parameters. The share approved by score counts users exactly at the cutoff; the shares above do not.</p>
 <h3>Agreement between v25 and v26 approvals at the chosen cutoffs</h3>
 <div class="scroll"><table id="agree"></table></div>
 <div id="agbar" class="chart short"></div>
@@ -57,6 +57,7 @@ code{font-size:.8rem;word-break:break-word}details summary{cursor:pointer;color:
 <label>Population <select id="pop"></select></label>
 <label>Sigmoid parameters <select id="preset">
 <option value="refit">Each model refit to its own distribution (least squares on the ECDF)</option>
+<option value="mixed">v25: live now (0.594 / 0.164); v26: refit to its own distribution</option>
 <option value="production">Live now (since 2026-10-27 16:21): 0.594 / 0.164 for both models, i.e. a v26 swap with no refit</option>
 <option value="oct20">Fit that was live 2026-10-20 17:11 to 2026-10-27 16:21: 0.4256 / 0.1282 for both models</option>
 <option value="custom">Custom per model</option></select></label>
@@ -3999,8 +4000,9 @@ const cfg = {responsive:true, displaylogo:false};
 // ---------- state
 const S = {pop:"ALL", preset:"refit", showprod:false, thr:{v25:D.defaults.threshold_v25, v26:D.defaults.threshold_v25}, blimit:D.defaults.base_limit, brate:D.defaults.base_rate, custom:{v25:{...D.defaults.production}, v26:{...D.defaults.production}}};
 const popData = () => D.populations[S.pop];
+const usesProd = m => S.preset === "production" || (S.preset === "mixed" && m === "v25"); // true when the model runs on the live (production) parameters
 function params(m){
-  if (S.preset === "production") return {mu:D.defaults.production.mu, s:D.defaults.production.s};
+  if (usesProd(m)) return {mu:D.defaults.production.mu, s:D.defaults.production.s};
   if (S.preset === "oct20") return {mu:D.defaults.oct20.mu, s:D.defaults.oct20.s};
   if (S.preset === "custom") return S.custom[m];
   const f = popData().fits[m].refit; return {mu:f.mu, s:f.s};
@@ -4038,7 +4040,7 @@ function drawEcdf(){
     const e = ecdfOf(P.hist[m]), pr = params(m);
     tr.push({x:GRID, y:e, mode:"lines", line:{shape:"hv", color:col[m](), width:2}, name:name[m]+" empirical CDF", hovertemplate:"empirical CDF %{y:.3f} at %{x:.2f}<extra>"+name[m]+"</extra>"});
     tr.push({x:GRID, y:GRID.map(x => F(x, pr.mu, pr.s)), mode:"lines", line:{color:col[m](), width:2, dash:"dash"}, name:`${name[m]} sigmoid (&mu; ${fmt(pr.mu,3)}, s ${fmt(pr.s,3)})`.replace("&mu;","mu"), hovertemplate:"sigmoid %{y:.3f} at %{x:.2f}<extra>"+name[m]+"</extra>"});
-    if (S.showprod && S.preset !== "production") tr.push({x:GRID, y:GRID.map(x => F(x, prodParams().mu, prodParams().s)), mode:"lines", line:{color:col[m](), width:1.2, dash:"dot"}, name:name[m]+" production params", opacity:.7});
+    if (S.showprod && !usesProd(m)) tr.push({x:GRID, y:GRID.map(x => F(x, prodParams().mu, prodParams().s)), mode:"lines", line:{color:col[m](), width:1.2, dash:"dot"}, name:name[m]+" production params", opacity:.7});
   }
   Plotly.react("ecdf", tr, Object.assign({}, theme(), {margin:{l:58,r:16,t:50,b:48}, xaxis:ax("Stored score"), yaxis:ax("Cumulative share of users (= percentile)", {range:[0,1.02]}), shapes:MODELS.map(m => vline(S.thr[m], col[m]()))}), cfg);
   const P2 = popData();
@@ -4071,7 +4073,7 @@ function composedTraces(fn, yfmt, withProd){
     const pr = params(m), sh = share(P.hist[m]);
     tr.push({x:GRID, y:sh, type:"bar", yaxis:"y2", marker:{color:col[m](), opacity:.13}, hoverinfo:"skip", showlegend:false});
     tr.push({x:GRID, y:GRID.map(x => fn(x, S.thr[m], pr.mu, pr.s)), mode:"lines", name:name[m], line:{color:col[m](), width:2.4}, hovertemplate:name[m]+"<br>score %{x:.2f}: "+yfmt+"<extra></extra>"});
-    if (withProd && S.preset !== "production") tr.push({x:GRID, y:GRID.map(x => fn(x, S.thr[m], prodParams().mu, prodParams().s)), mode:"lines", name:name[m]+" production params", line:{color:col[m](), width:1.4, dash:"dash"}, opacity:.75});
+    if (withProd && !usesProd(m)) tr.push({x:GRID, y:GRID.map(x => fn(x, S.thr[m], prodParams().mu, prodParams().s)), mode:"lines", name:name[m]+" production params", line:{color:col[m](), width:1.4, dash:"dash"}, opacity:.75});
   }
   return tr;
 }
@@ -4150,7 +4152,7 @@ function drawCutRow(){
 // ---------- percentile reality check and agreement of approvals
 const sumA = a => a.reduce((x, y) => x + y, 0);
 const POPS = Object.keys(D.populations);
-function paramsFor(m, key){ return S.preset === "refit" ? {mu:D.populations[key].fits[m].refit.mu, s:D.populations[key].fits[m].refit.s} : params(m); }
+function paramsFor(m, key){ return (S.preset === "refit" || (S.preset === "mixed" && m === "v26")) ? {mu:D.populations[key].fits[m].refit.mu, s:D.populations[key].fits[m].refit.s} : params(m); }
 function pcheck(h, thr, mu, s){ const n = sumA(h); let le = 0, ge = 0; GRID.forEach((x, k) => { if (x <= thr + 1e-9) le += h[k]; if (x >= thr - 1e-9) ge += h[k]; });
   const imp = F(thr, mu, s); return {imp, act:le/n, gap:100*(imp - le/n), impAbove:1 - imp, actAbove:1 - le/n, ge:ge/n}; }
 function agreeCells(cells, t25, t26){ let both = 0, o25 = 0, o26 = 0, nei = 0, s26 = 0, s25 = 0;

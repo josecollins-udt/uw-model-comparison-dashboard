@@ -84,7 +84,7 @@ code{font-size:.8rem;word-break:break-word}details summary{cursor:pointer;color:
 <div class="panel"><h2>2b. Hurdle (v26) only: choose the curve behind its multipliers</h2>
 <div class="ctrl">
 <label>v26 curve <select id="v26curve"></select></label>
-<button id="usebest">Select the recommended curve</button>
+<button id="usebest">Select the best smooth curve</button>
 <span class="sub">The curve selected here replaces the sigmoid for v26 in every section of the page; v25 always keeps the sigmoid.</span>
 </div>
 <div class="scroll"><table id="famtab"></table></div>
@@ -4264,16 +4264,16 @@ function curveQ(h, sg){ const e = ecdfOf(h), n = h.reduce((a, b) => a + b, 0); l
   GRID.forEach((x, k) => { const d = sg(x) - e[k]; w += h[k] * d * d; sq += d * d; mx = Math.max(mx, Math.abs(d)); });
   return {wmse:w / n, rmse:Math.sqrt(sq / GRID.length), max:mx}; }
 const famColor = {sigmoid:"#d9570a", monotone_spline:"#4c9a6a", beta_mix2:"#b07cc6", cubic:"#c9a227", beta:"#2aa3a3", normal_cdf:"#c75c8a", weibull:"#7a8aa0"};
-let RECOMMENDED = "sigmoid";
+let BESTSMOOTH = "sigmoid";
 function famRows(){ const h = popData().hist.v26, sm = params("v26");
   const rows = [{key:"sigmoid", label:"Sigmoid (logistic CDF, as in the live code)", sg:x => F(x, sm.mu, sm.s), param:`mu ${fmt(sm.mu,4)}, s ${fmt(sm.s,4)} (setting above)`}];
   for (const [k, f] of Object.entries(FAM)) rows.push({key:k, label:f.label, sg:FAMFN[k], param:Object.entries(f.params).map(([a, b]) => a + " " + fmt(b, 3)).join(", ") || "knots of the empirical CDF"});
   rows.forEach(r => Object.assign(r, curveQ(h, r.sg))); rows.sort((a, b) => a.wmse - b.wmse);
-  rows[0].tag = "(recommended)";
-  if (rows[0].key === "monotone_spline") { const alt = rows.find(r => r.key !== "monotone_spline"); alt.tag = "(best smooth curve)"; }
+  rows.forEach(r => { if (r.key === "monotone_spline") r.tag = "(in-sample interpolation)"; });
+  const bs = rows.find(r => r.key !== "monotone_spline"); bs.tag = "(best smooth curve)"; bs.smooth = true;
   return rows; }
 function drawFamilies(){
-  const rows = famRows(), thrv = S.thr.v26, h = popData().hist.v26; RECOMMENDED = rows[0].key;
+  const rows = famRows(), thrv = S.thr.v26, h = popData().hist.v26; BESTSMOOTH = rows.find(r => r.smooth).key;
   const sel = $("v26curve"); sel.innerHTML = rows.map(r => `<option value="${r.key}">${r.label.split(" (")[0]}: weighted MSE ${r.wmse.toFixed(6)}${r.tag ? " " + r.tag : ""}</option>`).join(""); sel.value = S.v26curve;
   let t = "<tr><th>Rank</th><th>curve</th><th>weighted MSE</th><th>RMSE</th><th>max error</th><th>sigma(v26 cutoff)</th><th>parameters</th><th>used for v26</th></tr>";
   rows.forEach((r, i) => { t += `<tr><td>${i + 1}</td><td style="text-align:left">${r.label}${r.tag ? " <b>" + r.tag + "</b>" : ""}</td><td>${r.wmse.toFixed(6)}</td><td>${fmt(r.rmse,4)}</td><td>${fmt(r.max,4)}</td><td>${fmt(clampP(r.sg(thrv)),4)}</td><td style="text-align:left">${r.param}</td><td>${r.key === S.v26curve ? "<b>yes</b>" : ""}</td></tr>`; });
@@ -4284,7 +4284,7 @@ function drawFamilies(){
     mt.push({x:GRID, y:GRID.map(x => multS(r.sg, x, thrv, true)), mode:"lines", name:r.label.split(" (")[0], line:{color:c, width:on ? 3.4 : 1.2, dash:on ? "solid" : "dot"}, opacity:on ? 1 : 0.7, showlegend:false}); }
   Plotly.react("fam_ecdf", tr, Object.assign({}, theme(), {margin:{l:58,r:16,t:70,b:48}, legend:{orientation:"h", y:1.02, yanchor:"bottom", font:{size:10}}, xaxis:ax("Stored score"), yaxis:ax("Percentile (share of users at or below)", {range:[0,1.02]}), shapes:[vline(thrv, col.v26())]}), cfg);
   Plotly.react("fam_mult", mt, Object.assign({}, theme(), {margin:{l:58,r:16,t:70,b:48}, title:{text:"v26 credit-limit multiplier under each curve (cutoff " + fmt(thrv,2) + ")", font:{size:13}, y:0.97, yanchor:"top"}, xaxis:ax("Stored score"), yaxis:ax("Credit-limit multiplier", {range:[0.4, 2.1]}), shapes:[vline(thrv, col.v26())]}), cfg);
-  $("famnote").innerHTML = `Ranking = user-weighted MSE between each curve and the empirical CDF of the REQ60 v26 scores, the criterion of the Fritz calibration toolkit; the curves are that toolkit's families fitted to this snapshot, the sigmoid row uses the parameters of the setting above (so its rank changes with that setting). <b>(recommended)</b> = lowest error. The monotone spline passes through the empirical CDF, so its error is zero by construction: it is the empirical distribution of this snapshot rather than a smooth model, and it changes with every snapshot; <b>(best smooth curve)</b> marks the best of the other curves. The selected curve defines sigma(score) for v26: the multiplier is the same straight line in sigma anchored at sigma(cutoff) = ${fmt(clampP(sigOf("v26")(thrv)),4)}, clipped to 0.5-2.0, and it feeds every v26 number below. The non-sigmoid curves are tabulated on a 0.001 grid (exact at the 0.01 score steps).`;
+  $("famnote").innerHTML = `Ranking = user-weighted MSE between each curve and the empirical CDF of the REQ60 v26 scores, the criterion of the Fritz calibration toolkit; the curves are that toolkit's families fitted to this snapshot, the sigmoid row uses the parameters of the setting above (so its rank changes with that setting). The monotone spline <b>(in-sample interpolation)</b> passes through the empirical CDF, so its error is zero by construction: it is the empirical distribution of this snapshot rather than a smooth model, and it changes with every snapshot; <b>(best smooth curve)</b> marks the lowest-error curve among the others. The selected curve defines sigma(score) for v26: the multiplier is the same straight line in sigma anchored at sigma(cutoff) = ${fmt(clampP(sigOf("v26")(thrv)),4)}, clipped to 0.5-2.0, and it feeds every v26 number below. The non-sigmoid curves are tabulated on a 0.001 grid (exact at the 0.01 score steps).`;
 }
 window.__parity4 = () => { const w = {mult:0, wmse:0, rmse:0, max:0};
   for (const t of D.family_tests) { const sg = FAMFN[t.family]; w.mult = Math.max(w.mult, Math.abs(multS(sg, t.score, t.thr, true) - t.limit_mult), Math.abs(multS(sg, t.score, t.thr, false) - t.rate_mult)); }
@@ -4305,7 +4305,7 @@ function drawAll(){ redraw(); }
 $("fwin").addEventListener("change", e => { FR = D.frontier.windows[e.target.value]; redraw(); });
 $("mdsel").addEventListener("change", drawMultDist);
 $("v26curve").addEventListener("change", e => { S.v26curve = e.target.value; redraw(); });
-$("usebest").addEventListener("click", () => { S.v26curve = RECOMMENDED; redraw(); });
+$("usebest").addEventListener("click", () => { S.v26curve = BESTSMOOTH; redraw(); });
 $("preset").addEventListener("change", e => { S.preset = e.target.value; drawAll(); });
 $("showprod").addEventListener("change", e => { S.showprod = e.target.checked; drawEcdf(); drawComposed(); });
 const num = (id, f) => $(id).addEventListener("input", e => { const v = parseFloat(e.target.value); if (Number.isFinite(v)) { f(v); drawFamilies(); drawFrontier(); drawCutRow(); drawRank(); drawStats(); drawEcdf(); drawPlain(); drawComposed(); drawMultDist(); drawOutcomes(); } });
